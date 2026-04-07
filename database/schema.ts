@@ -7,6 +7,29 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class ContainerSchema extends BaseModel {
+  static $columns = ['categoryIndentifier', 'checkDigit', 'createdAt', 'id', 'ownerCode', 'serialNumber', 'sizeType', 'typeGroup', 'updatedAt'] as const
+  $columns = ContainerSchema.$columns
+  @column()
+  declare categoryIndentifier: string
+  @column()
+  declare checkDigit: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare ownerCode: string
+  @column()
+  declare serialNumber: string
+  @column()
+  declare sizeType: string
+  @column()
+  declare typeGroup: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class RateLimitSchema extends BaseModel {
   static $columns = ['expire', 'key', 'points'] as const
   $columns = RateLimitSchema.$columns
