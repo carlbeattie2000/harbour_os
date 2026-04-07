@@ -1,4 +1,4 @@
-import { ISO6346InvalidTypeCode } from "../errors/ISO6346.ts";
+import { ISO6346InvalidTypeCode } from '../errors/ISO6346.ts'
 
 const isoTypeGroupMapping: Record<string, string> = {
   '20GP': 'GENERAL PURPOSE CONT.',
@@ -140,12 +140,16 @@ const isoTypeGroupMapping: Record<string, string> = {
   'L2G1': 'STANDARD CONT.',
   'L5GP': 'HIGH CUBE CONT.',
   'L5G1': 'HIGH CUBE CONT.',
-};
+}
 
 export default function (code: string): string {
-  const trimmed = code.trim().toUpperCase();
+  const trimmed = code.trim().toUpperCase()
   if (!(trimmed in isoTypeGroupMapping)) {
-    throw new ISO6346InvalidTypeCode();
+    const groupCandiate = code.slice(0, 3) + 'P'
+    if (!(groupCandiate in isoTypeGroupMapping)) {
+      throw new ISO6346InvalidTypeCode()
+    }
+    return isoTypeGroupMapping[groupCandiate]
   }
-  return isoTypeGroupMapping[trimmed];
+  return isoTypeGroupMapping[trimmed]
 }
