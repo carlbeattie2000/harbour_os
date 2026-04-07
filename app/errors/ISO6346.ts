@@ -29,3 +29,15 @@ export class ISO6346InvalidCharacterInCode extends AppError {
     super('Invalid character in container code', 'E_ISO6346_INVALID_CHARACTER', 400)
   }
 }
+
+export class ISO6346InvalidTypeCode extends AppError {
+  constructor() {
+    super('Invalid type code.', 'E_ISO6346_INVALID_TYPE_CODE', 400)
+  }
+}
+
+export class ISO6346InvalidSizeTypeCode extends AppError {
+  constructor() {
+    super('Invalid size type code.', 'E_ISO6346_INVALID_SIZE_TYPE_CODE', 400)
+  }
+}
