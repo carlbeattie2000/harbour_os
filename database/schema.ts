@@ -7,6 +7,38 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class RoleSchema extends BaseModel {
+  static $columns = ['active', 'createdAt', 'id', 'slug', 'updatedAt'] as const
+  $columns = RoleSchema.$columns
+  @column()
+  declare active: boolean
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare slug: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class UserAssignedRoleSchema extends BaseModel {
+  static $columns = ['assignedById', 'createdAt', 'expiresAt', 'isActive', 'roleId', 'userId'] as const
+  $columns = UserAssignedRoleSchema.$columns
+  @column()
+  declare assignedById: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare expiresAt: DateTime | null
+  @column()
+  declare isActive: boolean
+  @column()
+  declare roleId: number
+  @column({ isPrimary: true })
+  declare userId: number
+}
+
 export class UserSchema extends BaseModel {
   static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
   $columns = UserSchema.$columns

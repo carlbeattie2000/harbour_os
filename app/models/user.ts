@@ -2,6 +2,9 @@ import { UserSchema } from '#database/schema'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
+import Role from './role.ts'
+import { manyToMany } from '@adonisjs/lucid/orm'
+import type { ManyToMany } from '@adonisjs/lucid/types/relations'
 
 /**
  * User model represents a user in the application.
@@ -21,4 +24,12 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
     }
     return `${first.slice(0, 2)}`.toUpperCase()
   }
+
+  @manyToMany(() => Role, {
+    pivotTable: 'user_assigned_roles',
+    pivotForeignKey: 'user_id',
+    pivotRelatedForeignKey: 'role_id',
+    pivotColumns: ['expires_at', 'assigned_by_id', 'created_at'],
+  })
+  declare roles: ManyToMany<typeof Role>
 }

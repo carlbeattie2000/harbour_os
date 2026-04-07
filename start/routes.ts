@@ -26,5 +26,8 @@ router
 router
   .group(() => {
     router.post('logout', [controllers.Session, 'destroy'])
+
+    router.on('/normal').render('pages/normal').as('normal').use(middleware.role(['normal', 'admin']))
+    router.on('/admin').render('pages/admin').as('admin').use(middleware.role('admin'))
   })
   .use(middleware.auth())
