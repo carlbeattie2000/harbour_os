@@ -7,6 +7,48 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class AccountSchema extends BaseModel {
+  static $columns = ['billingAddressId', 'companyName', 'createdAt', 'creditTerms', 'id', 'registrationNumber', 'status', 'type', 'updatedAt'] as const
+  $columns = AccountSchema.$columns
+  @column()
+  declare billingAddressId: number | null
+  @column()
+  declare companyName: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare creditTerms: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare registrationNumber: string
+  @column()
+  declare status: string
+  @column()
+  declare type: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class ContactDetailSchema extends BaseModel {
+  static $columns = ['addressLine', 'country', 'createdAt', 'email', 'id', 'phone', 'updatedAt'] as const
+  $columns = ContactDetailSchema.$columns
+  @column()
+  declare addressLine: string
+  @column()
+  declare country: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare email: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare phone: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class ContainerSchema extends BaseModel {
   static $columns = ['categoryIndentifier', 'checkDigit', 'createdAt', 'id', 'ownerCode', 'serialNumber', 'sizeType', 'typeGroup', 'updatedAt'] as const
   $columns = ContainerSchema.$columns
@@ -86,6 +128,35 @@ export class UserSchema extends BaseModel {
   declare id: number
   @column({ serializeAs: null })
   declare password: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class VesselSchema extends BaseModel {
+  static $columns = ['beam', 'createdAt', 'flagState', 'grossTonnage', 'imoNumber', 'loa', 'maxDraft', 'name', 'portAgentId', 'shippingLineId', 'type', 'updatedAt'] as const
+  $columns = VesselSchema.$columns
+  @column()
+  declare beam: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare flagState: string
+  @column()
+  declare grossTonnage: number
+  @column({ isPrimary: true })
+  declare imoNumber: string
+  @column()
+  declare loa: number
+  @column()
+  declare maxDraft: number
+  @column()
+  declare name: string
+  @column()
+  declare portAgentId: number | null
+  @column()
+  declare shippingLineId: number
+  @column()
+  declare type: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
