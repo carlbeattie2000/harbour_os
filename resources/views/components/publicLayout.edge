@@ -11,8 +11,8 @@
   </head>
   <body>
     <main>
-      @include('partials/flash_alerts')
       @include('partials/preloader')
+      @include('partials/flash_alerts')
       {{{ await $slots.main() }}}
     </main>
   </body>

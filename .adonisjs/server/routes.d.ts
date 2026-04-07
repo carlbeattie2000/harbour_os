@@ -4,32 +4,31 @@ type ParamValue = string | number | bigint | boolean
 
 export type ScannedRoutes = {
   ALL: {
-    'home': { paramsTuple?: []; params?: {} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'new_account.store': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
     'session.store': { paramsTuple?: []; params?: {} }
+    'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'storeCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'home': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
-    'normal': { paramsTuple?: []; params?: {} }
-    'admin': { paramsTuple?: []; params?: {} }
   }
   GET: {
-    'home': { paramsTuple?: []; params?: {} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
-    'normal': { paramsTuple?: []; params?: {} }
-    'admin': { paramsTuple?: []; params?: {} }
+    'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'home': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
-    'home': { paramsTuple?: []; params?: {} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
-    'normal': { paramsTuple?: []; params?: {} }
-    'admin': { paramsTuple?: []; params?: {} }
+    'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'home': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'new_account.store': { paramsTuple?: []; params?: {} }
     'session.store': { paramsTuple?: []; params?: {} }
+    'storeCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
 }

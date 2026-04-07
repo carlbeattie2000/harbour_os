@@ -16,7 +16,6 @@
          $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
     :class="{'dark bg-gray-900': darkMode === true}"
   >
-    @include('partials/flash_alerts')
     <!-- ===== Preloader Start ===== -->
     @include('partials/preloader')
     <!-- ===== Preloader End ===== -->
@@ -39,6 +38,7 @@
 
         <!-- ===== Main Content Start ===== -->
         <main>
+          @include('partials/flash_alerts')
           {{{ await $slots.main() }}}
         </main>
         <!-- ===== Main Content End ===== -->

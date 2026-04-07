@@ -9,25 +9,15 @@
 
 import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
+import '#modules/portal/routes'
 import router from '@adonisjs/core/services/router'
+import { throttle } from './limiter.ts'
 
 router.on('/').render('pages/home').as('home')
 
 router
   .group(() => {
-    router.get('signup', [controllers.NewAccount, 'create'])
-    router.post('signup', [controllers.NewAccount, 'store'])
-
-    router.get('login', [controllers.Session, 'create'])
-    router.post('login', [controllers.Session, 'store'])
-  })
-  .use(middleware.guest())
-
-router
-  .group(() => {
     router.post('logout', [controllers.Session, 'destroy'])
-
-    router.on('/normal').render('pages/normal').as('normal').use(middleware.role(['normal', 'admin']))
-    router.on('/admin').render('pages/admin').as('admin').use(middleware.role('admin'))
   })
   .use(middleware.auth())
+  .use(throttle)
