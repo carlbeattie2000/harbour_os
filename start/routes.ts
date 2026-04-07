@@ -10,6 +10,7 @@
 import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
 import '#modules/portal/routes'
+import '#modules/containers/routes'
 import router from '@adonisjs/core/services/router'
 import { throttle } from './limiter.ts'
 

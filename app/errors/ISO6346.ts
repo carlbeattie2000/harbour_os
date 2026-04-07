@@ -2,7 +2,7 @@ import AppError from './app_error.ts'
 
 export class ISO6346CheckDigitInvalid extends AppError {
   constructor() {
-    super('Check digit is invalud.', 'E_ISO6346_CHECK_DIGIT_INVALID', 400)
+    super('Check digit is invalid.', 'E_ISO6346_CHECK_DIGIT_INVALID', 400)
   }
 }
 

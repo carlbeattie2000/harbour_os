@@ -1,0 +1,23 @@
+@layout()
+  <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
+    <div class="space-y-6">
+      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+        <div class="px-2 py-2 sm:px-3 sm:py-3">
+          <h1 class="text-3xl text-red-500">
+            Bad Request
+          </h1>
+        </div>
+
+        <div class="px-2 py-2 sm:px-3 sm:py-3">
+          <p class="text-xl">
+            {{ error.message }}
+          </p>
+        </div>
+
+        <div class="px-2 py-2 sm:px-3 sm:py-3">
+          @!button({ text: 'Go back', type: 'button', onclick: 'history.back()' })
+        </div>
+      </div>
+    </div>
+  </div>
+@end

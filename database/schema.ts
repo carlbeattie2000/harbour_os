@@ -25,7 +25,7 @@ export class ContainerSchema extends BaseModel {
   @column()
   declare sizeType: string
   @column()
-  declare typeGroup: string
+  declare typeGroup: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
