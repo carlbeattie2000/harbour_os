@@ -99,7 +99,7 @@ export class RoleSchema extends BaseModel {
 }
 
 export class UserAccountAssignedRoleSchema extends BaseModel {
-  static $columns = ['assignedById', 'createdAt', 'expiresAt', 'isActive', 'roleId', 'userId'] as const
+  static $columns = ['assignedById', 'createdAt', 'expiresAt', 'roleId', 'userId'] as const
   $columns = UserAccountAssignedRoleSchema.$columns
   @column()
   declare assignedById: number | null
@@ -108,11 +108,26 @@ export class UserAccountAssignedRoleSchema extends BaseModel {
   @column.dateTime()
   declare expiresAt: DateTime | null
   @column()
-  declare isActive: boolean
-  @column()
   declare roleId: number
   @column({ isPrimary: true })
   declare userId: number
+}
+
+export class UserAccountRoleSchema extends BaseModel {
+  static $columns = ['accountId', 'active', 'createdAt', 'id', 'slug', 'updatedAt'] as const
+  $columns = UserAccountRoleSchema.$columns
+  @column()
+  declare accountId: number
+  @column()
+  declare active: boolean
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare slug: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
 }
 
 export class UserAssignedRoleSchema extends BaseModel {

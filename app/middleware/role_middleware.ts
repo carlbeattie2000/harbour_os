@@ -2,6 +2,8 @@ import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 import { ForbiddenError } from '../errors/app_error.ts'
 import { RbacService } from '#services/rbac_service'
+import logger from '@adonisjs/core/services/logger'
+import { DateTime } from 'luxon'
 
 export default class RoleMiddleware {
   async handle(
@@ -29,6 +31,7 @@ export default class RoleMiddleware {
         strictModeForAllowedRoles
       )
     ) {
+      logger.error(`[${DateTime.now().toFormat('dd-MM-yyyy hh:mm:ss')}] DENIED - User ${user.firstName} (${user.id}) | Roles: ${usersRoles.join(', ')} | Route: ${ctx.request.url()} | Method: ${ctx.request.method()}`)
       throw new ForbiddenError()
     }
 

@@ -16,7 +16,7 @@ export default class extends BaseSchema {
         .integer("role_id")
         .unsigned()
         .references("id")
-        .inTable("roles")
+        .inTable("user_account_roles")
         .onDelete("CASCADE")
         .notNullable();
       table
@@ -26,8 +26,6 @@ export default class extends BaseSchema {
         .inTable("users")
         .onDelete("SET NULL")
         .nullable();
-
-      table.boolean("is_active").defaultTo(true).notNullable();
 
       table.timestamp("created_at").notNullable();
       table.timestamp("expires_at").nullable();

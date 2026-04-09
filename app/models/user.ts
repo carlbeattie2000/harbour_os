@@ -5,6 +5,7 @@ import { withAuthFinder } from "@adonisjs/auth/mixins/lucid";
 import Role from "./role.ts";
 import { manyToMany } from "@adonisjs/lucid/orm";
 import type { ManyToMany } from "@adonisjs/lucid/types/relations";
+import UserAccountRole from "./user_account_role.ts";
 
 /**
  * User model represents a user in the application.
@@ -25,11 +26,11 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
   })
   declare roles: ManyToMany<typeof Role>;
 
-  @manyToMany(() => Role, {
+  @manyToMany(() => UserAccountRole, {
     pivotTable: "user_account_assigned_roles",
     pivotForeignKey: "user_id",
     pivotRelatedForeignKey: "role_id",
     pivotColumns: ["expires_at", "assigned_by_id", "created_at"],
   })
-  declare accountRoles: ManyToMany<typeof Role>;
+  declare accountRoles: ManyToMany<typeof UserAccountRole>;
 }
