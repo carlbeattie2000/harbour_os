@@ -19,7 +19,7 @@ export default class MailService {
   private static from = env.get('SMTP_FROM')
 
   private static async send(subject: string, to: string, html: string) {
-    const sent = this.raw.sendMail({
+    const sent = await this.raw.sendMail({
       from: this.from,
       to,
       subject,
