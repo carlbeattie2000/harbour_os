@@ -16,3 +16,16 @@ export const signupValidator = vine.create({
     confirmationField: 'passwordConfirmation',
   }),
 })
+
+export const createUserValidator = vine.create({
+  firstName: vine.string().trim(),
+  lastName: vine.string().trim(),
+  email: vine.string().trim().email(),
+  role: vine.number().min(0)
+});
+
+export const viewUserValidator = vine.create({
+  params: vine.object({
+    id: vine.number().min(0)
+  }),
+});

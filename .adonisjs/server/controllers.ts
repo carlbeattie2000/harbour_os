@@ -5,6 +5,7 @@
 
 export const controllers = {
   Containers: () => import('#controllers/containers_controller'),
-  NewAccount: () => import('#controllers/new_account_controller'),
+  CreateUsers: () => import('#controllers/create_users_controller'),
   Session: () => import('#controllers/session_controller'),
+  Users: () => import('#controllers/users_controller'),
 }

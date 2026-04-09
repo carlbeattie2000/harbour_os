@@ -6,7 +6,8 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 export default class extends BaseSeeder {
   async run() {
     const systemAdmin = await User.create({
-      fullName: 'System Admin',
+      firstName: 'system',
+      lastName: 'admin',
       email: 'system_admin@shipping.com',
       password: 'admin'
     });
@@ -18,17 +19,18 @@ export default class extends BaseSeeder {
       roleId: adminRole.id
     })
 
-    const normal = await User.create({
-      fullName: 'Normal User',
-      email: 'normal@shipping.com',
-      password: 'normal'
+    const portal = await User.create({
+      firstName: 'portal',
+      lastName: 'user',
+      email: 'portal@shipping.com',
+      password: 'portal'
     });
 
-    const normalRole = await Role.findByOrFail({ slug: 'normal' });
+    const portalRole = await Role.findByOrFail({ slug: 'portal' });
 
     await UserAssignedRole.create({
-      userId: normal.id,
-      roleId: normalRole.id
+      userId: portal.id,
+      roleId: portalRole.id
     })
   }
 }

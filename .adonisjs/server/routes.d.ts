@@ -4,37 +4,40 @@ type ParamValue = string | number | bigint | boolean
 
 export type ScannedRoutes = {
   ALL: {
-    'new_account.create': { paramsTuple?: []; params?: {} }
-    'new_account.store': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
     'session.store': { paramsTuple?: []; params?: {} }
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'storeCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
+    'create_users.create': { paramsTuple?: []; params?: {} }
+    'create_users.store': { paramsTuple?: []; params?: {} }
+    'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
   GET: {
-    'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
+    'create_users.create': { paramsTuple?: []; params?: {} }
+    'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
-    'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
+    'create_users.create': { paramsTuple?: []; params?: {} }
+    'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
   }
   POST: {
-    'new_account.store': { paramsTuple?: []; params?: {} }
     'session.store': { paramsTuple?: []; params?: {} }
     'storeCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'create_users.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
 }

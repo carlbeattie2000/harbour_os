@@ -11,4 +11,13 @@ export default class Role extends RoleSchema {
     pivotColumns: ['expires_at', 'assigned_by_id'],
   })
   declare users: ManyToMany<typeof User>
+
+  @manyToMany(() => User, {
+    pivotTable: 'user_account_assigned_roles',
+    pivotForeignKey: 'role_id',
+    pivotRelatedForeignKey: 'user_id',
+    pivotColumns: ['expires_at', 'assigned_by_id'],
+  })
+  declare accountUsers: ManyToMany<typeof User>
+
 }

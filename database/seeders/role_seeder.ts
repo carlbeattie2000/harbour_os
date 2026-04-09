@@ -4,7 +4,7 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 export default class extends BaseSeeder {
   async run() {
     await Role.createMany([
-      { slug: 'normal' },
+      { slug: 'portal' },
       { slug: 'equipment_operator' },
       { slug: 'reefer_technician' },
       { slug: 'tally_clerk' },
