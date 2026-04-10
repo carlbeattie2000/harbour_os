@@ -1,4 +1,5 @@
 import User from '#models/user'
+import { RbacService } from '#services/rbac_service'
 import type { HttpContext } from '@adonisjs/core/http'
 import limiter from '@adonisjs/limiter/services/main'
 
@@ -39,7 +40,14 @@ export default class SessionController {
     }
 
     await auth.use('web').login(user)
-    response.redirect().toRoute('home')
+
+    const userRoles = await RbacService.getUserRoles(user);
+
+    if (RbacService.HasRole(userRoles, ['portal'], false)) {
+      return response.redirect().toRoute('dashboard.home')
+    }
+
+    return response.redirect().toRoute('home')
   }
 
   /**
