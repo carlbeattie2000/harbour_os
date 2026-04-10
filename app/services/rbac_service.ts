@@ -1,9 +1,10 @@
 import type Role from '#models/role'
 import User from '#models/user'
+import UserAccountRole from '#models/user_account_role'
 import { DateTime } from 'luxon'
 
 export class RbacService {
-  private static RoleHasExpired(role: Role) {
+  private static RoleHasExpired(role: Role | UserAccountRole) {
     const expiry = role.$extras.pivot_expires_at
       ? DateTime.fromSQL(role.$extras.pivot_expires_at)
       : null
@@ -21,7 +22,7 @@ export class RbacService {
     return roles.every((role) => userRoles.includes(role))
   }
 
-  static UserRolesToSlugs(roles: Role[]): string[] {
+  static UserRolesToSlugs(roles: Role[] | UserAccountRole[]): string[] {
     const slugs = [];
 
     for (const role of roles) {
@@ -34,12 +35,8 @@ export class RbacService {
   }
 
   static async getUserRoles(user: User): Promise<string[]> {
-    await user.load('roles', (query) => {
-      query.wherePivot('is_active', true);
-    });
-    await user.load('accountRoles', (query) => {
-      query.wherePivot('is_active', true);
-    });
+    await user.load('roles');
+    await user.load('accountRoles');
 
     return [...this.UserRolesToSlugs(user.roles), ...this.UserRolesToSlugs(user.accountRoles)];
   }

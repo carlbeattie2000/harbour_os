@@ -7,6 +7,15 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class AccountUserSchema extends BaseModel {
+  static $columns = ['accountId', 'userId'] as const
+  $columns = AccountUserSchema.$columns
+  @column()
+  declare accountId: number
+  @column()
+  declare userId: number
+}
+
 export class AccountSchema extends BaseModel {
   static $columns = ['billingAddressId', 'companyName', 'createdAt', 'creditTerms', 'id', 'registrationNumber', 'status', 'type', 'updatedAt'] as const
   $columns = AccountSchema.$columns

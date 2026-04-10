@@ -1,0 +1,105 @@
+@layout()
+
+<div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
+    <div class="space-y-6">
+        <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+            <div class="px-5 py-4 sm:px-6 sm:py-5">
+                <h1>Create an account</h1>
+            </div>
+
+            <div class="space-y-6 border-t border-gray-100 p-5 sm:p-6 dark:border-gray-800">
+                @form({ route: 'create_accounts.store', method: 'POST' })
+                    <div class="-mx-2.5 flex flex-wrap gap-y-5">
+
+                        <div class="w-full px-2.5">
+                            @field.root({ name: 'userId' })
+                                @!field.label({ text: 'User ID' })
+                                @!input.control({ type: 'text', value: userId, readonly: true })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
+                            @field.root({ name: 'companyName' })
+                                @!field.label({ text: 'Company Name' })
+                                @!input.control({ type: 'text' })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
+                            @field.root({ name: 'registrationNumber' })
+                                @!field.label({ text: 'Registration Number' })
+                                @!input.control({ type: 'text' })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
+                            @field.root({ name: 'phone' })
+                                @!field.label({ text: 'Primary Contact Number' })
+                                @!input.control({ type: 'text' })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
+                            @field.root({ name: 'email' })
+                                @!field.label({ text: 'Primary Email' })
+                                @!input.control({ type: 'email' })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
+                            @field.root({ name: 'addressLine' })
+                                @!field.label({ text: 'Address Line' })
+                                @!input.control({ type: 'text' })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
+                            @field.root({ name: 'country' })
+                                @!field.label({ text: 'Country' })
+                                @!select.control({
+                                    options: [
+                                        { value: '', name: 'Select an option', disabled: true },
+                                        ...countries.map(country => ({ 
+                                            value: country.name,
+                                            name: country.name 
+                                        }))
+                                    ],
+                                })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
+                            @field.root({ name: 'accountType' })
+                                @!field.label({ text: 'Account Type' })
+                                @!select.control({
+                                    options: [
+                                        { value: '', name: 'Select an option', disabled: true },
+                                        ...accountTypes.map(accountType => ({ 
+                                            value: accountType, 
+                                            name: accountType 
+                                        }))
+                                    ],
+                                })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
+                            @!button({ text: 'Create', type: 'submit' })
+                        </div>
+                    </div>
+                @end
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@end
