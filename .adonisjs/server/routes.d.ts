@@ -9,6 +9,8 @@ export type ScannedRoutes = {
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'storeCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'accounts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'add_users.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'add_users.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
@@ -23,6 +25,7 @@ export type ScannedRoutes = {
     'session.create': { paramsTuple?: []; params?: {} }
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'accounts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'add_users.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
@@ -34,6 +37,7 @@ export type ScannedRoutes = {
     'session.create': { paramsTuple?: []; params?: {} }
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'accounts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'add_users.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
@@ -44,6 +48,7 @@ export type ScannedRoutes = {
   POST: {
     'session.store': { paramsTuple?: []; params?: {} }
     'storeCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'add_users.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_users.store': { paramsTuple?: []; params?: {} }
     'create_accounts.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }

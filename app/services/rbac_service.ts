@@ -1,6 +1,7 @@
 import type Role from '#models/role'
-import User from '#models/user'
-import UserAccountRole from '#models/user_account_role'
+import type User from '#models/user'
+import type UserAccountRole from '#models/user_account_role'
+import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
 import { DateTime } from 'luxon'
 
 export class RbacService {
@@ -15,7 +16,9 @@ export class RbacService {
   }
 
   static HasRole(userRoles: string[], roles: string[], strict: boolean): boolean {
-    return strict ? this.HasAllRoles(userRoles, roles) : roles.some((role) => userRoles.includes(role))
+    return strict
+      ? this.HasAllRoles(userRoles, roles)
+      : roles.some((role) => userRoles.includes(role))
   }
 
   private static HasAllRoles(userRoles: string[], roles: string[]): boolean {
@@ -23,27 +26,40 @@ export class RbacService {
   }
 
   static UserRolesToSlugs(roles: Role[] | UserAccountRole[]): string[] {
-    const slugs = [];
+    const slugs = []
 
     for (const role of roles) {
-      if (this.RoleHasExpired(role)) continue;
+      if (this.RoleHasExpired(role)) continue
 
-      slugs.push(role.slug);
+      slugs.push(role.slug)
     }
 
-    return slugs;
+    return slugs
   }
 
-  static async getUserRoles(user: User): Promise<string[]> {
-    await user.load('roles');
-    await user.load('accountRoles');
+  static async getUserRoles(user: User, trx?: TransactionClientContract): Promise<string[]> {
+    if (trx) {
+      await user.useTransaction(trx).load('roles')
+      await user.useTransaction(trx).load('accountRoles')
 
-    return [...this.UserRolesToSlugs(user.roles), ...this.UserRolesToSlugs(user.accountRoles)];
+      return [...this.UserRolesToSlugs(user.roles), ...this.UserRolesToSlugs(user.accountRoles)]
+    }
+
+    await user.load('roles')
+    await user.load('accountRoles')
+
+    return [...this.UserRolesToSlugs(user.roles), ...this.UserRolesToSlugs(user.accountRoles)]
   }
 
-  static CanPerformAction(userRoles: string[], allowedRoles: string[], disallowedRoles: string[], allowedStrict: boolean) {
-    if (allowedRoles.length > 0 && !this.HasRole(userRoles, allowedRoles, allowedStrict)) return false;
-    if (disallowedRoles.length > 0 && this.HasRole(userRoles, disallowedRoles, false)) return false;
-    return true;
+  static CanPerformAction(
+    userRoles: string[],
+    allowedRoles: string[],
+    disallowedRoles: string[],
+    allowedStrict: boolean
+  ) {
+    if (allowedRoles.length > 0 && !this.HasRole(userRoles, allowedRoles, allowedStrict))
+      return false
+    if (disallowedRoles.length > 0 && this.HasRole(userRoles, disallowedRoles, false)) return false
+    return true
   }
 }

@@ -20,3 +20,8 @@ export const createAccountValidator = vine.create({
   country: vine.enum(COUNTRIES.map((country) => country.name)),
   accountType: vine.enum(Object.values(ACCOUNT_TYPES)),
 })
+
+export const addUserToAccountValidator = vine.create({
+  email: vine.string().trim().email(),
+  role: vine.number().min(0)
+})

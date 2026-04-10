@@ -2,7 +2,12 @@
 @let(description = descriptionFromSlot.trim() ? descriptionFromSlot : $props.get('text'))
 @let(classes = [])
 
-<section {{ $props
+<p
+  class="text-sm text-gray-500 dark:text-gray-400"
+  {{ $props
   .except(['text'])
   .merge({ class: classes })
-  .toAttrs() }}>{{{ description }}}</section>
+  .toAttrs() }}
+>
+  {{{ description }}}
+</p>

@@ -6,6 +6,8 @@ import router from "@adonisjs/core/services/router"
 router
   .group(() => {
     router.get('/:id', [controllers.Accounts, 'show'])
+    router.get('/:id/users/add', [controllers.portal.account.AddUsers, 'create'])
+    router.post('/:id/users/add', [controllers.portal.account.AddUsers, 'store'])
   })
   .use(middleware.auth())
   .use(middleware.role(['account_admin']))

@@ -2,7 +2,12 @@
 @let(title = titleFromSlot.trim() ? titleFromSlot : $props.get('text'))
 @let(classes = [])
 
-<h2 {{ $props
+<h4
+  class="mb-1 text-sm font-semibold text-gray-800 dark:text-white/90"
+  {{ $props
   .except(['text'])
   .merge({ class: classes })
-  .toAttrs() }}>{{{ title }}}</h2>
+  .toAttrs() }}
+>
+  {{{ title }}}
+</h4>
