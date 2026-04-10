@@ -9,4 +9,5 @@ export const controllers = {
   CreateUsers: () => import('#controllers/create_users_controller'),
   Session: () => import('#controllers/session_controller'),
   Users: () => import('#controllers/users_controller'),
+  Accounts: () => import('#controllers/accounts_controller'),
 }
