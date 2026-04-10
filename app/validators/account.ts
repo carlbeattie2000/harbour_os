@@ -2,6 +2,10 @@ import vine from '@vinejs/vine'
 import { COUNTRIES } from '../constants/countries.ts'
 import { ACCOUNT_TYPES } from '../constants/account_types.ts'
 
+export const accountIdParamValidator = vine.create({
+  params: vine.object({ id: vine.number().min(0) }),
+})
+
 export const createAccountWithUserValidator = vine.create({
   userId: vine.number().min(0),
 })

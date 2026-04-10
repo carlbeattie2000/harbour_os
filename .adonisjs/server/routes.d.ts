@@ -8,6 +8,7 @@ export type ScannedRoutes = {
     'session.store': { paramsTuple?: []; params?: {} }
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'storeCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'accounts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
@@ -21,6 +22,7 @@ export type ScannedRoutes = {
   GET: {
     'session.create': { paramsTuple?: []; params?: {} }
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'accounts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
@@ -31,6 +33,7 @@ export type ScannedRoutes = {
   HEAD: {
     'session.create': { paramsTuple?: []; params?: {} }
     'createCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'accounts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }

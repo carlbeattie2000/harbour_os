@@ -15,7 +15,7 @@ export default class extends BaseSchema {
         .onDelete("CASCADE")
         .notNullable();
 
-      table.string("slug", 254).notNullable().unique();
+      table.string("slug", 254).notNullable();
       table.boolean("active").notNullable().defaultTo(true);
 
       table.timestamp("created_at");

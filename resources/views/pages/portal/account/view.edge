@@ -1,0 +1,117 @@
+@layout()
+  <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
+    <div class="space-y-6">
+      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+        <div class="px-5 py-4 sm:px-6 sm:py-5 flex justify-between items-center">
+          <h1>
+            Manage Account
+          </h1>
+          <div class="flex space-x-2">
+            @link({ route: '' })
+              <button
+                type="button"
+                class="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              >
+                Add User
+            </button>
+            @end
+          </div>
+        </div>
+
+        <div class="space-y-6 border-t border-gray-100 p-5 sm:p-6 dark:border-gray-800">
+          <div class="-mx-2.5 flex flex-wrap gap-y-5">
+            <div class="w-full px-2.5">
+              @field.root({ name: 'companyName' })
+                @!field.label({ text: 'Company Name' })
+                @!input.control({ type: 'text', value: account.companyName, readonly: true })
+                @!field.error()
+              @end
+            </div>
+
+            <div class="w-full px-2.5">
+              @field.root({ name: 'registrationNumber' })
+                @!field.label({ text: 'Registration Number' })
+                @!input.control({ type: 'text', value: account.registrationNumber, readonly: true })
+                @!field.error()
+              @end
+            </div>
+
+            <div class="w-full px-2.5">
+              @field.root({ name: 'type' })
+                @!field.label({ text: 'Account Type' })
+                @!input.control({ type: 'text', value: account.type.replace('_', ' ').toUpperCase(), readonly: true })
+                @!field.error()
+              @end
+            </div>
+
+            <div class="w-full px-2.5">
+              @field.root({ name: 'createdAt' })
+                @!field.label({ text: 'Created At' })
+                @!input.control({ type: 'text', value: account.createdAt.toFormat('yyyy-MM-dd HH:mm:ss'), readonly: true })
+                @!field.error()
+              @end
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+        <div class="px-5 py-4 sm:px-6 sm:py-5">
+          <h2>
+            Members
+          </h2>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            Users linked to this account.
+          </p>
+        </div>
+
+        <div class="border-t border-gray-100 p-5 sm:p-6 dark:border-gray-800">
+          @if(account.users && account.users.length)
+            <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
+              <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-800">
+                  <thead class="bg-gray-50 dark:bg-gray-900/50">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">Name</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">Email</th>
+                      <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">Roles</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-800 dark:bg-transparent">
+                    @each(member in account.users)
+                      <tr>
+                        <td class="px-4 py-3 text-sm text-gray-800 dark:text-white/90">
+                          {{ [member.firstName, member.lastName].filter(Boolean).join(' ') || '—' }}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+                          {{ member.email }}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+                          @if(member.accountRoles && member.accountRoles.length)
+                            <div class="flex flex-wrap gap-2">
+                              @each(role in member.accountRoles)
+                                <span class="inline-flex rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 dark:bg-brand-500/15 dark:text-brand-300">
+                                  {{ role.slug.replace('_', ' ') }}
+                                </span>
+                              @end
+                            </div>
+                          @else
+                            <span class="text-gray-400 dark:text-gray-500">No roles</span>
+                          @end
+                        </td>
+                      </tr>
+                    @end
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          @else
+            <div class="rounded-xl border border-dashed border-gray-300 px-4 py-6 text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">
+              No members are linked to this account yet.
+            </div>
+          @end
+        </div>
+      </div>
+    </div>
+  </div>
+@end

@@ -4,10 +4,10 @@
  */
 
 export const controllers = {
+  Accounts: () => import('#controllers/accounts_controller'),
   Containers: () => import('#controllers/containers_controller'),
   CreateAccounts: () => import('#controllers/create_accounts_controller'),
   CreateUsers: () => import('#controllers/create_users_controller'),
   Session: () => import('#controllers/session_controller'),
   Users: () => import('#controllers/users_controller'),
-  Accounts: () => import('#controllers/accounts_controller'),
 }

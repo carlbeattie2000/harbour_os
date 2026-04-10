@@ -14,6 +14,6 @@ export const ACCOUNT_TYPE_ROLES = {
   [ACCOUNT_TYPES.SLOT_OWNER]: ['account_admin', 'slot_manager'],
 } as const
 
-export const ACCOUNT_DEFAULT_ROLE = 'admin'
+export const ACCOUNT_DEFAULT_ROLE = 'account_admin'
 
 export type AccountType = typeof ACCOUNT_TYPES[keyof typeof ACCOUNT_TYPES]
