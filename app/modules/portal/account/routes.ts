@@ -10,8 +10,8 @@ router
     router.post('/:id/users/add', [controllers.portal.account.AddUsers, 'store'])
   })
   .use(middleware.auth())
-  .use(middleware.role(['account_admin']))
   .use(middleware.account())
+  .use(middleware.accountRole({ allowedRoles: 'account_admin' }))
   .use(throttle)
   .prefix('portal/account/')
 

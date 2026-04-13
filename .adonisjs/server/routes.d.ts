@@ -13,14 +13,14 @@ export type ScannedRoutes = {
     'add_users.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'add_users.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.home': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'containers.create': { paramsTuple?: []; params?: {} }
-    'containers.store': { paramsTuple?: []; params?: {} }
+    'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
     'create_users.store': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_accounts.create': { paramsTuple?: []; params?: {} }
     'create_accounts.store': { paramsTuple?: []; params?: {} }
-    'internal.dashboard.home': { paramsTuple?: []; params?: {} }
+    'containers.create': { paramsTuple?: []; params?: {} }
+    'containers.store': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
@@ -31,12 +31,12 @@ export type ScannedRoutes = {
     'accounts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'add_users.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.home': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'containers.create': { paramsTuple?: []; params?: {} }
-    'containers.store': { paramsTuple?: []; params?: {} }
+    'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_accounts.create': { paramsTuple?: []; params?: {} }
-    'internal.dashboard.home': { paramsTuple?: []; params?: {} }
+    'containers.create': { paramsTuple?: []; params?: {} }
+    'containers.store': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
@@ -46,12 +46,12 @@ export type ScannedRoutes = {
     'accounts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'add_users.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.home': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'containers.create': { paramsTuple?: []; params?: {} }
-    'containers.store': { paramsTuple?: []; params?: {} }
+    'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_accounts.create': { paramsTuple?: []; params?: {} }
-    'internal.dashboard.home': { paramsTuple?: []; params?: {} }
+    'containers.create': { paramsTuple?: []; params?: {} }
+    'containers.store': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
   POST: {
