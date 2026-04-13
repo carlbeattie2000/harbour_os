@@ -30,6 +30,17 @@
               <span class="text-sm text-gray-400 dark:text-gray-500">No roles assigned</span>
             @end
           </div>
+
+          @if(user.accountRoles && user.accountRoles.some((role) => role.slug === 'captain' || role.slug === 'vessel_planner'))
+            <div class="mt-5">
+              <a
+                href="/portal/account/{{ account.id }}/vessels/create"
+                class="inline-flex rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-700"
+              >
+                Add new vessel
+              </a>
+            </div>
+          @end
         </div>
       </div>
     </div>

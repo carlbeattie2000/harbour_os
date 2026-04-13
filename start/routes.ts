@@ -13,6 +13,7 @@ import { controllers } from '#generated/controllers'
 
 import '#modules/portal/routes'
 import '#modules/portal/account/routes'
+import '#modules/portal/vessels/routes'
 
 import '#modules/internal/routes'
 import '#modules/internal/user/routes'

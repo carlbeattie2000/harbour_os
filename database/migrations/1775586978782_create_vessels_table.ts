@@ -16,8 +16,10 @@ export default class extends BaseSchema {
       table.integer('beam').notNullable();
       table.integer('max_draft').notNullable();
 
-      table.integer('shipping_line_id').unsigned().references('id').inTable('accounts').onDelete('CASCADE').notNullable();
+      table.integer('shipping_line_id').unsigned().references('id').inTable('accounts').onDelete('CASCADE').nullable();
       table.integer('port_agent_id').unsigned().references('id').inTable('accounts').onDelete('SET NULL').nullable();
+
+      table.string('status').notNullable();
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

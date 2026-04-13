@@ -178,7 +178,7 @@ export class UserSchema extends BaseModel {
 }
 
 export class VesselSchema extends BaseModel {
-  static $columns = ['beam', 'createdAt', 'flagState', 'grossTonnage', 'imoNumber', 'loa', 'maxDraft', 'name', 'portAgentId', 'shippingLineId', 'type', 'updatedAt'] as const
+  static $columns = ['beam', 'createdAt', 'flagState', 'grossTonnage', 'imoNumber', 'loa', 'maxDraft', 'name', 'portAgentId', 'shippingLineId', 'status', 'type', 'updatedAt'] as const
   $columns = VesselSchema.$columns
   @column()
   declare beam: number
@@ -199,7 +199,9 @@ export class VesselSchema extends BaseModel {
   @column()
   declare portAgentId: number | null
   @column()
-  declare shippingLineId: number
+  declare shippingLineId: number | null
+  @column()
+  declare status: string
   @column()
   declare type: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })

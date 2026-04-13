@@ -17,6 +17,7 @@ export const controllers = {
       Dashboard: () => import('#controllers/portal/account/dashboard_controller'),
     },
     Dashboard: () => import('#controllers/portal/dashboard_controller'),
+    Vessels: () => import('#controllers/portal/vessels_controller'),
   },
   Session: () => import('#controllers/session_controller'),
   Users: () => import('#controllers/users_controller'),
