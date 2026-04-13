@@ -1,4 +1,4 @@
-@publicLayout()
+@homeLayout()
   <body
     x-data="{ page: 'home', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
     x-init="
@@ -7,25 +7,51 @@
     :class="{'dark bg-gray-900': darkMode === true}"
   >
     <div id="top" class="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <header class="border-b border-gray-200 bg-white/90 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/90">
+      <header
+        class="border-b border-gray-200 bg-white/90 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/90"
+      >
         <div class="mx-auto flex max-w-(--breakpoint-2xl) items-center justify-between px-4 py-4 md:px-6">
           <div class="flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-500 text-white shadow-theme-xs">
+            <div
+              class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-500 text-white shadow-theme-xs"
+            >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 18H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M5 18L7 8H17L19 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 8V5H15V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 18H21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                <path
+                  d="M5 18L7 8H17L19 18"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9 8V5H15V8"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </div>
             <div>
-              <p class="text-xs font-medium uppercase tracking-[0.2em] text-brand-500">Port operations platform</p>
-              <h1 class="text-lg font-semibold text-gray-800 dark:text-white/90">HarbourOS</h1>
+              <p class="text-xs font-medium uppercase tracking-[0.2em] text-brand-500">
+                Port operations platform
+              </p>
+              <h1 class="text-lg font-semibold text-gray-800 dark:text-white/90">
+                HarbourOS
+              </h1>
             </div>
           </div>
 
           <div class="flex items-center gap-3">
-            <a href="#capabilities" class="hidden text-sm font-medium text-gray-600 hover:text-brand-500 dark:text-gray-300 sm:inline-flex">Capabilities</a>
-            <a href="/portal/login" class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-600">
+            <a
+              href="#capabilities"
+              class="hidden text-sm font-medium text-gray-600 hover:text-brand-500 dark:text-gray-300 sm:inline-flex"
+            >Capabilities</a>
+            <a
+              href="/portal/login"
+              class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-600"
+            >
               Login
             </a>
           </div>
@@ -40,80 +66,124 @@
               alt="Port with containers and cranes"
               class="h-full w-full object-cover"
             />
-            <div class="absolute inset-0 bg-gray-950/60"></div>
-            <div class="absolute inset-0 bg-linear-to-r from-brand-950/70 via-slate-950/55 to-transparent"></div>
+            <div class="absolute inset-0 bg-gray-950/60">
+            </div>
+            <div class="absolute inset-0 bg-linear-to-r from-brand-950/70 via-slate-950/55 to-transparent">
+            </div>
           </div>
 
           <div class="relative mx-auto max-w-(--breakpoint-2xl) px-4 py-14 md:px-6 md:py-20">
             <div class="grid grid-cols-1 gap-6 xl:grid-cols-5 xl:items-stretch">
               <div class="xl:col-span-3">
-                <div class="rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/10 sm:p-8">
-                <span class="mb-4 inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                  Deployed and managed by each port
+                <div
+                  class="rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/10 sm:p-8"
+                >
+                  <span
+                    class="mb-4 inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
+                  >
+                    Deployed and managed by each port
                 </span>
 
-                <h2 class="text-3xl font-bold text-white sm:text-4xl">
-                  A port operations system for vessels, containers, gates, and daily terminal flow.
-                </h2>
+                  <h2 class="text-3xl font-bold text-white sm:text-4xl">
+                    A port operations system for vessels, containers, gates, and daily terminal flow.
+                  </h2>
 
-                <p class="mt-4 max-w-3xl text-sm leading-7 text-gray-100 sm:text-base">
-                  HarbourOS is deployed for an individual port and tailored to how that port operates. It provides one place to manage ships arriving, berthed, loading, unloading, and departing, while also tracking containers, yard position, gate movement, and operational events around them.
-                </p>
+                  <p class="mt-4 max-w-3xl text-sm leading-7 text-gray-100 sm:text-base">
+                    HarbourOS is deployed for an individual port and tailored to how that port operates. It provides one place to manage ships arriving, berthed, loading, unloading, and departing, while also tracking containers, yard position, gate movement, and operational events around them.
+                  </p>
 
-                <p class="mt-3 max-w-3xl text-sm leading-7 text-gray-200 sm:text-base">
-                  A secure external portal can be made available for approved users such as port staff, freight forwarders, shipping agents, hauliers, and vessel representatives, while more sensitive operational areas can remain restricted to the port network or VPN.
-                </p>
+                  <p class="mt-3 max-w-3xl text-sm leading-7 text-gray-200 sm:text-base">
+                    A secure external portal can be made available for approved users such as port staff, freight forwarders, shipping agents, hauliers, and vessel representatives, while more sensitive operational areas can remain restricted to the port network or VPN.
+                  </p>
 
-                <div class="mt-6 flex flex-wrap gap-3">
-                  <a href="/portal/login" class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-3 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-600">
-                    Login
+                  <div class="mt-6 flex flex-wrap gap-3">
+                    <a
+                      href="/portal/login"
+                      class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-3 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-600"
+                    >
+                      Login
                   </a>
-                  <a href="#capabilities" class="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/10 px-5 py-3 text-sm font-medium text-white backdrop-blur-sm hover:bg-white/15">
-                    See how it works
+                    <a
+                      href="#capabilities"
+                      class="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/10 px-5 py-3 text-sm font-medium text-white backdrop-blur-sm hover:bg-white/15"
+                    >
+                      See how it works
                   </a>
-                </div>
+                  </div>
 
-                <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
-                    <p class="text-sm font-semibold text-white">Vessel movements</p>
-                    <p class="mt-1 text-xs text-gray-200">Arrivals, departures, berth planning, dock status</p>
-                  </div>
-                  <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
-                    <p class="text-sm font-semibold text-white">Container visibility</p>
-                    <p class="mt-1 text-xs text-gray-200">Yard location, inbound and outbound flow, exceptions</p>
-                  </div>
-                  <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
-                    <p class="text-sm font-semibold text-white">Gate operations</p>
-                    <p class="mt-1 text-xs text-gray-200">Trucks, entry and exit events, turnaround control</p>
+                  <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
+                      <p class="text-sm font-semibold text-white">
+                        Vessel movements
+                      </p>
+                      <p class="mt-1 text-xs text-gray-200">
+                        Arrivals, departures, berth planning, dock status
+                      </p>
+                    </div>
+                    <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
+                      <p class="text-sm font-semibold text-white">
+                        Container visibility
+                      </p>
+                      <p class="mt-1 text-xs text-gray-200">
+                        Yard location, inbound and outbound flow, exceptions
+                      </p>
+                    </div>
+                    <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
+                      <p class="text-sm font-semibold text-white">
+                        Gate operations
+                      </p>
+                      <p class="mt-1 text-xs text-gray-200">
+                        Trucks, entry and exit events, turnaround control
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
               <div class="xl:col-span-2">
-                <div class="flex h-full flex-col rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/10 sm:p-8">
+                <div
+                  class="flex h-full flex-col rounded-2xl border border-white/10 bg-white/10 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/10 sm:p-8"
+                >
                   <div class="mb-4 flex items-center justify-between">
                     <div>
-                      <p class="text-sm font-medium text-gray-200">Controlled external access</p>
-                      <h3 class="text-xl font-semibold text-white">Who this is for</h3>
+                      <p class="text-sm font-medium text-gray-200">
+                        Controlled external access
+                      </p>
+                      <h3 class="text-xl font-semibold text-white">
+                        Who this is for
+                      </h3>
                     </div>
-                    <span class="rounded-full bg-success-50 px-3 py-1 text-xs font-medium text-success-700 dark:bg-success-500/15 dark:text-success-400">
+                    <span
+                      class="rounded-full bg-success-50 px-3 py-1 text-xs font-medium text-success-700 dark:bg-success-500/15 dark:text-success-400"
+                    >
                       Per-port deployment
                     </span>
                   </div>
 
                   <div class="space-y-3">
                     <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
-                      <p class="text-sm font-semibold text-white">Port staff and terminal teams</p>
-                      <p class="mt-1 text-xs text-gray-200">Run daily marine, yard, and gate operations from a shared operational view.</p>
+                      <p class="text-sm font-semibold text-white">
+                        Port staff and terminal teams
+                      </p>
+                      <p class="mt-1 text-xs text-gray-200">
+                        Run daily marine, yard, and gate operations from a shared operational view.
+                      </p>
                     </div>
                     <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
-                      <p class="text-sm font-semibold text-white">Forwarders, agents, and captains</p>
-                      <p class="mt-1 text-xs text-gray-200">Use the port's secure portal for access requests, approvals, movements, and operational updates.</p>
+                      <p class="text-sm font-semibold text-white">
+                        Forwarders, agents, and captains
+                      </p>
+                      <p class="mt-1 text-xs text-gray-200">
+                        Use the port's secure portal for access requests, approvals, movements, and operational updates.
+                      </p>
                     </div>
                     <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
-                      <p class="text-sm font-semibold text-white">Internal areas can stay restricted</p>
-                      <p class="mt-1 text-xs text-gray-200">Sensitive routes and admin workflows can be limited to the port network, VPN, or allowlisted users.</p>
+                      <p class="text-sm font-semibold text-white">
+                        Internal areas can stay restricted
+                      </p>
+                      <p class="mt-1 text-xs text-gray-200">
+                        Sensitive routes and admin workflows can be limited to the port network, VPN, or allowlisted users.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -124,61 +194,111 @@
 
         <section id="capabilities" class="mx-auto max-w-(--breakpoint-2xl) px-4 py-8 md:px-6 md:py-10">
           <div class="mb-6">
-            <span class="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+            <span
+              class="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+            >
               Core capabilities
             </span>
-            <h3 class="mt-3 text-2xl font-semibold text-gray-900 dark:text-white/90">Everything a port team needs to keep cargo moving</h3>
+            <h3 class="mt-3 text-2xl font-semibold text-gray-900 dark:text-white/90">
+              Everything a port team needs to keep cargo moving
+            </h3>
             <p class="mt-2 max-w-3xl text-sm leading-7 text-gray-600 dark:text-gray-300">
               HarbourOS supports the operational picture across marine, yard, and gate activity, while still being adaptable for the policies, processes, and language of the port that deploys it.
             </p>
           </div>
 
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
-              <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">Vessels and berths</h4>
-              <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">Manage incoming and outgoing ships, berth occupancy, and dockside activity in one place.</p>
+            <div
+              class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]"
+            >
+              <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">
+                Vessels and berths
+              </h4>
+              <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                Manage incoming and outgoing ships, berth occupancy, and dockside activity in one place.
+              </p>
             </div>
 
-            <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
-              <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">Loading and unloading</h4>
-              <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">Support stevedoring workflows, cargo progress, and the operational status of each call.</p>
+            <div
+              class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]"
+            >
+              <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">
+                Loading and unloading
+              </h4>
+              <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                Support stevedoring workflows, cargo progress, and the operational status of each call.
+              </p>
             </div>
 
-            <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
-              <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">Containers and yard position</h4>
-              <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">Track where containers are, when they arrived, where they are headed, and what needs attention.</p>
+            <div
+              class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]"
+            >
+              <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">
+                Containers and yard position
+              </h4>
+              <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                Track where containers are, when they arrived, where they are headed, and what needs attention.
+              </p>
             </div>
 
-            <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
-              <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">Gate and movement control</h4>
-              <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">Monitor gate events, truck processing, and the landside flow of units through the terminal.</p>
+            <div
+              class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]"
+            >
+              <h4 class="text-base font-semibold text-gray-800 dark:text-white/90">
+                Gate and movement control
+              </h4>
+              <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                Monitor gate events, truck processing, and the landside flow of units through the terminal.
+              </p>
             </div>
           </div>
         </section>
 
         <section class="mx-auto max-w-(--breakpoint-2xl) px-4 pb-8 md:px-6 md:pb-10">
           <div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03] sm:p-8">
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white/90">Designed for real port operations</h3>
+            <div
+              class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03] sm:p-8"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white/90">
+                Designed for real port operations
+              </h3>
               <ul class="mt-5 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-brand-500"></span><span>Shared visibility for marine operations, yard teams, and gate staff.</span></li>
-                <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-brand-500"></span><span>Support for arrivals, departures, docking, loading, unloading, and turnaround workflows.</span></li>
-                <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-brand-500"></span><span>Container event history and location awareness to reduce uncertainty and delay.</span></li>
-                <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-brand-500"></span><span>Flexible enough to be tailored to the needs and language of each individual port.</span></li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-brand-500"></span>                  <span>Shared visibility for marine operations, yard teams, and gate staff.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-brand-500"></span>                  <span>Support for arrivals, departures, docking, loading, unloading, and turnaround workflows.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-brand-500"></span>                  <span>Container event history and location awareness to reduce uncertainty and delay.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-brand-500"></span>                  <span>Flexible enough to be tailored to the needs and language of each individual port.</span>
+                </li>
               </ul>
             </div>
 
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03] sm:p-8">
-              <h3 class="text-xl font-semibold text-gray-900 dark:text-white/90">Start with a clear operational picture</h3>
+            <div
+              class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03] sm:p-8"
+            >
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white/90">
+                Start with a clear operational picture
+              </h3>
               <p class="mt-3 text-sm leading-7 text-gray-600 dark:text-gray-300">
                 Each deployment belongs to the port running it. The external `/portal` area can be exposed for approved partners, while other routes can stay behind VPN or network restrictions depending on the port's security model.
               </p>
 
               <div class="mt-6 flex flex-wrap gap-3">
-                <a href="/portal/login" class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-3 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-600">
+                <a
+                  href="/portal/login"
+                  class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-3 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-600"
+                >
                   Login
                 </a>
-                <a href="#top" class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">
+                <a
+                  href="#top"
+                  class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                >
                   Back to top
                 </a>
               </div>

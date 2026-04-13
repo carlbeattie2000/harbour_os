@@ -16,6 +16,7 @@ export class RbacService {
   }
 
   static HasRole(userRoles: string[], roles: string[], strict: boolean): boolean {
+    userRoles = [...userRoles, '*']
     return strict
       ? this.HasAllRoles(userRoles, roles)
       : roles.some((role) => userRoles.includes(role))

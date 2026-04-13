@@ -44,7 +44,7 @@ export default class SessionController {
     const userRoles = await RbacService.getUserRoles(user);
 
     if (RbacService.HasRole(userRoles, ['portal'], false)) {
-      return response.redirect().toRoute('dashboard.home')
+      return response.redirect().toRoute('portal.dashboard')
     }
 
     return response.redirect().toRoute('home')

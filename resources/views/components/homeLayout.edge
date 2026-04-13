@@ -12,12 +12,8 @@
   <body>
     @include('partials/preloader')
     <main>
-      <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
-        @include('partials/flash_alerts')
-      </div>
-      <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
-        {{{ await $slots.main() }}}
-      </div>
+      @include('partials/flash_alerts')
+      {{{ await $slots.main() }}}
     </main>
   </body>
 </html>

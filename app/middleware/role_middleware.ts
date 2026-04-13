@@ -5,13 +5,17 @@ import { RbacService } from '#services/rbac_service'
 import logger from '@adonisjs/core/services/logger'
 import { DateTime } from 'luxon'
 
+interface RoleMiddlewareConfig {
+  allowedRoles?: string | string[],
+  disallowedRoles?: string | string[],
+  strictMode?: boolean
+}
+
 export default class RoleMiddleware {
   async handle(
     ctx: HttpContext,
     next: NextFn,
-    allowedRoles: string | string[],
-    disallowedRoles: string | string[] = [],
-    strictModeForAllowedRoles: boolean = false
+    { allowedRoles = [], disallowedRoles = [], strictMode = false }: RoleMiddlewareConfig
   ) {
     const user = ctx.auth.getUserOrFail()
 
@@ -28,7 +32,7 @@ export default class RoleMiddleware {
         usersRoles,
         allowedRolesToVerify,
         disallowedRolesToVerify,
-        strictModeForAllowedRoles
+        strictMode
       )
     ) {
       logger.error(`[${DateTime.now().toFormat('dd-MM-yyyy hh:mm:ss')}] DENIED - User ${user.firstName} (${user.id}) | Roles: ${usersRoles.join(', ')} | Route: ${ctx.request.url()} | Method: ${ctx.request.method()}`)

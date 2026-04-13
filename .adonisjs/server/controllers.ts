@@ -8,11 +8,15 @@ export const controllers = {
   Containers: () => import('#controllers/containers_controller'),
   CreateAccounts: () => import('#controllers/create_accounts_controller'),
   CreateUsers: () => import('#controllers/create_users_controller'),
+  internal: {
+    Dashboard: () => import('#controllers/internal/dashboard_controller'),
+  },
   portal: {
     account: {
       AddUsers: () => import('#controllers/portal/account/add_users_controller'),
       Dashboard: () => import('#controllers/portal/account/dashboard_controller'),
     },
+    Dashboard: () => import('#controllers/portal/dashboard_controller'),
   },
   Session: () => import('#controllers/session_controller'),
   Users: () => import('#controllers/users_controller'),
