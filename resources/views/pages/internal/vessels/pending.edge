@@ -33,6 +33,11 @@
                 </th>
                 <th class="py-3 pr-4 text-left">
                   <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
+                    Account
+                  </p>
+                </th>
+                <th class="py-3 pr-4 text-left">
+                  <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
                     Type
                   </p>
                 </th>
@@ -56,9 +61,14 @@
                     Beam (m)
                   </p>
                 </th>
-                <th class="py-3 text-left">
+                <th class="py-3 pr-4 text-left">
                   <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
                     Max Draft (m)
+                  </p>
+                </th>
+                <th class="py-3 text-left">
+                  <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
+                    Actions
                   </p>
                 </th>
               </tr>
@@ -72,6 +82,9 @@
                     </td>
                     <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
                       {{ vessel.name }}
+                    </td>
+                    <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
+                      {{ vessel.account?.companyName ?? '—' }}
                     </td>
                     <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
                       {{ vessel.type }}
@@ -88,14 +101,28 @@
                     <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
                       {{ vessel.beam }}
                     </td>
-                    <td class="whitespace-nowrap py-3 text-theme-sm text-gray-500 dark:text-gray-400">
+                    <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
                       {{ vessel.maxDraft }}
+                    </td>
+                    <td class="whitespace-nowrap py-3">
+                      <div class="flex items-center gap-2">
+                        @form({ route: 'vessels.approve', routeParams: { id: vessel.imoNumber }, method: 'PATCH' })
+                          <button type="submit" class="inline-flex items-center rounded-lg bg-success-500 px-3 py-1.5 text-theme-xs font-medium text-white hover:bg-success-600">
+                            Approve
+                          </button>
+                        @end
+                        @form({ route: 'vessels.deny', routeParams: { id: vessel.imoNumber }, method: 'PATCH' })
+                          <button type="submit" class="inline-flex items-center rounded-lg bg-error-500 px-3 py-1.5 text-theme-xs font-medium text-white hover:bg-error-600">
+                            Deny
+                          </button>
+                        @end
+                      </div>
                     </td>
                   </tr>
                 @end
               @else
                 <tr>
-                  <td colspan="8" class="py-8 text-center text-theme-sm text-gray-500 dark:text-gray-400">
+                  <td colspan="10" class="py-8 text-center text-theme-sm text-gray-500 dark:text-gray-400">
                     No pending vessels found.
                   </td>
                 </tr>

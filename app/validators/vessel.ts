@@ -16,3 +16,9 @@ export const createVesselValidator = vine.create({
   beam: vine.number().min(0),
   maxDraft: vine.number().min(0),
 })
+
+export const validatePendingVesselValidator = vine.create({
+  params: vine.object({
+    id: vine.string().minLength(7).maxLength(7)
+  }),
+})

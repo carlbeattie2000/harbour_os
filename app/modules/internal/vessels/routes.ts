@@ -6,7 +6,9 @@ import router from '@adonisjs/core/services/router'
 router
   .group(() => {
     router.get('/pending', [controllers.internal.Vessels, 'pending'])
-    router.get('/complete-verification/:id', [controllers.internal.Vessels, 'completeVerification'])
+
+    router.patch('/approve/:id', [controllers.internal.Vessels, 'approve'])
+    router.patch('/deny/:id', [controllers.internal.Vessels, 'deny'])
   })
   .use(middleware.auth())
   .use(middleware.role({ allowedRoles: 'admin' }))

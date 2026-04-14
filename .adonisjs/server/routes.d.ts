@@ -24,7 +24,8 @@ export type ScannedRoutes = {
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'vessels.pending': { paramsTuple?: []; params?: {} }
-    'vessels.complete_verification': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'vessels.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'vessels.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
@@ -43,7 +44,6 @@ export type ScannedRoutes = {
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'vessels.pending': { paramsTuple?: []; params?: {} }
-    'vessels.complete_verification': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
@@ -61,7 +61,6 @@ export type ScannedRoutes = {
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'vessels.pending': { paramsTuple?: []; params?: {} }
-    'vessels.complete_verification': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
   }
   POST: {
@@ -72,6 +71,10 @@ export type ScannedRoutes = {
     'create_users.store': { paramsTuple?: []; params?: {} }
     'create_accounts.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
+  }
+  PATCH: {
+    'vessels.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'vessels.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {
