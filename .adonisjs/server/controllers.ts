@@ -20,6 +20,7 @@ export const controllers = {
       ViewAccount: () => import('#controllers/portal/account/view_account'),
     },
     Dashboard: () => import('#controllers/portal/dashboard_controller'),
+    PortCalls: () => import('#controllers/portal/port_calls_controller'),
     Vessels: () => import('#controllers/portal/vessels_controller'),
   },
   Session: () => import('#controllers/session_controller'),

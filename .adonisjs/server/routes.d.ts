@@ -15,6 +15,8 @@ export type ScannedRoutes = {
     'dashboard.home': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'vessels.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'vessels.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'port_calls.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'port_calls.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
     'create_users.store': { paramsTuple?: []; params?: {} }
@@ -40,6 +42,7 @@ export type ScannedRoutes = {
     'add_users.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.home': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'vessels.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'port_calls.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -59,6 +62,7 @@ export type ScannedRoutes = {
     'add_users.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.home': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'vessels.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'port_calls.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -75,6 +79,7 @@ export type ScannedRoutes = {
     'storeCompany': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'add_users.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'vessels.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'port_calls.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_users.store': { paramsTuple?: []; params?: {} }
     'create_accounts.store': { paramsTuple?: []; params?: {} }
     'yard_slots.store': { paramsTuple?: []; params?: {} }

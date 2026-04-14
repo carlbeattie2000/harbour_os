@@ -1,7 +1,7 @@
+import { NotFoundError } from '#errors/app_error';
 import User from '#models/user';
 import { viewUserValidator } from '#validators/user'
 import type { HttpContext } from '@adonisjs/core/http'
-import { NotFoundError } from '../errors/app_error.ts';
 
 export default class UsersController {
   async show({ request, view }: HttpContext) {

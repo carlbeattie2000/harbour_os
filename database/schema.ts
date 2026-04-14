@@ -132,7 +132,7 @@ export class PortCallSchema extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()
-  declare vesselId: number
+  declare vesselId: string
 }
 
 export class RateLimitSchema extends BaseModel {
