@@ -2,6 +2,8 @@ import { type Infer } from '@vinejs/vine/types'
 import { type createVesselValidator } from '#validators/vessel'
 import Vessel from '#models/vessel'
 
+const PENDING_QUERY_LIMIT = 20;
+
 export class VesselService {
   async create(
     data: Infer<typeof createVesselValidator>,
@@ -16,6 +18,6 @@ export class VesselService {
   }
 
   async queryPending(page: number = 1) {
-    return await Vessel.query().where('status', 'awaiting_approval').paginate(page, 20);
+    return await Vessel.query().where('status', 'awaiting_approval').paginate(page, PENDING_QUERY_LIMIT);
   }
 }

@@ -4,22 +4,22 @@
  */
 
 export const controllers = {
-  Accounts: () => import('#controllers/accounts_controller'),
-  Containers: () => import('#controllers/containers_controller'),
-  CreateAccounts: () => import('#controllers/create_accounts_controller'),
-  CreateUsers: () => import('#controllers/create_users_controller'),
   internal: {
+    Containers: () => import('#controllers/internal/containers_controller'),
+    CreateAccounts: () => import('#controllers/internal/create_accounts_controller'),
     Dashboard: () => import('#controllers/internal/dashboard_controller'),
     Vessels: () => import('#controllers/internal/vessels_controller'),
+    CreateUsers: () => import('#controllers/internal/create_users_controller'),
+    Users: () => import('#controllers/internal/users_controller'),
   },
   portal: {
     account: {
       AddUsers: () => import('#controllers/portal/account/add_users_controller'),
       Dashboard: () => import('#controllers/portal/account/dashboard_controller'),
+      ViewAccount: () => import('#controllers/portal/account/view_account'),
     },
     Dashboard: () => import('#controllers/portal/dashboard_controller'),
     Vessels: () => import('#controllers/portal/vessels_controller'),
   },
   Session: () => import('#controllers/session_controller'),
-  Users: () => import('#controllers/users_controller'),
 }

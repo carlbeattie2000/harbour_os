@@ -5,8 +5,8 @@ import router from '@adonisjs/core/services/router'
 
 router
   .group(() => {
-    router.get('create', [controllers.CreateAccounts, 'create'])
-    router.post('/', [controllers.CreateAccounts, 'store'])
+    router.get('create', [controllers.internal.CreateAccounts, 'create'])
+    router.post('/', [controllers.internal.CreateAccounts, 'store'])
   })
   .use(middleware.auth())
   .use(middleware.role({ allowedRoles: ['admin', 'operations_manager'] }))

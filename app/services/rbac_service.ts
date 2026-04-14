@@ -5,6 +5,8 @@ import type UserAccountRole from '#models/user_account_role'
 import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
 import { DateTime } from 'luxon'
 
+const WILDCARD_ROLE = '*'
+
 export class RbacService {
   private static RoleHasExpired(role: Role | UserAccountRole) {
     const expiry = role.$extras.pivot_expires_at
@@ -17,7 +19,7 @@ export class RbacService {
   }
 
   static HasRole(userRoles: string[], roles: string[], strict: boolean): boolean {
-    userRoles = [...userRoles, '*']
+    userRoles = [...userRoles, WILDCARD_ROLE]
     return strict
       ? this.HasAllRoles(userRoles, roles)
       : roles.some((role) => userRoles.includes(role))

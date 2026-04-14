@@ -5,7 +5,7 @@ import router from '@adonisjs/core/services/router'
 
 router
   .group(() => {
-    router.get('/:id/manage', [controllers.Accounts, 'show'])
+    router.get('/:id/manage', [controllers.portal.account.ViewAccount, 'show'])
     router.get('/:id/users/add', [controllers.portal.account.AddUsers, 'create'])
     router.post('/:id/users/add', [controllers.portal.account.AddUsers, 'store'])
   })
