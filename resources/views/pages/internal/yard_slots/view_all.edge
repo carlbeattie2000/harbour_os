@@ -1,6 +1,4 @@
 @layout()
-  @let(vessels = pendingVessels)
-
   <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
     <div class="space-y-6">
       <div
@@ -9,10 +7,10 @@
         <div class="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-              Pending Vessels
+              Yard Slots
             </h1>
             <p class="mt-1 text-theme-sm text-gray-500 dark:text-gray-400">
-              Review and verify newly submitted vessels.
+              Overview of all yard slots and their current status.
             </p>
           </div>
         </div>
@@ -23,17 +21,12 @@
               <tr class="border-y border-gray-100 dark:border-gray-800">
                 <th class="py-3 pr-4 text-left">
                   <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    IMO
+                    Bay
                   </p>
                 </th>
                 <th class="py-3 pr-4 text-left">
                   <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    Name
-                  </p>
-                </th>
-                <th class="py-3 pr-4 text-left">
-                  <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    Account
+                    Row
                   </p>
                 </th>
                 <th class="py-3 pr-4 text-left">
@@ -43,87 +36,49 @@
                 </th>
                 <th class="py-3 pr-4 text-left">
                   <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    Flag State
+                    Max Stack Height
                   </p>
                 </th>
                 <th class="py-3 pr-4 text-left">
                   <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    Gross Tonnage
-                  </p>
-                </th>
-                <th class="py-3 pr-4 text-left">
-                  <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    LOA (m)
-                  </p>
-                </th>
-                <th class="py-3 pr-4 text-left">
-                  <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    Beam (m)
-                  </p>
-                </th>
-                <th class="py-3 pr-4 text-left">
-                  <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    Max Draft (m)
+                    Ownership
                   </p>
                 </th>
                 <th class="py-3 text-left">
                   <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                    Actions
+                    Status
                   </p>
                 </th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-              @if(vessels.length)
-                @each(vessel in vessels)
+              @if(yardSlots.length)
+                @each(slot in yardSlots)
                   <tr>
                     <td class="whitespace-nowrap py-3 pr-4 text-theme-sm font-medium text-gray-800 dark:text-white/90">
-                      {{ vessel.imoNumber }}
+                      {{ slot.bay }}
                     </td>
                     <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
-                      {{ vessel.name }}
+                      {{ slot.row }}
                     </td>
                     <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
-                      {{ vessel.account?.companyName ?? '—' }}
+                      {{ slot.type }}
                     </td>
                     <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
-                      {{ vessel.type }}
+                      {{ slot.maxStackHeight }}
                     </td>
                     <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
-                      {{ vessel.flagState }}
+                      {{ slot.ownership }}
                     </td>
-                    <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
-                      {{ vessel.grossTonnage }}
-                    </td>
-                    <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
-                      {{ vessel.loa }}
-                    </td>
-                    <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
-                      {{ vessel.beam }}
-                    </td>
-                    <td class="whitespace-nowrap py-3 pr-4 text-theme-sm text-gray-500 dark:text-gray-400">
-                      {{ vessel.maxDraft }}
-                    </td>
-                    <td class="whitespace-nowrap py-3">
-                      <div class="flex items-center gap-2">
-                        @form({ route: 'vessels.approve', routeParams: { id: vessel.imoNumber }, method: 'PATCH' })
-                          <button type="submit" class="inline-flex items-center rounded-lg bg-success-500 px-3 py-1.5 text-theme-xs font-medium text-white hover:bg-success-600">
-                            Approve
-                          </button>
-                        @end
-                        @form({ route: 'vessels.deny', routeParams: { id: vessel.imoNumber }, method: 'PATCH' })
-                          <button type="submit" class="inline-flex items-center rounded-lg bg-error-500 px-3 py-1.5 text-theme-xs font-medium text-white hover:bg-error-600">
-                            Deny
-                          </button>
-                        @end
-                      </div>
+                    <td class="whitespace-nowrap py-3 text-theme-sm text-gray-500 dark:text-gray-400">
+                      {{ slot.status ?? '—' }}
                     </td>
                   </tr>
                 @end
               @else
                 <tr>
-                  <td colspan="10" class="py-8 text-center text-theme-sm text-gray-500 dark:text-gray-400">
-                    No pending vessels found.
+                  <td colspan="6" class="py-8 text-center text-theme-sm text-gray-500 dark:text-gray-400">
+                    No yard slots found.
                   </td>
                 </tr>
               @end
@@ -135,29 +90,29 @@
           class="mt-4 flex flex-col gap-3 border-t border-gray-100 pt-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between"
         >
           <p class="text-theme-sm text-gray-600 dark:text-gray-300">
-            Page {{ pendingVesselsMeta.currentPage }} of {{ pendingVesselsMeta.lastPage }} · {{ pendingVesselsMeta.total }} total
+            Page {{ yardSlotsMetadata.currentPage }} of {{ yardSlotsMetadata.lastPage }} · {{ yardSlotsMetadata.total }} total
           </p>
 
           <div class="flex flex-wrap items-center gap-2">
-            @if(pendingVesselsMeta.currentPage > 1)
+            @if(yardSlotsMetadata.currentPage > 1)
               @link({
-              route: 'vessels.pending',
-              routeOptions: { qs: { page: pendingVesselsMeta.currentPage - 1 } },
+              route: 'yard_slots.index',
+              routeOptions: { qs: { page: yardSlotsMetadata.currentPage - 1 } },
               class: 'inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-theme-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white/[0.03]'
               })
                 Previous
               @end
             @end
-            
-            @let(pages = Array.from({ length: pendingVesselsMeta.lastPage }, (_, i) => i + 1))
+
+            @let(pages = Array.from({ length: yardSlotsMetadata.lastPage }, (_, i) => i + 1))
             @each(page in pages)
-              @if(page === pendingVesselsMeta.currentPage)
+              @if(page === yardSlotsMetadata.currentPage)
                 <span class="inline-flex items-center rounded-lg border border-brand-500 bg-brand-500 px-3 py-1.5 text-theme-sm font-medium text-white">
                   {{ page }}
                 </span>
               @else
                 @link({
-                route: 'vessels.pending',
+                route: 'yard_slots.index',
                 routeOptions: { qs: { page } },
                 class: 'inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-theme-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white/[0.03]'
                 })
@@ -165,11 +120,11 @@
                 @end
               @end
             @end
-            
-            @if(pendingVesselsMeta.currentPage < pendingVesselsMeta.lastPage)
+
+            @if(yardSlotsMetadata.currentPage < yardSlotsMetadata.lastPage)
               @link({
-              route: 'vessels.pending',
-              routeOptions: { qs: { page: pendingVesselsMeta.currentPage + 1 } },
+              route: 'yard_slots.index',
+              routeOptions: { qs: { page: yardSlotsMetadata.currentPage + 1 } },
               class: 'inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-theme-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white/[0.03]'
               })
                 Next

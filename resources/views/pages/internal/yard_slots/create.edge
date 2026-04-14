@@ -22,10 +22,18 @@
                 @end
               </div>
 
-              <div class="w-1/2 px-2.5">
+              <div class="w-1/4 px-2.5">
                 @field.root({ name: 'row' })
                   @!field.label({ text: 'Row' })
                   @!input.control({ type: 'number', min: 1, placeholder: 'e.g. 1' })
+                  @!field.error()
+                @end
+              </div>
+
+              <div class="w-1/4 px-2.5">
+                @field.root({ name: 'toRow' })
+                  @!field.label({ text: 'To Row (optional)' })
+                  @!input.control({ type: 'number', min: 1, placeholder: 'e.g. 10' })
                   @!field.error()
                 @end
               </div>
