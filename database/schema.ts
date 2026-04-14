@@ -207,3 +207,28 @@ export class VesselSchema extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
+
+export class YardSlotSchema extends BaseModel {
+  static $columns = ['bay', 'createdAt', 'id', 'maxStackHeight', 'ownership', 'owningAccountId', 'row', 'status', 'type', 'updatedAt'] as const
+  $columns = YardSlotSchema.$columns
+  @column()
+  declare bay: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare maxStackHeight: number
+  @column()
+  declare ownership: string
+  @column()
+  declare owningAccountId: number | null
+  @column()
+  declare row: number
+  @column()
+  declare status: string | null
+  @column()
+  declare type: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}

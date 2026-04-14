@@ -20,6 +20,7 @@ import '#modules/internal/user/routes'
 import '#modules/internal/accounts/routes'
 import '#modules/internal/containers/routes'
 import '#modules/internal/vessels/routes'
+import '#modules/internal/yard_slots/routes'
 
 import router from '@adonisjs/core/services/router'
 import { throttle } from './limiter.ts'

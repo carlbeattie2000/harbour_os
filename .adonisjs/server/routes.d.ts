@@ -26,6 +26,8 @@ export type ScannedRoutes = {
     'vessels.pending': { paramsTuple?: []; params?: {} }
     'vessels.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'vessels.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'yard_slots.create': { paramsTuple?: []; params?: {} }
+    'yard_slots.store': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
@@ -44,6 +46,7 @@ export type ScannedRoutes = {
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'vessels.pending': { paramsTuple?: []; params?: {} }
+    'yard_slots.create': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
@@ -61,6 +64,7 @@ export type ScannedRoutes = {
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
     'vessels.pending': { paramsTuple?: []; params?: {} }
+    'yard_slots.create': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
   POST: {
@@ -70,6 +74,7 @@ export type ScannedRoutes = {
     'vessels.store': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_users.store': { paramsTuple?: []; params?: {} }
     'create_accounts.store': { paramsTuple?: []; params?: {} }
+    'yard_slots.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
   PATCH: {

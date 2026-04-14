@@ -7,10 +7,11 @@ export const controllers = {
   internal: {
     Containers: () => import('#controllers/internal/containers_controller'),
     CreateAccounts: () => import('#controllers/internal/create_accounts_controller'),
-    Dashboard: () => import('#controllers/internal/dashboard_controller'),
-    Vessels: () => import('#controllers/internal/vessels_controller'),
     CreateUsers: () => import('#controllers/internal/create_users_controller'),
+    Dashboard: () => import('#controllers/internal/dashboard_controller'),
     Users: () => import('#controllers/internal/users_controller'),
+    Vessels: () => import('#controllers/internal/vessels_controller'),
+    YardSlots: () => import('#controllers/internal/yard_slots_controller'),
   },
   portal: {
     account: {
