@@ -9,19 +9,19 @@ export default class extends BaseSchema {
 
       table.string('vessel_id').references('imo_number').inTable('vessels').notNullable()
 
-      table.string('status').notNullable();
+      table.string('status').notNullable()
 
-      table.timestamp('eta').notNullable();
+      table.timestamp('eta').notNullable()
 
-      table.timestamp('ata').nullable();
-      table.timestamp('etd').nullable();
-      table.timestamp('atd').nullable();
+      table.timestamp('ata').nullable()
+      table.timestamp('etd').nullable()
+      table.timestamp('atd').nullable()
 
-      table.string('purpose').notNullable();
+      table.string('purpose').notNullable()
 
-      table.boolean('pilotage_required').notNullable();
+      table.boolean('pilotage_required').notNullable()
 
-      table.integer('total_fees').notNullable();
+      table.integer('total_fees').notNullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

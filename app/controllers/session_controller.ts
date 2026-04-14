@@ -25,7 +25,7 @@ export default class SessionController {
     const loginLimiter = limiter.use({
       requests: 5,
       duration: '1 min',
-      blockDuration: '20 mins'
+      blockDuration: '20 mins',
     })
 
     const key = `login_${request.ip()}_${email}`
@@ -35,13 +35,16 @@ export default class SessionController {
     })
 
     if (error) {
-      session.flash('error', `Too many login attempts. Try again after ${error.response.availableIn} seconds`)
+      session.flash(
+        'error',
+        `Too many login attempts. Try again after ${error.response.availableIn} seconds`
+      )
       return response.redirect().back()
     }
 
     await auth.use('web').login(user)
 
-    const userRoles = await RbacService.getUserRoles(user);
+    const userRoles = await RbacService.getUserRoles(user)
 
     if (RbacService.HasRole(userRoles, ['portal'], false)) {
       return response.redirect().toRoute('portal.dashboard')

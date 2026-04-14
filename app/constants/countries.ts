@@ -192,4 +192,4 @@ export const COUNTRIES = [
   { code: 'ZW', name: 'Zimbabwe' },
 ] as const
 
-export type CountryCode = typeof COUNTRIES[number]['code']
+export type CountryCode = (typeof COUNTRIES)[number]['code']

@@ -1,4 +1,4 @@
-import AppError from "./app_error.ts";
+import AppError from './app_error.ts'
 
 export class UserNotPortalError extends AppError {
   constructor() {

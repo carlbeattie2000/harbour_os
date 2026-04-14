@@ -1,28 +1,28 @@
-import ApexCharts from "apexcharts";
+import ApexCharts from 'apexcharts'
 
 // ===== chartThree
 const chart03 = () => {
   const chartThreeOptions = {
     series: [
       {
-        name: "Sales",
+        name: 'Sales',
         data: [180, 190, 170, 160, 175, 165, 170, 205, 230, 210, 240, 235],
       },
       {
-        name: "Revenue",
+        name: 'Revenue',
         data: [40, 30, 50, 40, 55, 40, 70, 100, 110, 120, 150, 140],
       },
     ],
     legend: {
       show: false,
-      position: "top",
-      horizontalAlign: "left",
+      position: 'top',
+      horizontalAlign: 'left',
     },
-    colors: ["#465FFF", "#9CB9FF"],
+    colors: ['#465FFF', '#9CB9FF'],
     chart: {
-      fontFamily: "Outfit, sans-serif",
+      fontFamily: 'Outfit, sans-serif',
       height: 310,
-      type: "area",
+      type: 'area',
       toolbar: {
         show: false,
       },
@@ -35,8 +35,8 @@ const chart03 = () => {
       },
     },
     stroke: {
-      curve: "straight",
-      width: ["2", "2"],
+      curve: 'straight',
+      width: ['2', '2'],
     },
 
     markers: {
@@ -44,7 +44,7 @@ const chart03 = () => {
     },
     labels: {
       show: false,
-      position: "top",
+      position: 'top',
     },
     grid: {
       xaxis: {
@@ -63,24 +63,24 @@ const chart03 = () => {
     },
     tooltip: {
       x: {
-        format: "dd MMM yyyy",
+        format: 'dd MMM yyyy',
       },
     },
     xaxis: {
-      type: "category",
+      type: 'category',
       categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
       ],
       axisBorder: {
         show: false,
@@ -93,21 +93,18 @@ const chart03 = () => {
     yaxis: {
       title: {
         style: {
-          fontSize: "0px",
+          fontSize: '0px',
         },
       },
     },
-  };
+  }
 
-  const chartSelector = document.querySelectorAll("#chartThree");
+  const chartSelector = document.querySelectorAll('#chartThree')
 
   if (chartSelector.length) {
-    const chartThree = new ApexCharts(
-      document.querySelector("#chartThree"),
-      chartThreeOptions,
-    );
-    chartThree.render();
+    const chartThree = new ApexCharts(document.querySelector('#chartThree'), chartThreeOptions)
+    chartThree.render()
   }
-};
+}
 
-export default chart03;
+export default chart03

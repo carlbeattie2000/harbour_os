@@ -11,11 +11,7 @@
     <a href="index.html">
       <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
         <img class="dark:hidden" src="./images/logo/logo.svg" alt="Logo" />
-        <img
-          class="hidden dark:block"
-          src="./images/logo/logo-dark.svg"
-          alt="Logo"
-        />
+        <img class="hidden dark:block" src="./images/logo/logo-dark.svg" alt="Logo" />
       </span>
 
       <img
@@ -28,20 +24,13 @@
   </div>
   <!-- SIDEBAR HEADER -->
 
-  <div
-    class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear"
-  >
+  <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
     <!-- Sidebar Menu -->
     <nav x-data="{selected: $persist('Dashboard')}">
       <!-- Menu Group -->
       <div>
         <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
-          <span
-            class="menu-group-title"
-            :class="sidebarToggle ? 'lg:hidden' : ''"
-          >
-            MENU
-          </span>
+          <span class="menu-group-title" :class="sidebarToggle ? 'lg:hidden' : ''"> MENU </span>
 
           <svg
             :class="sidebarToggle ? 'lg:block hidden' : 'hidden'"
@@ -86,10 +75,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                 Dashboard
               </span>
             </a>
@@ -120,10 +106,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                 Calendar
               </span>
             </a>
@@ -154,10 +137,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                 User Profile
               </span>
             </a>
@@ -188,12 +168,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
-                Task
-              </span>
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''"> Task </span>
 
               <svg
                 class="menu-item-arrow"
@@ -287,12 +262,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
-                Forms
-              </span>
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''"> Forms </span>
 
               <svg
                 class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
@@ -370,12 +340,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
-                Tables
-              </span>
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''"> Tables </span>
 
               <svg
                 class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
@@ -461,12 +426,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
-                Pages
-              </span>
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''"> Pages </span>
 
               <svg
                 class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
@@ -677,12 +637,7 @@
       <!-- Support Group -->
       <div>
         <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
-          <span
-            class="menu-group-title"
-            :class="sidebarToggle ? 'lg:hidden' : ''"
-          >
-            Support
-          </span>
+          <span class="menu-group-title" :class="sidebarToggle ? 'lg:hidden' : ''"> Support </span>
 
           <svg
             :class="sidebarToggle ? 'lg:block hidden' : 'hidden'"
@@ -727,12 +682,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
-                Chat
-              </span>
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''"> Chat </span>
             </a>
           </li>
           <!-- Menu Item Chat -->
@@ -761,12 +711,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
-                Email
-              </span>
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''"> Email </span>
 
               <svg
                 class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
@@ -860,10 +805,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                 Invoice
               </span>
             </a>
@@ -875,12 +817,7 @@
       <!-- Others Group -->
       <div>
         <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
-          <span
-            class="menu-group-title"
-            :class="sidebarToggle ? 'lg:hidden' : ''"
-          >
-            others
-          </span>
+          <span class="menu-group-title" :class="sidebarToggle ? 'lg:hidden' : ''"> others </span>
 
           <svg
             :class="sidebarToggle ? 'lg:block hidden' : 'hidden'"
@@ -925,12 +862,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
-                Charts
-              </span>
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''"> Charts </span>
 
               <svg
                 class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
@@ -1041,10 +973,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                 Ui Elements
               </span>
 
@@ -1175,10 +1104,7 @@
                 />
               </svg>
 
-              <span
-                class="menu-item-text"
-                :class="sidebarToggle ? 'lg:hidden' : ''"
-              >
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                 Authentication
               </span>
 
@@ -1260,9 +1186,7 @@
       :class="sidebarToggle ? 'lg:hidden' : ''"
       class="mx-auto mb-10 w-full max-w-60 rounded-2xl bg-gray-50 px-4 py-5 text-center dark:bg-white/[0.03]"
     >
-      <h3 class="mb-2 font-semibold text-gray-900 dark:text-white">
-        TailAdmin Pro
-      </h3>
+      <h3 class="mb-2 font-semibold text-gray-900 dark:text-white">TailAdmin Pro</h3>
       <p class="mb-4 text-theme-sm text-gray-500 dark:text-gray-400">
         Get All Dashboards and 300+ UI Elements
       </p>

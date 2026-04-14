@@ -5,6 +5,7 @@ A modern web application for managing **port and harbour operations** from ship 
 Built as a full-stack project to demonstrate clean architecture, role-based access control, and domain-specific features in the maritime/logistics sector.
 
 ## Key Features (Current Progress)
+
 - Multi-account / multi-tenant portal with role-based access (e.g. port operators, shipping agents, truck companies)
 - User authentication and secure session management
 - Dashboard with accounts overview and member lists
@@ -13,30 +14,37 @@ Built as a full-stack project to demonstrate clean architecture, role-based acce
 - Mail service integration
 
 ## Tech Stack
+
 - **Backend**: AdonisJS (Node.js + TypeScript)
 - **Frontend**: Vite + Edge templates + JavaScript
 - **Styling**: Tailwind
-- **Database**: SQLite3 
+- **Database**: SQLite3
 - **Other**: ESLint, Prettier, Vite
 
 ## Technical Specification
+
 Full project vision and detailed requirements → [HarbourOS-Technical-Specification.pdf](HarbourOS-Technical-Specification.pdf)
 
 ## Screenshots
 
 ### Landing Page
+
 ![Landing Page](./screenshots/landing_page.png)
 
 ### Portal Login
+
 ![Portal Login](./screenshots/portal_login.png)
 
 ### Internal Dashboard (WIP)
+
 ![Internal Dashboard](./screenshots/internal_dashboard_wip.png)
 
 ### Portal Dashboard (WIP)
+
 ![Portal Dashboard](./screenshots/portal_dashboard_wip.png)
 
 ### Portal Account Dashboard (WIP)
+
 ![Portal Account Dashboard](./screenshots/portal_account_dashboard_wip.png)
 
 ## How to Run Locally

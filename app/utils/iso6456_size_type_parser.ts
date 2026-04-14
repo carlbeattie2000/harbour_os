@@ -1,4 +1,4 @@
-import { ISO6346InvalidSizeTypeCode } from "../errors/ISO6346.ts";
+import { ISO6346InvalidSizeTypeCode } from '../errors/iso6346.ts'
 
 const isoSizeTypeMapping: Record<string, string> = {
   '20G0': 'GENERAL PURPOSE CONT.',
@@ -83,12 +83,12 @@ const isoSizeTypeMapping: Record<string, string> = {
   'L0G1': 'LOW CUBE CONT.',
   'L2G1': 'STANDARD CONT.',
   'L5G1': 'HIGH CUBE CONT.',
-};
+}
 
 export default function (code: string): string {
-  const trimmed = code.trim().toUpperCase();
+  const trimmed = code.trim().toUpperCase()
   if (!(trimmed in isoSizeTypeMapping)) {
-    throw new ISO6346InvalidSizeTypeCode();
+    throw new ISO6346InvalidSizeTypeCode()
   }
-  return isoSizeTypeMapping[trimmed];
+  return isoSizeTypeMapping[trimmed]
 }

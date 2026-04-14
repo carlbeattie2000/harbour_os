@@ -45,15 +45,18 @@ export default class AddUsersController {
         return response.redirect().back()
       }
 
-      await AccountUser.create({
-        accountId: account.id,
-        userId: user.id,
-      }, { client: trx })
+      await AccountUser.create(
+        {
+          accountId: account.id,
+          userId: user.id,
+        },
+        { client: trx }
+      )
 
       await UserAccountAssignedRole.create({ roleId: role, userId: user.id }, { client: trx })
 
       session.flash('success', `User with email ${email} was added to the account`)
-      return response.redirect().toRoute('accounts.show', { id: account.id })
+      return response.redirect().toRoute('view_account.show', { id: account.id })
     })
   }
 }

@@ -14,7 +14,7 @@ export default class extends BaseSchema {
 
       table.string('password').notNullable()
 
-      table.boolean('active').defaultTo(true).notNullable();
+      table.boolean('active').defaultTo(true).notNullable()
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()

@@ -8,7 +8,6 @@ router
     router.get('/create', [controllers.internal.YardSlots, 'create'])
     router.post('/', [controllers.internal.YardSlots, 'store'])
 
-
     router.get('/', [controllers.internal.YardSlots, 'index'])
   })
   .use(middleware.auth())

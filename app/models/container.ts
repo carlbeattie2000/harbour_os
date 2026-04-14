@@ -1,4 +1,3 @@
 import { ContainerSchema } from '#database/schema'
 
-export default class Container extends ContainerSchema {
-}
+export default class Container extends ContainerSchema {}

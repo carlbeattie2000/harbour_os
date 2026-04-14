@@ -10,7 +10,6 @@
 import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
 
-
 import '#modules/portal/routes'
 import '#modules/portal/account/routes'
 import '#modules/portal/vessels/routes'

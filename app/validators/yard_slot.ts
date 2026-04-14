@@ -1,4 +1,4 @@
-import vine from "@vinejs/vine";
+import vine from '@vinejs/vine'
 
 export const createYardSlotValidator = vine.create({
   bay: vine
@@ -12,8 +12,8 @@ export const createYardSlotValidator = vine.create({
     .string()
     .trim()
     .transform((str) => str.toLowerCase()),
-});
+})
 
 export const viewAllYardSlotsValidator = vine.create({
-  page: vine.number().min(1).optional()
-});
+  page: vine.number().min(1).optional(),
+})

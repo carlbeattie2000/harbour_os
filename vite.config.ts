@@ -16,7 +16,7 @@ export default defineConfig({
        */
       reload: ['resources/views/**/*.edge'],
     }),
-    tailwindcss()
+    tailwindcss(),
   ],
 
   server: {

@@ -1,9 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import {
-  ACCOUNT_DEFAULT_ROLE,
-  ACCOUNT_TYPE_ROLES,
-  ACCOUNT_TYPES,
-} from '#constants/account_types'
+import { ACCOUNT_DEFAULT_ROLE, ACCOUNT_TYPE_ROLES, ACCOUNT_TYPES } from '#constants/account_types'
 import { COUNTRIES } from '#constants/countries'
 import { createAccountValidator, createAccountWithUserValidator } from '#validators/account'
 import User from '#models/user'

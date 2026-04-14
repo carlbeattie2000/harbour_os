@@ -21,6 +21,6 @@ export default class VesselsController {
 
     session.flash('success', 'Vessel is pending for verification!')
 
-    return response.redirect().toRoute('vessels.create', { id: account.id });
+    return response.redirect().toRoute('vessels.create', { id: account.id })
   }
 }

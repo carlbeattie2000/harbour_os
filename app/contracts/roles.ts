@@ -1,27 +1,27 @@
-type WILDCARD_ROLE = '*'
+type WildcardRole = '*'
 
 export type UserRoles =
-  | "admin"
-  | "operations_manager"
-  | "yard_manager"
-  | "billing_clerk"
-  | "inventory_controller"
-  | "gate_operator"
-  | "tally_clerk"
-  | "reefer_technician"
-  | "equipment_operator"
-  | "portal"
-  | WILDCARD_ROLE
+  | 'admin'
+  | 'operations_manager'
+  | 'yard_manager'
+  | 'billing_clerk'
+  | 'inventory_controller'
+  | 'gate_operator'
+  | 'tally_clerk'
+  | 'reefer_technician'
+  | 'equipment_operator'
+  | 'portal'
+  | WildcardRole
 
 export type AccountRoles =
-  | "account_admin"
-  | "vessel_planner"
-  | "captain"
-  | "agent_user"
-  | "account_user"
-  | "account_readonly"
-  | "dispatcher"
-  | "slot_manager"
-  | WILDCARD_ROLE
+  | 'account_admin'
+  | 'vessel_planner'
+  | 'captain'
+  | 'agent_user'
+  | 'account_user'
+  | 'account_readonly'
+  | 'dispatcher'
+  | 'slot_manager'
+  | WildcardRole
 
-export type UserAndAccountRoles = UserRoles | AccountRoles;
+export type UserAndAccountRoles = UserRoles | AccountRoles

@@ -1,8 +1,8 @@
-import { AccountDoesNotOwnVessel } from "#errors/port_call_errors";
-import PortCall from "#models/port_call";
-import Vessel from "#models/vessel";
-import { createPortCallValidator } from "#validators/port_call";
-import type { HttpContext } from "@adonisjs/core/http";
+import { AccountDoesNotOwnVessel } from '#errors/port_call_errors'
+import PortCall from '#models/port_call'
+import Vessel from '#models/vessel'
+import { createPortCallValidator } from '#validators/port_call'
+import type { HttpContext } from '@adonisjs/core/http'
 
 export default class PortCallsController {
   async create({ view, account }: HttpContext) {
@@ -10,19 +10,19 @@ export default class PortCallsController {
       .where('shippingLineId', account.id)
       .select('imoNumber', 'name')
 
-    return view.render("pages/portal/port_calls/create", { account, vessels });
+    return view.render('pages/portal/port_calls/create', { account, vessels })
   }
 
   async store({ request, response, session, account }: HttpContext) {
-    const payload = await request.validateUsing(createPortCallValidator);
+    const payload = await request.validateUsing(createPortCallValidator)
 
     const vessel = await Vessel.query()
-      .where("imoNumber", payload.imoNumber)
-      .andWhere("shippingLineId", account.id)
-      .first();
+      .where('imoNumber', payload.imoNumber)
+      .andWhere('shippingLineId', account.id)
+      .first()
 
     if (!vessel) {
-      throw new AccountDoesNotOwnVessel();
+      throw new AccountDoesNotOwnVessel()
     }
 
     await PortCall.create({
@@ -30,13 +30,13 @@ export default class PortCallsController {
       eta: payload.eta,
       etd: payload.etd,
       pilotageRequired: payload.pilotageRequired,
-      status: "pending",
+      status: 'pending',
       purpose: payload.purpose,
-      totalFees: 0
-    });
+      totalFees: 0,
+    })
 
-    session.flash("success", "Port call requested");
+    session.flash('success', 'Port call requested')
 
-    return response.redirect().toRoute("port_calls.create", { id: account.id });
+    return response.redirect().toRoute('port_calls.create', { id: account.id })
   }
 }

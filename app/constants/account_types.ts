@@ -16,4 +16,4 @@ export const ACCOUNT_TYPE_ROLES = {
 
 export const ACCOUNT_DEFAULT_ROLE = 'account_admin'
 
-export type AccountType = typeof ACCOUNT_TYPES[keyof typeof ACCOUNT_TYPES]
+export type AccountType = (typeof ACCOUNT_TYPES)[keyof typeof ACCOUNT_TYPES]

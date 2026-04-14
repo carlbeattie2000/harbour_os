@@ -1,9 +1,11 @@
 import vine from '@vinejs/vine'
 
 export const queryPendingListValidator = vine.create({
-  qs: vine.object({
-    page: vine.number().min(1).optional(),
-  }).optional(),
+  qs: vine
+    .object({
+      page: vine.number().min(1).optional(),
+    })
+    .optional(),
 })
 
 export const createVesselValidator = vine.create({
@@ -19,6 +21,6 @@ export const createVesselValidator = vine.create({
 
 export const validatePendingVesselValidator = vine.create({
   params: vine.object({
-    id: vine.string().minLength(7).maxLength(7)
+    id: vine.string().minLength(7).maxLength(7),
   }),
 })

@@ -39,15 +39,15 @@ export default class YardSlotsController {
   async index({ request, view }: HttpContext) {
     const { page } = await request.validateUsing(viewAllYardSlotsValidator)
 
-    const yardSlots = (
-      await YardSlot.query()
-        .orderBy('bay', 'asc')
-        .paginate(page ?? 1, VIEW_YARD_SLOTS_QUERY_LIMIT)
-    ).serialize()
+    const yardSlots = await YardSlot.query()
+      .orderBy('bay', 'asc')
+      .paginate(page ?? 1, VIEW_YARD_SLOTS_QUERY_LIMIT)
+
+    const yardSlotsSerialized = yardSlots.serialize()
 
     return view.render('pages/internal/yard_slots/view_all', {
-      yardSlots: yardSlots.data,
-      yardSlotsMetadata: yardSlots.meta,
+      yardSlots: yardSlotsSerialized.data,
+      yardSlotsMetadata: yardSlotsSerialized.meta,
     })
   }
 }

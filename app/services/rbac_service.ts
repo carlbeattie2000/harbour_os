@@ -1,11 +1,11 @@
-import Account from '#models/account'
+import type Account from '#models/account'
 import type Role from '#models/role'
 import type User from '#models/user'
 import type UserAccountRole from '#models/user_account_role'
 import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
 import { DateTime } from 'luxon'
 
-const WILDCARD_ROLE = '*'
+const WildcardRole = '*'
 
 export class RbacService {
   private static RoleHasExpired(role: Role | UserAccountRole) {
@@ -19,7 +19,7 @@ export class RbacService {
   }
 
   static HasRole(userRoles: string[], roles: string[], strict: boolean): boolean {
-    userRoles = [...userRoles, WILDCARD_ROLE]
+    userRoles = [...userRoles, WildcardRole]
     return strict
       ? this.HasAllRoles(userRoles, roles)
       : roles.some((role) => userRoles.includes(role))
@@ -47,18 +47,22 @@ export class RbacService {
       return this.UserRolesToSlugs(user.roles)
     }
     await user.load('roles')
-    return this.UserRolesToSlugs(user.roles);
+    return this.UserRolesToSlugs(user.roles)
   }
 
-  static async getAccountRoles(user: User, account: Account, trx?: TransactionClientContract): Promise<string[]> {
+  static async getAccountRoles(
+    user: User,
+    account: Account,
+    trx?: TransactionClientContract
+  ): Promise<string[]> {
     if (trx) {
       await user.useTransaction(trx).load('accountRoles', (query) => {
-        query.where('account_id', account.id);
+        query.where('account_id', account.id)
       })
       return this.UserRolesToSlugs(user.accountRoles)
     }
     await user.load('accountRoles', (query) => {
-      query.where('account_id', account.id);
+      query.where('account_id', account.id)
     })
     return this.UserRolesToSlugs(user.accountRoles)
   }

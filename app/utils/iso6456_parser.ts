@@ -1,6 +1,12 @@
-import { ISO6346CheckDigitInvalid, ISO6346InvalidCharacterInCode, ISO6346InvalidFormat, ISO6346InvalidLength, ISO6346MustBeString } from "../errors/ISO6346.ts"
+import {
+  ISO6346CheckDigitInvalid,
+  ISO6346InvalidCharacterInCode,
+  ISO6346InvalidFormat,
+  ISO6346InvalidLength,
+  ISO6346MustBeString,
+} from '../errors/iso6346.ts'
 
-interface ISO6346 {
+interface ParsedData {
   ownerCode: string
   category: 'U' | 'R'
   serial: string
@@ -48,7 +54,7 @@ function validateCheckDigit(code: string): void {
     if (value === undefined) {
       value = Number.parseInt(char, 10)
       if (Number.isNaN(value)) {
-        throw new ISO6346InvalidCharacterInCode();
+        throw new ISO6346InvalidCharacterInCode()
       }
     }
 
@@ -58,19 +64,19 @@ function validateCheckDigit(code: string): void {
   const calculatedCheckDigit = sum % 11 === 10 ? 0 : sum % 11
 
   if (calculatedCheckDigit !== inputCheckDigit) {
-    throw new ISO6346CheckDigitInvalid();
+    throw new ISO6346CheckDigitInvalid()
   }
 }
 
-export default function (code: string): ISO6346 {
+export default function (code: string): ParsedData {
   if (typeof code !== 'string') {
-    throw new ISO6346MustBeString();
+    throw new ISO6346MustBeString()
   }
 
   const trimmed = code.trim()
 
   if (trimmed.length !== REQUIRED_CODE_LENGTH) {
-    throw new ISO6346InvalidLength();
+    throw new ISO6346InvalidLength()
   }
 
   validateCheckDigit(trimmed)
@@ -80,7 +86,7 @@ export default function (code: string): ISO6346 {
   const match = trimmed.match(pattern)
 
   if (!match?.groups) {
-    throw new ISO6346InvalidFormat();
+    throw new ISO6346InvalidFormat()
   }
 
   const g = match.groups

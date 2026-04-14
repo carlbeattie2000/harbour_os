@@ -1,18 +1,18 @@
-import ApexCharts from "apexcharts";
+import ApexCharts from 'apexcharts'
 
 // ===== chartOne
 const chart01 = () => {
   const chartOneOptions = {
     series: [
       {
-        name: "Sales",
+        name: 'Sales',
         data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
       },
     ],
-    colors: ["#465fff"],
+    colors: ['#465fff'],
     chart: {
-      fontFamily: "Outfit, sans-serif",
-      type: "bar",
+      fontFamily: 'Outfit, sans-serif',
+      type: 'bar',
       height: 180,
       toolbar: {
         show: false,
@@ -21,9 +21,9 @@ const chart01 = () => {
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: "39%",
+        columnWidth: '39%',
         borderRadius: 5,
-        borderRadiusApplication: "end",
+        borderRadiusApplication: 'end',
       },
     },
     dataLabels: {
@@ -32,22 +32,22 @@ const chart01 = () => {
     stroke: {
       show: true,
       width: 4,
-      colors: ["transparent"],
+      colors: ['transparent'],
     },
     xaxis: {
       categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
       ],
       axisBorder: {
         show: false,
@@ -58,9 +58,9 @@ const chart01 = () => {
     },
     legend: {
       show: true,
-      position: "top",
-      horizontalAlign: "left",
-      fontFamily: "Outfit",
+      position: 'top',
+      horizontalAlign: 'left',
+      fontFamily: 'Outfit',
 
       markers: {
         radius: 99,
@@ -86,21 +86,18 @@ const chart01 = () => {
       },
       y: {
         formatter: function (val) {
-          return val;
+          return val
         },
       },
     },
-  };
+  }
 
-  const chartSelector = document.querySelectorAll("#chartOne");
+  const chartSelector = document.querySelectorAll('#chartOne')
 
   if (chartSelector.length) {
-    const chartFour = new ApexCharts(
-      document.querySelector("#chartOne"),
-      chartOneOptions,
-    );
-    chartFour.render();
+    const chartFour = new ApexCharts(document.querySelector('#chartOne'), chartOneOptions)
+    chartFour.render()
   }
-};
+}
 
-export default chart01;
+export default chart01

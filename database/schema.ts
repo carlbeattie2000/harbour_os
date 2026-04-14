@@ -17,7 +17,17 @@ export class AccountUserSchema extends BaseModel {
 }
 
 export class AccountSchema extends BaseModel {
-  static $columns = ['billingAddressId', 'companyName', 'createdAt', 'creditTerms', 'id', 'registrationNumber', 'status', 'type', 'updatedAt'] as const
+  static $columns = [
+    'billingAddressId',
+    'companyName',
+    'createdAt',
+    'creditTerms',
+    'id',
+    'registrationNumber',
+    'status',
+    'type',
+    'updatedAt',
+  ] as const
   $columns = AccountSchema.$columns
   @column()
   declare billingAddressId: number | null
@@ -40,7 +50,15 @@ export class AccountSchema extends BaseModel {
 }
 
 export class ContactDetailSchema extends BaseModel {
-  static $columns = ['addressLine', 'country', 'createdAt', 'email', 'id', 'phone', 'updatedAt'] as const
+  static $columns = [
+    'addressLine',
+    'country',
+    'createdAt',
+    'email',
+    'id',
+    'phone',
+    'updatedAt',
+  ] as const
   $columns = ContactDetailSchema.$columns
   @column()
   declare addressLine: string
@@ -59,7 +77,17 @@ export class ContactDetailSchema extends BaseModel {
 }
 
 export class ContainerSchema extends BaseModel {
-  static $columns = ['categoryIndentifier', 'checkDigit', 'createdAt', 'id', 'ownerCode', 'serialNumber', 'sizeType', 'typeGroup', 'updatedAt'] as const
+  static $columns = [
+    'categoryIndentifier',
+    'checkDigit',
+    'createdAt',
+    'id',
+    'ownerCode',
+    'serialNumber',
+    'sizeType',
+    'typeGroup',
+    'updatedAt',
+  ] as const
   $columns = ContainerSchema.$columns
   @column()
   declare categoryIndentifier: string
@@ -82,7 +110,18 @@ export class ContainerSchema extends BaseModel {
 }
 
 export class FeeEventSchema extends BaseModel {
-  static $columns = ['containerVisitId', 'createdAt', 'eventType', 'id', 'occurredAt', 'portCallId', 'quantity', 'totalAmount', 'unitRate', 'updatedAt'] as const
+  static $columns = [
+    'containerVisitId',
+    'createdAt',
+    'eventType',
+    'id',
+    'occurredAt',
+    'portCallId',
+    'quantity',
+    'totalAmount',
+    'unitRate',
+    'updatedAt',
+  ] as const
   $columns = FeeEventSchema.$columns
   @column()
   declare containerVisitId: number | null
@@ -107,7 +146,20 @@ export class FeeEventSchema extends BaseModel {
 }
 
 export class PortCallSchema extends BaseModel {
-  static $columns = ['ata', 'atd', 'createdAt', 'eta', 'etd', 'id', 'pilotageRequired', 'purpose', 'status', 'totalFees', 'updatedAt', 'vesselId'] as const
+  static $columns = [
+    'ata',
+    'atd',
+    'createdAt',
+    'eta',
+    'etd',
+    'id',
+    'pilotageRequired',
+    'purpose',
+    'status',
+    'totalFees',
+    'updatedAt',
+    'vesselId',
+  ] as const
   $columns = PortCallSchema.$columns
   @column.dateTime()
   declare ata: DateTime | null
@@ -194,7 +246,14 @@ export class UserAccountRoleSchema extends BaseModel {
 }
 
 export class UserAssignedRoleSchema extends BaseModel {
-  static $columns = ['assignedById', 'createdAt', 'expiresAt', 'isActive', 'roleId', 'userId'] as const
+  static $columns = [
+    'assignedById',
+    'createdAt',
+    'expiresAt',
+    'isActive',
+    'roleId',
+    'userId',
+  ] as const
   $columns = UserAssignedRoleSchema.$columns
   @column()
   declare assignedById: number | null
@@ -211,7 +270,16 @@ export class UserAssignedRoleSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['active', 'createdAt', 'email', 'firstName', 'id', 'lastName', 'password', 'updatedAt'] as const
+  static $columns = [
+    'active',
+    'createdAt',
+    'email',
+    'firstName',
+    'id',
+    'lastName',
+    'password',
+    'updatedAt',
+  ] as const
   $columns = UserSchema.$columns
   @column()
   declare active: boolean
@@ -232,7 +300,21 @@ export class UserSchema extends BaseModel {
 }
 
 export class VesselSchema extends BaseModel {
-  static $columns = ['beam', 'createdAt', 'flagState', 'grossTonnage', 'imoNumber', 'loa', 'maxDraft', 'name', 'portAgentId', 'shippingLineId', 'status', 'type', 'updatedAt'] as const
+  static $columns = [
+    'beam',
+    'createdAt',
+    'flagState',
+    'grossTonnage',
+    'imoNumber',
+    'loa',
+    'maxDraft',
+    'name',
+    'portAgentId',
+    'shippingLineId',
+    'status',
+    'type',
+    'updatedAt',
+  ] as const
   $columns = VesselSchema.$columns
   @column()
   declare beam: number
@@ -263,7 +345,18 @@ export class VesselSchema extends BaseModel {
 }
 
 export class YardSlotSchema extends BaseModel {
-  static $columns = ['bay', 'createdAt', 'id', 'maxStackHeight', 'ownership', 'owningAccountId', 'row', 'status', 'type', 'updatedAt'] as const
+  static $columns = [
+    'bay',
+    'createdAt',
+    'id',
+    'maxStackHeight',
+    'ownership',
+    'owningAccountId',
+    'row',
+    'status',
+    'type',
+    'updatedAt',
+  ] as const
   $columns = YardSlotSchema.$columns
   @column()
   declare bay: string

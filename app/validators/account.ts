@@ -23,5 +23,5 @@ export const createAccountValidator = vine.create({
 
 export const addUserToAccountValidator = vine.create({
   email: vine.string().trim().email(),
-  role: vine.number().min(0)
+  role: vine.number().min(0),
 })
