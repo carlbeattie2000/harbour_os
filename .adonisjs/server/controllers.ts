@@ -10,6 +10,7 @@ export const controllers = {
   CreateUsers: () => import('#controllers/create_users_controller'),
   internal: {
     Dashboard: () => import('#controllers/internal/dashboard_controller'),
+    Vessels: () => import('#controllers/internal/vessels_controller'),
   },
   portal: {
     account: {

@@ -14,4 +14,8 @@ export class VesselService {
       status: options.approved ? 'approved' : 'awaiting_approval',
     })
   }
+
+  async queryPending(page: number = 1) {
+    return await Vessel.query().where('status', 'awaiting_approval').paginate(page, 20);
+  }
 }

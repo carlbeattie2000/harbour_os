@@ -23,6 +23,8 @@ export type ScannedRoutes = {
     'create_accounts.store': { paramsTuple?: []; params?: {} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
+    'vessels.pending': { paramsTuple?: []; params?: {} }
+    'vessels.complete_verification': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
@@ -40,6 +42,8 @@ export type ScannedRoutes = {
     'create_accounts.create': { paramsTuple?: []; params?: {} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
+    'vessels.pending': { paramsTuple?: []; params?: {} }
+    'vessels.complete_verification': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
@@ -56,6 +60,8 @@ export type ScannedRoutes = {
     'create_accounts.create': { paramsTuple?: []; params?: {} }
     'containers.create': { paramsTuple?: []; params?: {} }
     'containers.store': { paramsTuple?: []; params?: {} }
+    'vessels.pending': { paramsTuple?: []; params?: {} }
+    'vessels.complete_verification': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
   }
   POST: {
