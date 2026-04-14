@@ -81,6 +81,35 @@ export class ContainerSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class PortCallSchema extends BaseModel {
+  static $columns = ['ata', 'atd', 'createdAt', 'eta', 'etd', 'id', 'pilotageRequired', 'purpose', 'status', 'totalFees', 'updatedAt', 'vesselId'] as const
+  $columns = PortCallSchema.$columns
+  @column.dateTime()
+  declare ata: DateTime | null
+  @column.dateTime()
+  declare atd: DateTime | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column.dateTime()
+  declare eta: DateTime
+  @column.dateTime()
+  declare etd: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare pilotageRequired: boolean
+  @column()
+  declare purpose: string
+  @column()
+  declare status: string
+  @column()
+  declare totalFees: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare vesselId: number
+}
+
 export class RateLimitSchema extends BaseModel {
   static $columns = ['expire', 'key', 'points'] as const
   $columns = RateLimitSchema.$columns
