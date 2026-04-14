@@ -81,6 +81,31 @@ export class ContainerSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class FeeEventSchema extends BaseModel {
+  static $columns = ['containerVisitId', 'createdAt', 'eventType', 'id', 'occurredAt', 'portCallId', 'quantity', 'totalAmount', 'unitRate', 'updatedAt'] as const
+  $columns = FeeEventSchema.$columns
+  @column()
+  declare containerVisitId: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare eventType: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare occurredAt: DateTime
+  @column()
+  declare portCallId: number
+  @column()
+  declare quantity: number
+  @column()
+  declare totalAmount: number
+  @column()
+  declare unitRate: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class PortCallSchema extends BaseModel {
   static $columns = ['ata', 'atd', 'createdAt', 'eta', 'etd', 'id', 'pilotageRequired', 'purpose', 'status', 'totalFees', 'updatedAt', 'vesselId'] as const
   $columns = PortCallSchema.$columns
