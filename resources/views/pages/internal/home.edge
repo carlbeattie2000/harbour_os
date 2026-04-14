@@ -31,6 +31,27 @@
             @end
           </div>
         </div>
+
+        @if(hasRole(user, ['admin', 'operations_manager']) || hasRole(user, ['admin', 'operations_manager', 'yard_manager']))
+          <div class="mt-6">
+            <h2 class="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Quick actions
+            </h2>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+              @if(hasRole(user, ['admin', 'operations_manager']))
+                @link({ href: '/internal/vessels/pending', class: 'inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-theme-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white/[0.03]' })
+                  View pending vessels
+                @end
+              @end
+              @if(hasRole(user, ['admin', 'operations_manager', 'yard_manager']))
+                @link({ href: '/containers/create', class: 'inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-theme-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white/[0.03]' })
+                  Add container
+                @end
+              @end
+            </div>
+          </div>
+        @end
       </div>
     </div>
   </div>
