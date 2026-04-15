@@ -14,7 +14,7 @@ export default class extends BaseSchema {
       table.timestamp('eta').notNullable()
 
       table.timestamp('ata').nullable()
-      table.timestamp('etd').nullable()
+      table.timestamp('etd').notNullable()
       table.timestamp('atd').nullable()
 
       table.string('purpose').notNullable()

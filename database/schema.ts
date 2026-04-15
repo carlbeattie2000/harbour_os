@@ -170,7 +170,7 @@ export class PortCallSchema extends BaseModel {
   @column.dateTime()
   declare eta: DateTime
   @column.dateTime()
-  declare etd: DateTime | null
+  declare etd: DateTime
   @column({ isPrimary: true })
   declare id: number
   @column()

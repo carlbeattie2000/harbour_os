@@ -31,6 +31,9 @@ export type ScannedRoutes = {
     'yard_slots.create': { paramsTuple?: []; params?: {} }
     'yard_slots.store': { paramsTuple?: []; params?: {} }
     'yard_slots.index': { paramsTuple?: []; params?: {} }
+    'port_calls.pending': { paramsTuple?: []; params?: {} }
+    'port_calls.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'port_calls.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'home': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
@@ -52,6 +55,7 @@ export type ScannedRoutes = {
     'vessels.pending': { paramsTuple?: []; params?: {} }
     'yard_slots.create': { paramsTuple?: []; params?: {} }
     'yard_slots.index': { paramsTuple?: []; params?: {} }
+    'port_calls.pending': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
@@ -72,6 +76,7 @@ export type ScannedRoutes = {
     'vessels.pending': { paramsTuple?: []; params?: {} }
     'yard_slots.create': { paramsTuple?: []; params?: {} }
     'yard_slots.index': { paramsTuple?: []; params?: {} }
+    'port_calls.pending': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
   POST: {
@@ -88,6 +93,8 @@ export type ScannedRoutes = {
   PATCH: {
     'vessels.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'vessels.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'port_calls.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'port_calls.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {
