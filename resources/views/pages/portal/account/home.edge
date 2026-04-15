@@ -38,6 +38,11 @@
               </h2>
 
               <div class="mt-3 flex flex-wrap gap-2">
+                @if(hasAccountRole(user, ['account_admin']))
+                  @link({ route: 'add_users.create', routeParams: [account.id], class: 'inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-theme-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white/[0.03]' })
+                    Invite a user
+                  @end
+                @end
                 @if(hasAccountRole(user, ['account_admin', 'captain', 'vessel_planner']))
                   @link({ href: `/portal/account/${account.id}/vessels/create`, class: 'inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-theme-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-white/[0.03]' })
                     Add new vessel
