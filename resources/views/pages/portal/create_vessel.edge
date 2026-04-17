@@ -43,6 +43,14 @@
                         </div>
 
                         <div class="w-full px-2.5">
+                            @field.root({ name: 'teuCapacity' })
+                                @!field.label({ text: 'TEU Capacity' })
+                                @!input.control({ type: 'number', min: 0, max: 10000, step: 1 })
+                                @!field.error()
+                            @end
+                        </div>
+
+                        <div class="w-full px-2.5">
                             @field.root({ name: 'grossTonnage' })
                                 @!field.label({ text: 'Gross Tonnage' })
                                 @!input.control({ type: 'number', min: 0, max: 100000, step: 1 })

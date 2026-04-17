@@ -11,6 +11,7 @@ import User from '#models/user'
 import UserAccountAssignedRole from '#models/user_account_assigned_role'
 import UserAccountRole from '#models/user_account_role'
 import UserAssignedRole from '#models/user_assigned_role'
+import Vessel from '#models/vessel'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
@@ -72,6 +73,20 @@ export default class extends BaseSeeder {
     await UserAccountAssignedRole.create({
       userId: portalUser.id,
       roleId: defaultRole.id,
+    })
+
+    await Vessel.create({
+      imoNumber: '9456789',
+      shippingLineId: shippingLineAccount.id,
+      name: 'MV Velocity Horizon',
+      flagState: 'Panama',
+      type: 'Container Ship (Fully Cellular)',
+      grossTonnage: 45250,
+      loa: 268.5,
+      beam: 32.2,
+      maxDraft: 12.8,
+      status: 'approved',
+      teuCapacity: 4850,
     })
   }
 }

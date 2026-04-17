@@ -15,6 +15,7 @@ export default class extends BaseSchema {
       table.integer('loa').notNullable()
       table.integer('beam').notNullable()
       table.integer('max_draft').notNullable()
+      table.integer('teu_capacity').notNullable()
 
       table
         .integer('shipping_line_id')

@@ -150,15 +150,20 @@ export class PortCallSchema extends BaseModel {
     'ata',
     'atd',
     'createdAt',
+    'estimatedDischargeContainers',
+    'estimatedLoadContainers',
     'eta',
     'etd',
+    'handlingTimeEstimatedHours',
     'id',
     'pilotageRequired',
+    'priority',
     'purpose',
     'status',
     'totalFees',
     'updatedAt',
     'vesselId',
+    'voyageNumber',
   ] as const
   $columns = PortCallSchema.$columns
   @column.dateTime()
@@ -167,14 +172,22 @@ export class PortCallSchema extends BaseModel {
   declare atd: DateTime | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column()
+  declare estimatedDischargeContainers: number
+  @column()
+  declare estimatedLoadContainers: number
   @column.dateTime()
   declare eta: DateTime
   @column.dateTime()
   declare etd: DateTime
+  @column()
+  declare handlingTimeEstimatedHours: number
   @column({ isPrimary: true })
   declare id: number
   @column()
   declare pilotageRequired: boolean
+  @column()
+  declare priority: string
   @column()
   declare purpose: string
   @column()
@@ -185,6 +198,8 @@ export class PortCallSchema extends BaseModel {
   declare updatedAt: DateTime | null
   @column()
   declare vesselId: string
+  @column()
+  declare voyageNumber: string | null
 }
 
 export class RateLimitSchema extends BaseModel {
@@ -312,6 +327,7 @@ export class VesselSchema extends BaseModel {
     'portAgentId',
     'shippingLineId',
     'status',
+    'teuCapacity',
     'type',
     'updatedAt',
   ] as const
@@ -338,6 +354,8 @@ export class VesselSchema extends BaseModel {
   declare shippingLineId: number | null
   @column()
   declare status: string
+  @column()
+  declare teuCapacity: number
   @column()
   declare type: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })

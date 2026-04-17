@@ -6,7 +6,14 @@ import { type DateTime } from 'luxon'
 
 export class PortCallService {
   async findNextPending() {
-    return await PortCall.query().where('status', 'pending').preload('vessel').first()
+    return await PortCall.query()
+      .where('status', 'pending')
+      .preload('vessel', (query) => {
+        query.preload('account', (vesselQuery) => {
+          vesselQuery.select('companyName')
+        })
+      })
+      .first()
   }
 
   async findOverlapping(excludeVesselId: string, etd: DateTime, eta: DateTime) {

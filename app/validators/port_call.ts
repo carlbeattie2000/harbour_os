@@ -12,4 +12,7 @@ export const createPortCallValidator = vine.create({
   eta: vine.date({ formats: ['YYYY-MM-DDTHH:mm'] }),
   etd: vine.date({ formats: ['YYYY-MM-DDTHH:mm'] }),
   pilotageRequired: vine.accepted().optional(),
+  estimatedDischargeContainers: vine.number().min(0),
+  estimatedLoadContainers: vine.number().min(0),
+  voyageNumber: vine.string().trim().minLength(1).maxLength(50),
 })
