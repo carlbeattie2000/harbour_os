@@ -58,6 +58,45 @@ export class BerthAvailableCraneSchema extends BaseModel {
   declare craneId: number
 }
 
+export class BerthVisitSchema extends BaseModel {
+  static $columns = [
+    'acctualArrival',
+    'acctualDeparture',
+    'berthId',
+    'createdAt',
+    'id',
+    'plannedArrival',
+    'plannedDeparture',
+    'portCallId',
+    'purpose',
+    'status',
+    'updatedAt',
+  ] as const
+  $columns = BerthVisitSchema.$columns
+  @column.dateTime()
+  declare acctualArrival: DateTime | null
+  @column.dateTime()
+  declare acctualDeparture: DateTime | null
+  @column()
+  declare berthId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare plannedArrival: DateTime
+  @column.dateTime()
+  declare plannedDeparture: DateTime
+  @column()
+  declare portCallId: number
+  @column()
+  declare purpose: string
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class BerthSchema extends BaseModel {
   static $columns = [
     'code',
