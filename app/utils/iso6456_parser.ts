@@ -4,7 +4,7 @@ import {
   ISO6346InvalidFormat,
   ISO6346InvalidLength,
   ISO6346MustBeString,
-} from '../errors/iso6346.ts'
+} from '../errors/iso_6346.ts'
 
 interface ParsedData {
   ownerCode: string
@@ -58,7 +58,7 @@ function validateCheckDigit(code: string): void {
       }
     }
 
-    sum += value * Math.pow(2, i)
+    sum += value * 2 ** i
   }
 
   const calculatedCheckDigit = sum % 11 === 10 ? 0 : sum % 11

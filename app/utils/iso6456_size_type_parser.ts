@@ -1,4 +1,4 @@
-import { ISO6346InvalidSizeTypeCode } from '../errors/iso6346.ts'
+import { ISO6346InvalidSizeTypeCode } from '../errors/iso_6346.ts'
 
 const isoSizeTypeMapping: Record<string, string> = {
   '20G0': 'GENERAL PURPOSE CONT.',

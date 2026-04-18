@@ -26,7 +26,12 @@ import '#modules/internal/port_calls/routes'
 import router from '@adonisjs/core/services/router'
 import { throttle } from './limiter.ts'
 
-router.on('/').render('pages/home').as('home').use(middleware.guest())
+router
+  .get('/', async ({ view }) => {
+    return view.render('pages/home')
+  })
+  .as('home')
+  .use(middleware.guest())
 
 router
   .group(() => {
