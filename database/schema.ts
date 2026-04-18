@@ -49,6 +49,45 @@ export class AccountSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class BerthAvailableCraneSchema extends BaseModel {
+  static $columns = ['berthId', 'craneId'] as const
+  $columns = BerthAvailableCraneSchema.$columns
+  @column()
+  declare berthId: number
+  @column()
+  declare craneId: number
+}
+
+export class BerthSchema extends BaseModel {
+  static $columns = [
+    'code',
+    'createdAt',
+    'id',
+    'length',
+    'maxBeam',
+    'maxDraft',
+    'status',
+    'updatedAt',
+  ] as const
+  $columns = BerthSchema.$columns
+  @column()
+  declare code: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare length: number
+  @column()
+  declare maxBeam: number | null
+  @column()
+  declare maxDraft: number
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class ContactDetailSchema extends BaseModel {
   static $columns = [
     'addressLine',
@@ -105,6 +144,33 @@ export class ContainerSchema extends BaseModel {
   declare sizeType: string
   @column()
   declare typeGroup: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class CraneSchema extends BaseModel {
+  static $columns = [
+    'berthId',
+    'code',
+    'createdAt',
+    'efficiencyRate',
+    'id',
+    'status',
+    'updatedAt',
+  ] as const
+  $columns = CraneSchema.$columns
+  @column()
+  declare berthId: number | null
+  @column()
+  declare code: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare efficiencyRate: number
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare status: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
