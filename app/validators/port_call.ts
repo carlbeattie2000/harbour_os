@@ -6,6 +6,13 @@ export const getPortCallValidator = vine.create({
   }),
 })
 
+export const approvePortCall = vine.create({
+  params: vine.object({
+    id: vine.number().min(0),
+  }),
+  berthId: vine.number().min(0),
+})
+
 export const createPortCallValidator = vine.create({
   imoNumber: vine.string().trim().minLength(7).maxLength(7),
   purpose: vine.enum(['inbound_cargo', 'outbound_cargo', 'both', 'transit', 'services']),

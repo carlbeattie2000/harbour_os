@@ -1,8 +1,5 @@
 @layout()
-
   @if(portCall)
-    @let(conflictingPortCalls = portCalls)
-
     <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
       <div class="space-y-6">
 
@@ -17,7 +14,7 @@
                 Pending Port Call #{{ portCall.id }}
               </h1>
               <p class="mt-1 text-theme-sm text-gray-500 dark:text-gray-400">
-                Review and approve vessel call for 
+                Review and approve vessel call for
               <span class="font-medium text-gray-700 dark:text-white">{{ portCall.vessel.name }} ({{ portCall.vessel.imoNumber }})</span>
               </p>
             </div>
@@ -135,7 +132,6 @@
                   {{ portCall.estimatedLoadContainers + portCall.estimatedDischargeContainers }}
                 </p>
               </div>
-
               <div>
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
                   Estimated Handling Hours
@@ -204,90 +200,114 @@
             </div>
           </div>
 
-          <!-- Action Buttons -->
-          <div class="flex flex-wrap gap-4">
-            @form({ route: 'port_calls.approve', routeParams: { id: portCall.id }, method: 'PATCH' })
-              <button
-                type="submit"
-                class="inline-flex items-center rounded-xl bg-success-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-success-700 transition-colors"
-              >
-                Approve Port Call
-            </button>
-            @end
-            
-            @form({ route: 'port_calls.deny', routeParams: { id: portCall.id }, method: 'PATCH' })
-              <button
-                type="submit"
-                class="inline-flex items-center rounded-xl bg-error-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-error-700 transition-colors"
-              >
-                Deny Port Call
-            </button>
-            @end
-          </div>
-
-          <!-- Conflicting Port Calls -->
-          <div class="mt-12">
-            <h2 class="mb-4 text-base font-semibold text-gray-700 dark:text-white">
-              Conflicting Port Calls
+          <!-- 5. Berth Selection -->
+          <div class="mb-10">
+            <h2 class="mb-1 text-base font-semibold text-gray-700 dark:text-white">
+              Select a Berth
             </h2>
             <p class="mb-5 text-theme-sm text-gray-500 dark:text-gray-400">
-              These port calls overlap with the requested time window.
+              Berths below are physically compatible with this vessel. Any scheduling conflicts are shown.
             </p>
 
-            <div class="w-full overflow-x-auto rounded-xl border border-gray-100 dark:border-gray-800">
-              <table class="min-w-full">
-                <!-- Table header and body same as your original (I kept it unchanged) -->
-                <thead>
-                  <tr class="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-white/[0.03]">
-                    <th class="py-4 px-6 text-left text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                      ID
-                    </th>
-                    <th class="py-4 px-6 text-left text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                      Vessel
-                    </th>
-                    <th class="py-4 px-6 text-left text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                      ETA
-                    </th>
-                    <th class="py-4 px-6 text-left text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                      ETD
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                  @if(conflictingPortCalls && conflictingPortCalls.length)
-                    @each(conflicting in conflictingPortCalls)
-                      <tr class="hover:bg-gray-50 dark:hover:bg-white/[0.02]">
-                        <td class="px-6 py-4 text-theme-sm font-medium text-gray-800 dark:text-white">
-                          #{{ conflicting.id }}
-                        </td>
-                        <td class="px-6 py-4 text-theme-sm text-gray-600 dark:text-gray-300">
-                          {{ conflicting.vessel?.name ?? '—' }} ({{ conflicting.vessel?.imoNumber ?? '—' }})
-                        </td>
-                        <td class="px-6 py-4 text-theme-sm text-gray-600 dark:text-gray-300">
-                          {{ conflicting.eta.toFormat('dd LLL yyyy, HH:mm') }}
-                        </td>
-                        <td class="px-6 py-4 text-theme-sm text-gray-600 dark:text-gray-300">
-                          {{ conflicting.etd?.toFormat('dd LLL yyyy, HH:mm') ?? '—' }}
-                        </td>
-                      </tr>
-                    @end
-                  @else
-                    <tr>
-                      <td colspan="4" class="py-16 text-center text-theme-sm text-gray-500 dark:text-gray-400">
-                        No conflicting port calls found.
-                      </td>
-                    </tr>
+            <div class="space-y-3">
+              @each(berth in berths)
+                <label
+                  class="flex cursor-pointer flex-col gap-3 rounded-xl border border-gray-200 p-5 transition-colors hover:border-brand-400 dark:border-gray-700 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50 dark:has-[:checked]:bg-brand-500/10"
+                >
+                  <div class="flex items-start gap-4">
+                    <input
+                      type="radio"
+                      name="berthId"
+                      value="{{ berth.id }}"
+                      form="approve-form"
+                      class="mt-1 accent-brand-500"
+                    />
+                    <div class="flex-1">
+                      <div class="flex items-center gap-3">
+                        <p class="text-sm font-semibold text-gray-800 dark:text-white">
+                          Berth {{ berth.code }}
+                        </p>
+                        <span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                          {{ berth.status }}
+                        </span>
+                        @if(berth.visits.length)
+                          <span class="rounded-full bg-warning-50 px-2.5 py-0.5 text-xs font-medium text-warning-700 dark:bg-warning-500/15 dark:text-warning-400">
+                            {{ berth.visits.length }} conflict{{ berth.visits.length > 1 ? 's' : '' }}
+                          </span>
+                        @else
+                          <span class="rounded-full bg-success-50 px-2.5 py-0.5 text-xs font-medium text-success-700 dark:bg-success-500/15 dark:text-success-400">
+                            No conflicts
+                          </span>
+                        @end
+                      </div>
+                      <div class="mt-1 flex flex-wrap gap-4 text-xs text-gray-500 dark:text-gray-400">
+                        <span>Length: {{ berth.length }}m</span>
+                        <span>Max Draft: {{ berth.maxDraft }}m</span>
+                        @if(berth.maxBeam)
+                          <span>Max Beam: {{ berth.maxBeam }}m</span>
+                        @end
+                      </div>
+                    </div>
+                  </div>
+
+                  @if(berth.visits.length)
+                    <div class="ml-8 rounded-lg border border-warning-100 bg-warning-50 dark:border-warning-500/20 dark:bg-warning-500/10">
+                      <table class="min-w-full">
+                        <thead>
+                          <tr class="border-b border-warning-100 dark:border-warning-500/20">
+                            <th class="px-4 py-2 text-left text-xs font-medium text-warning-700 dark:text-warning-400">Vessel</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-warning-700 dark:text-warning-400">ETA</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-warning-700 dark:text-warning-400">ETD</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-warning-100 dark:divide-warning-500/20">
+                          @each(conflict in berth.visits)
+                            <tr>
+                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">
+                                {{ conflict.vessel?.name ?? '—' }}
+                              </td>
+                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">
+                                {{ conflict.plannedArrival.toFormat('dd LLL yyyy, HH:mm') }}
+                              </td>
+                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">
+                                {{ conflict.plannedDeparture?.toFormat('dd LLL yyyy, HH:mm') ?? '—' }}
+                              </td>
+                            </tr>
+                          @end
+                        </tbody>
+                      </table>
+                    </div>
                   @end
-                </tbody>
-              </table>
+                </label>
+              @end
             </div>
           </div>
 
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap gap-4">
+            @form({ route: 'port_calls.approve', routeParams: { id: portCall.id }, method: 'PATCH', id: 'approve-form' })
+              <button
+                type="submit"
+                class="inline-flex items-center rounded-xl bg-success-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-success-700"
+              >
+                Approve Port Call
+              </button>
+            @end
+
+            @form({ route: 'port_calls.deny', routeParams: { id: portCall.id }, method: 'PATCH' })
+              <button
+                type="submit"
+                class="inline-flex items-center rounded-xl bg-error-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-error-700"
+              >
+                Deny Port Call
+              </button>
+            @end
+          </div>
         </div>
       </div>
     </div>
 
-  @else
+ @else
     <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
       <div class="space-y-6">
         <div
@@ -305,5 +325,6 @@
           </div>
         </div>
       </div>
-    @end
+    </div>
   @end
+@end

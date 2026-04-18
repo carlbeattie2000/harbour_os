@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
 import { PortCallService } from '#services/port_call_service'
-import { getPortCallValidator } from '#validators/port_call'
+import { approvePortCall, getPortCallValidator } from '#validators/port_call'
 
 @inject()
 export default class PortCallsController {
@@ -9,25 +9,27 @@ export default class PortCallsController {
 
   async pending({ view }: HttpContext) {
     const nextPendingPortCall = await this.portCallService.findNextPending()
-    const portCalls = nextPendingPortCall
-      ? await this.portCallService.findOverlapping(
-          nextPendingPortCall.vesselId,
-          nextPendingPortCall.etd,
-          nextPendingPortCall.eta
+
+    const availableBerths = nextPendingPortCall
+      ? await this.portCallService.findBerthConflicts(
+          nextPendingPortCall.vessel,
+          nextPendingPortCall.eta,
+          nextPendingPortCall.etd
         )
       : []
 
     return view.render('pages/internal/port_calls/pending', {
       portCall: nextPendingPortCall,
-      portCalls,
+      berths: availableBerths,
     })
   }
 
   async approve({ request, response, auth, session }: HttpContext) {
-    const { params } = await request.validateUsing(getPortCallValidator)
+    const { params, berthId } = await request.validateUsing(approvePortCall)
     const user = auth.getUserOrFail()
 
     await this.portCallService.setStatus(params.id, 'approved', user)
+    await this.portCallService.assignBerth(params.id, berthId)
 
     session.flash('success', 'Port call approved')
 
