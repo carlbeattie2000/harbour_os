@@ -10,8 +10,8 @@ export default class Berth extends BerthSchema {
 
   @manyToMany(() => Crane, {
     pivotTable: 'berth_available_cranes',
-    pivotForeignKey: 'crane_id',
-    pivotRelatedForeignKey: 'berth_id',
+    pivotForeignKey: 'berth_id',
+    pivotRelatedForeignKey: 'crane_id',
   })
   declare availableCranes: ManyToMany<typeof Crane>
 
