@@ -26,7 +26,9 @@ import '#modules/internal/port_calls/routes'
 import router from '@adonisjs/core/services/router'
 import { throttle } from './limiter.ts'
 
-transmit.registerRoutes()
+transmit.registerRoutes((route) => {
+  route.middleware(middleware.auth())
+})
 
 router
   .get('/', async ({ view }) => {

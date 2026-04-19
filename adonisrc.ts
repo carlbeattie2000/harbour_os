@@ -70,6 +70,7 @@ export default defineConfig({
     () => import('#start/kernel'),
     () => import('#start/validator'),
     () => import('#start/view'),
+    () => import('#start/transmit'),
   ],
 
   /*

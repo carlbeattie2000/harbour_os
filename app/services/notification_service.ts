@@ -2,9 +2,11 @@ import User from '#models/user'
 import transmit from '@adonisjs/transmit/services/main'
 
 export class NotificationService {
+  private channel = (id: number) => `notifications/users/${id}`
+
   private async broadcast(userIds: number[], payload: Record<string, unknown>) {
     for (const id of userIds) {
-      await transmit.broadcast(`notifications/users/${id}`, payload as any)
+      transmit.broadcast(this.channel(id), payload as any)
     }
   }
 
@@ -30,7 +32,7 @@ export class NotificationService {
   async newVesselRequest(vesselId: string) {
     const userIds = await this.getUsersWithRoles('admin')
     await this.broadcast(userIds, {
-      type: 'port_call_requested',
+      type: 'vessel_requested',
       message: 'New vessel request',
       vesselId,
     })
