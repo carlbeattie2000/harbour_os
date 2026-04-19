@@ -11,6 +11,7 @@ export const approvePortCall = vine.create({
     id: vine.number().min(0),
   }),
   berthId: vine.number().min(0),
+  craneIds: vine.array(vine.number()).notEmpty(),
 })
 
 export const createPortCallValidator = vine.create({

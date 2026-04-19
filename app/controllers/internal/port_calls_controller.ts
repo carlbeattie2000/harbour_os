@@ -25,11 +25,12 @@ export default class PortCallsController {
   }
 
   async approve({ request, response, auth, session }: HttpContext) {
-    const { params, berthId } = await request.validateUsing(approvePortCall)
+    const { params, berthId, craneIds } = await request.validateUsing(approvePortCall)
     const user = auth.getUserOrFail()
 
     await this.portCallService.setStatus(params.id, 'approved', user)
-    await this.portCallService.assignBerth(params.id, berthId)
+    const berthVisit = await this.portCallService.assignBerth(params.id, berthId)
+    await this.portCallService.assignCranesToBerthVisit(craneIds, berthVisit.id)
 
     session.flash('success', 'Port call approved')
 

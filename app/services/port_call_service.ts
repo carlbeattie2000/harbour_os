@@ -1,6 +1,7 @@
 import { ForbiddenError, NotFoundError } from '#errors/app_error'
 import Berth from '#models/berth'
 import BerthVisit from '#models/berth_visit'
+import CraneBerthAssignment from '#models/crane_berth_assignment'
 import PortCall from '#models/port_call'
 import type User from '#models/user'
 import type Vessel from '#models/vessel'
@@ -48,7 +49,7 @@ export class PortCallService {
     await portCall.merge({ status }).save()
   }
 
-  async assignBerth(portCallId: number, berthId: number) {
+  async assignBerth(portCallId: number, berthId: number): Promise<BerthVisit> {
     const portCall = await PortCall.query().where('id', portCallId).firstOrFail()
 
     return await BerthVisit.create({
@@ -75,5 +76,18 @@ export class PortCallService {
           .where('plannedArrival', '<', estimatedDeparture.toSQL()!)
           .andWhere('plannedDeparture', '>', estimatedArrival.toSQL()!)
       })
+      .preload('availableCranes', (query) => {
+        query.whereDoesntHave('berthVisits', (visitQuery) => {
+          visitQuery
+            .where('plannedArrival', '<', estimatedDeparture.toSQL()!)
+            .andWhere('plannedDeparture', '>', estimatedArrival.toSQL()!)
+        })
+      })
+  }
+
+  async assignCranesToBerthVisit(craneIds: number[], berthVisitId: number) {
+    const assignedCranes = craneIds.map((id) => ({ craneId: id, berthVisitId: berthVisitId }))
+
+    await CraneBerthAssignment.createMany(assignedCranes)
   }
 }

@@ -187,6 +187,17 @@ export class ContainerSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class CraneBerthAssignmentSchema extends BaseModel {
+  static $columns = ['berthVisitId', 'craneId', 'movesCompleted'] as const
+  $columns = CraneBerthAssignmentSchema.$columns
+  @column()
+  declare berthVisitId: number
+  @column({ isPrimary: true })
+  declare craneId: number
+  @column()
+  declare movesCompleted: number | null
+}
+
 export class CraneSchema extends BaseModel {
   static $columns = [
     'berthId',

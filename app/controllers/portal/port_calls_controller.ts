@@ -25,9 +25,6 @@ export default class PortCallsController {
       throw new AccountDoesNotOwnVessel()
     }
 
-    const cranes = 3
-    const movePerHour = 20
-
     await PortCall.create({
       vesselId: vessel.imoNumber,
       eta: payload.eta,
@@ -37,9 +34,7 @@ export default class PortCallsController {
       estimatedDischargeContainers: payload.estimatedDischargeContainers,
       estimatedLoadContainers: payload.estimatedLoadContainers,
       voyageNumber: payload.voyageNumber,
-      handlingTimeEstimatedHours:
-        (payload.estimatedDischargeContainers + payload.estimatedLoadContainers) /
-        (cranes * movePerHour),
+      handlingTimeEstimatedHours: 0,
     })
 
     session.flash('success', 'Port call requested')

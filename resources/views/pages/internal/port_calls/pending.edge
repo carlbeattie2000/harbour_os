@@ -1,8 +1,49 @@
 @layout()
   @if(portCall)
-    <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
+    <div
+      class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6"
+      x-data="{
+        selectedBerthId: null,
+        selectedCraneIds: [],
+        totalMoves: {{ portCall.estimatedLoadContainers + portCall.estimatedDischargeContainers }},
+        eta: '{{ portCall.eta.toISO() }}',
+        berths: {{ JSON.stringify(berths.map(b => ({
+          id: b.id,
+          cranes: b.availableCranes.map(c => ({ id: c.id, efficiencyRate: c.efficiencyRate }))
+        }))) }},
+        get selectedBerthCranes() {
+          if (!this.selectedBerthId) return []
+          const berth = this.berths.find(b => b.id === this.selectedBerthId)
+          return berth ? berth.cranes : []
+        },
+        get selectedCranesForBerth() {
+          return this.selectedCraneIds.filter(id =>
+            this.selectedBerthCranes.some(c => c.id === id)
+          )
+        },
+        get totalEfficiencyRate() {
+          return this.selectedCranesForBerth.reduce((sum, id) => {
+            const berth = this.berths.find(b => b.id === this.selectedBerthId)
+            const crane = berth?.cranes.find(c => c.id === id)
+            return sum + (crane?.efficiencyRate ?? 0)
+          }, 0)
+        },
+        get estimatedHours() {
+          if (this.totalEfficiencyRate === 0) return {{ portCall.handlingTimeEstimatedHours }}
+          return Math.ceil(this.totalMoves / this.totalEfficiencyRate)
+        },
+        get estimatedCompletion() {
+          const eta = new Date(this.eta)
+          eta.setHours(eta.getHours() + this.estimatedHours)
+          return eta.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+        },
+        selectBerth(berthId) {
+          this.selectedBerthId = berthId
+          this.selectedCraneIds = []
+        }
+      }"
+    >
       <div class="space-y-6">
-
         <div
           class="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-6 pt-6 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6"
         >
@@ -15,7 +56,7 @@
               </h1>
               <p class="mt-1 text-theme-sm text-gray-500 dark:text-gray-400">
                 Review and approve vessel call for
-              <span class="font-medium text-gray-700 dark:text-white">{{ portCall.vessel.name }} ({{ portCall.vessel.imoNumber }})</span>
+                <span class="font-medium text-gray-700 dark:text-white">{{ portCall.vessel.name }} ({{ portCall.vessel.imoNumber }})</span>
               </p>
             </div>
           </div>
@@ -27,52 +68,28 @@
             </h2>
             <div class="grid grid-cols-1 gap-x-12 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Shipping Line
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.vessel.account.companyName }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Shipping Line</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.vessel.account.companyName }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Vessel Name
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.vessel.name }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Vessel Name</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.vessel.name }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  IMO Number
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.vessel.imoNumber }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">IMO Number</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.vessel.imoNumber }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Voyage Number
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.voyageNumber ?? '—' }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Voyage Number</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.voyageNumber ?? '—' }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Flag State
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.vessel.flagState }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Flag State</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.vessel.flagState }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  TEU Capacity
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ Intl.NumberFormat().format(portCall.vessel.teuCapacity) }} TEU
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">TEU Capacity</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ Intl.NumberFormat().format(portCall.vessel.teuCapacity) }} TEU</p>
               </div>
             </div>
           </div>
@@ -84,20 +101,12 @@
             </h2>
             <div class="grid grid-cols-1 gap-x-12 gap-y-5 sm:grid-cols-2">
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  ETA (Estimated Time of Arrival)
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.eta.toFormat('dd LLL yyyy, HH:mm') }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">ETA (Estimated Time of Arrival)</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.eta.toFormat('dd LLL yyyy, HH:mm') }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  ETD (Estimated Time of Departure)
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.etd?.toFormat('dd LLL yyyy, HH:mm') ?? '—' }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">ETD (Estimated Time of Departure)</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.etd?.toFormat('dd LLL yyyy, HH:mm') ?? '—' }}</p>
               </div>
             </div>
           </div>
@@ -109,44 +118,24 @@
             </h2>
             <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Estimated Discharge Moves
-                </p>
-                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.estimatedDischargeContainers }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Estimated Discharge Moves</p>
+                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">{{ portCall.estimatedDischargeContainers }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Estimated Load Moves
-                </p>
-                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.estimatedLoadContainers }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Estimated Load Moves</p>
+                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">{{ portCall.estimatedLoadContainers }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Total Estimated Moves
-                </p>
-                <p class="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">
-                  {{ portCall.estimatedLoadContainers + portCall.estimatedDischargeContainers }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Total Estimated Moves</p>
+                <p class="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{{ portCall.estimatedLoadContainers + portCall.estimatedDischargeContainers }}</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Estimated Handling Hours
-                </p>
-                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.handlingTimeEstimatedHours }} hours
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Estimated Handling Hours</p>
+                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white" x-text="estimatedHours + ' hours'">{{ portCall.handlingTimeEstimatedHours }} hours</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Estimated Completion
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.eta.plus({ hours: portCall.handlingTimeEstimatedHours }).toFormat('dd LLL yyyy, HH:mm') }}
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Estimated Completion</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white" x-text="estimatedCompletion">{{ portCall.eta.plus({ hours: portCall.handlingTimeEstimatedHours }).toFormat('dd LLL yyyy, HH:mm') }}</p>
               </div>
             </div>
           </div>
@@ -158,69 +147,52 @@
             </h2>
             <div class="grid grid-cols-2 gap-x-12 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Length Overall (LOA)
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.vessel.loa }} m
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Length Overall (LOA)</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.vessel.loa }} m</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Beam
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.vessel.beam }} m
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Beam</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.vessel.beam }} m</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Maximum Draft
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ portCall.vessel.maxDraft }} m
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Maximum Draft</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ portCall.vessel.maxDraft }} m</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Gross Tonnage
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ Intl.NumberFormat().format(portCall.vessel.grossTonnage) }} GT
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Gross Tonnage</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ Intl.NumberFormat().format(portCall.vessel.grossTonnage) }} GT</p>
               </div>
               <div>
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  TEU Capacity
-                </p>
-                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">
-                  {{ Intl.NumberFormat().format(portCall.vessel.teuCapacity) }} TEU
-                </p>
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">TEU Capacity</p>
+                <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-white">{{ Intl.NumberFormat().format(portCall.vessel.teuCapacity) }} TEU</p>
               </div>
             </div>
           </div>
 
-          <!-- 5. Berth Selection -->
+          <!-- 5. Berth & Crane Selection -->
           <div class="mb-10">
             <h2 class="mb-1 text-base font-semibold text-gray-700 dark:text-white">
-              Select a Berth
+              Select a Berth & Cranes
             </h2>
             <p class="mb-5 text-theme-sm text-gray-500 dark:text-gray-400">
-              Berths below are physically compatible with this vessel. Any scheduling conflicts are shown.
+              Berths below are physically compatible with this vessel. Select a berth then choose which cranes to assign.
             </p>
 
             <div class="space-y-3">
               @each(berth in berths)
-                <label
-                  class="flex cursor-pointer flex-col gap-3 rounded-xl border border-gray-200 p-5 transition-colors hover:border-brand-400 dark:border-gray-700 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50 dark:has-[:checked]:bg-brand-500/10"
+                <div
+                  class="rounded-xl border transition-colors dark:border-gray-700"
+                  :class="selectedBerthId === {{ berth.id }} ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10' : 'border-gray-200 dark:border-gray-700'"
                 >
-                  <div class="flex items-start gap-4">
+                  <!-- Berth Header -->
+                  <label class="flex cursor-pointer items-start gap-4 p-5">
                     <input
                       type="radio"
                       name="berthId"
                       value="{{ berth.id }}"
                       form="approve-form"
                       class="mt-1 accent-brand-500"
+                      @change="selectBerth({{ berth.id }})"
                     />
                     <div class="flex-1">
                       <div class="flex items-center gap-3">
@@ -248,37 +220,70 @@
                         @end
                       </div>
                     </div>
-                  </div>
+                  </label>
 
+                  <!-- Conflict Table -->
                   @if(berth.visits.length)
-                    <div class="ml-8 rounded-lg border border-warning-100 bg-warning-50 dark:border-warning-500/20 dark:bg-warning-500/10">
+                    <div class="mx-5 mb-4 rounded-lg border border-warning-100 bg-warning-50 dark:border-warning-500/20 dark:bg-warning-500/10">
                       <table class="min-w-full">
                         <thead>
                           <tr class="border-b border-warning-100 dark:border-warning-500/20">
                             <th class="px-4 py-2 text-left text-xs font-medium text-warning-700 dark:text-warning-400">Vessel</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-warning-700 dark:text-warning-400">ETA</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-warning-700 dark:text-warning-400">ETD</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-warning-700 dark:text-warning-400">Planned Arrival</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-warning-700 dark:text-warning-400">Planned Departure</th>
                           </tr>
                         </thead>
                         <tbody class="divide-y divide-warning-100 dark:divide-warning-500/20">
                           @each(conflict in berth.visits)
                             <tr>
-                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">
-                                {{ conflict.vessel?.name ?? '—' }}
-                              </td>
-                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">
-                                {{ conflict.plannedArrival.toFormat('dd LLL yyyy, HH:mm') }}
-                              </td>
-                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">
-                                {{ conflict.plannedDeparture?.toFormat('dd LLL yyyy, HH:mm') ?? '—' }}
-                              </td>
+                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">{{ conflict.vessel?.name ?? '—' }}</td>
+                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">{{ conflict.plannedArrival.toFormat('dd LLL yyyy, HH:mm') }}</td>
+                              <td class="px-4 py-2 text-xs text-warning-800 dark:text-warning-300">{{ conflict.plannedDeparture?.toFormat('dd LLL yyyy, HH:mm') ?? '—' }}</td>
                             </tr>
                           @end
                         </tbody>
                       </table>
                     </div>
                   @end
-                </label>
+
+                  <!-- Crane Selection -->
+                  <div
+                    class="border-t border-gray-100 px-5 pb-5 pt-4 dark:border-gray-800"
+                    x-show="selectedBerthId === {{ berth.id }}"
+                    x-cloak
+                  >
+                    <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                      Available Cranes
+                    </p>
+                    @if(berth.availableCranes.length)
+                      <div class="flex flex-wrap gap-3">
+                        @each(crane in berth.availableCranes)
+                          <label
+                            class="flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-2.5 text-sm transition-colors"
+                            :class="selectedCraneIds.includes({{ crane.id }}) ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-400' : 'border-gray-200 bg-white text-gray-700 hover:border-brand-300 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-300'"
+                          >
+                            <input
+                              type="checkbox"
+                              name="craneIds[]"
+                              value="{{ crane.id }}"
+                              form="approve-form"
+                              class="hidden"
+                              @change="selectedCraneIds.includes({{ crane.id }}) ? selectedCraneIds = selectedCraneIds.filter(id => id !== {{ crane.id }}) : selectedCraneIds.push({{ crane.id }})"
+                            />
+                            <span class="font-medium">{{ crane.code }}</span>
+                            <span class="text-xs text-gray-400 dark:text-gray-500">{{ crane.efficiencyRate }} moves/hr</span>
+                          </label>
+                        @end
+                      </div>
+                      <p class="mt-3 text-xs text-gray-400 dark:text-gray-500"
+                        x-show="selectedCranesForBerth.length > 0"
+                        x-text="`${selectedCranesForBerth.length} crane${selectedCranesForBerth.length > 1 ? 's' : ''} selected · ${totalEfficiencyRate} moves/hr combined`"
+                      ></p>
+                    @else
+                      <p class="text-xs text-gray-400 dark:text-gray-500">No cranes available for this berth in this time window.</p>
+                    @end
+                  </div>
+                </div>
               @end
             </div>
           </div>
@@ -303,11 +308,12 @@
               </button>
             @end
           </div>
+
         </div>
       </div>
     </div>
 
- @else
+  @else
     <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
       <div class="space-y-6">
         <div
