@@ -2,7 +2,7 @@ import YardSlot from '#models/yard_slot'
 import { createYardSlotValidator, viewAllYardSlotsValidator } from '#validators/yard_slot'
 import type { HttpContext } from '@adonisjs/core/http'
 
-const VIEW_YARD_SLOTS_QUERY_LIMIT = 20
+const VIEW_YARD_SLOTS_QUERY_LIMIT = 50
 
 export default class YardSlotsController {
   async create({ view }: HttpContext) {
@@ -40,7 +40,7 @@ export default class YardSlotsController {
     const { page } = await request.validateUsing(viewAllYardSlotsValidator)
 
     const yardSlots = await YardSlot.query()
-      .orderBy('bay', 'asc')
+      .orderByRaw('LENGTH(bay), bay')
       .paginate(page ?? 1, VIEW_YARD_SLOTS_QUERY_LIMIT)
 
     const yardSlotsSerialized = yardSlots.serialize()
