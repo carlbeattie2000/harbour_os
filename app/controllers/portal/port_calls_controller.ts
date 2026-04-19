@@ -3,8 +3,13 @@ import PortCall from '#models/port_call'
 import Vessel from '#models/vessel'
 import { createPortCallValidator } from '#validators/port_call'
 import type { HttpContext } from '@adonisjs/core/http'
+import { inject } from '@adonisjs/core'
+import { NotificationService } from '#services/notification_service'
 
+@inject()
 export default class PortCallsController {
+  constructor(protected notificationService: NotificationService) {}
+
   async create({ view, account }: HttpContext) {
     const vessels = await Vessel.query()
       .where('shippingLineId', account.id)
@@ -25,7 +30,7 @@ export default class PortCallsController {
       throw new AccountDoesNotOwnVessel()
     }
 
-    await PortCall.create({
+    const portCall = await PortCall.create({
       vesselId: vessel.imoNumber,
       eta: payload.eta,
       etd: payload.etd,
@@ -36,6 +41,8 @@ export default class PortCallsController {
       voyageNumber: payload.voyageNumber,
       handlingTimeEstimatedHours: 0,
     })
+
+    await this.notificationService.portCallRequested(portCall.id)
 
     session.flash('success', 'Port call requested')
 

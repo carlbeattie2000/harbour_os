@@ -6,7 +6,7 @@
 | The routes file is used for defining the HTTP routes.
 |
 */
-
+import transmit from '@adonisjs/transmit/services/main'
 import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
 
@@ -25,6 +25,8 @@ import '#modules/internal/port_calls/routes'
 
 import router from '@adonisjs/core/services/router'
 import { throttle } from './limiter.ts'
+
+transmit.registerRoutes()
 
 router
   .get('/', async ({ view }) => {

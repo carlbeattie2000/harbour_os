@@ -34,6 +34,9 @@ export type ScannedRoutes = {
     'port_calls.pending': { paramsTuple?: []; params?: {} }
     'port_calls.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'port_calls.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'event_stream': { paramsTuple?: []; params?: {} }
+    'subscribe': { paramsTuple?: []; params?: {} }
+    'unsubscribe': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
@@ -56,6 +59,7 @@ export type ScannedRoutes = {
     'yard_slots.create': { paramsTuple?: []; params?: {} }
     'yard_slots.index': { paramsTuple?: []; params?: {} }
     'port_calls.pending': { paramsTuple?: []; params?: {} }
+    'event_stream': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
@@ -77,6 +81,7 @@ export type ScannedRoutes = {
     'yard_slots.create': { paramsTuple?: []; params?: {} }
     'yard_slots.index': { paramsTuple?: []; params?: {} }
     'port_calls.pending': { paramsTuple?: []; params?: {} }
+    'event_stream': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
   POST: {
@@ -88,6 +93,8 @@ export type ScannedRoutes = {
     'create_users.store': { paramsTuple?: []; params?: {} }
     'create_accounts.store': { paramsTuple?: []; params?: {} }
     'yard_slots.store': { paramsTuple?: []; params?: {} }
+    'subscribe': { paramsTuple?: []; params?: {} }
+    'unsubscribe': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
   }
   PATCH: {

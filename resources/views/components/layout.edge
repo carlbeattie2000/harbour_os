@@ -7,6 +7,11 @@
       HarbourOS
     </title>
     <link rel="icon" href="/images/logo.ico" />
+    @if(user)
+  <script>
+    window.__userId = {{ user.id }}
+  </script>
+@end
     @vite(['resources/css/style.css', 'resources/js/index.js'])
     @stack('dumper')
   </head>

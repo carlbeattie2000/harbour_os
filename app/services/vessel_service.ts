@@ -8,8 +8,8 @@ export class VesselService {
   async create(
     data: Infer<typeof createVesselValidator>,
     options: { approved?: boolean; portAgentId?: number; accountId?: number }
-  ) {
-    await Vessel.create({
+  ): Promise<Vessel> {
+    return await Vessel.create({
       ...data,
       shippingLineId: options.accountId,
       portAgentId: options.portAgentId,

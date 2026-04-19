@@ -2,6 +2,7 @@ import 'jsvectormap/dist/jsvectormap.min.css'
 import 'flatpickr/dist/flatpickr.min.css'
 import 'dropzone/dist/dropzone.css'
 import '../css/style.css'
+import { Transmit } from '@adonisjs/transmit-client'
 
 import Alpine from 'alpinejs'
 import persist from '@alpinejs/persist'
@@ -116,3 +117,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   })
 })
+
+const transmit = new Transmit({ baseUrl: window.location.origin })
+
+async function initNotifications() {
+  if (!window.__userId) return
+
+  const subscription = transmit.subscription(`notifications/users/${window.__userId}`)
+  await subscription.create()
+
+  subscription.onMessage((data) => {
+    console.log('notification received', data)
+  })
+}
+
+initNotifications()
