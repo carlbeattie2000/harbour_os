@@ -4,7 +4,7 @@ import { ForbiddenError } from '../errors/app_error.ts'
 import { RbacService } from '#services/rbac_service'
 import logger from '@adonisjs/core/services/logger'
 import { DateTime } from 'luxon'
-import { type UserRoles } from '../contracts/roles.ts'
+import type { UserRoles } from '../contracts/roles.ts'
 
 interface RoleMiddlewareConfig {
   allowedRoles?: UserRoles | UserRoles[]

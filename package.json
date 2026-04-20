@@ -35,6 +35,7 @@
     "#utils/*": "./app/utils/*.js",
     "#constants/*": "./app/constants/*.js",
     "#errors/*": "./app/errors/*.js",
+    "#domain/*": "./app/domain/*.js",
     "#database/*": "./database/*.js",
     "#tests/*": "./tests/*.js",
     "#start/*": "./start/*.js",

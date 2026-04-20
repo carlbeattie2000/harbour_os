@@ -154,6 +154,66 @@ export class ContactDetailSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class ContainerVisitSchema extends BaseModel {
+  static $columns = [
+    'category',
+    'containerId',
+    'createdAt',
+    'customsStatus',
+    'declaredWeight',
+    'estimatedStorageEnd',
+    'estimatedStorageStart',
+    'hazmatClass',
+    'id',
+    'oversize',
+    'portCallInboundId',
+    'portCallOutboundId',
+    'reeferRequired',
+    'status',
+    'storageEnds',
+    'storageStart',
+    'updatedAt',
+    'yardSlotId',
+  ] as const
+  $columns = ContainerVisitSchema.$columns
+  @column()
+  declare category: string
+  @column()
+  declare containerId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare customsStatus: string
+  @column()
+  declare declaredWeight: number
+  @column.date()
+  declare estimatedStorageEnd: DateTime
+  @column.date()
+  declare estimatedStorageStart: DateTime
+  @column()
+  declare hazmatClass: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare oversize: boolean
+  @column()
+  declare portCallInboundId: number
+  @column()
+  declare portCallOutboundId: number | null
+  @column()
+  declare reeferRequired: boolean
+  @column()
+  declare status: string
+  @column.dateTime()
+  declare storageEnds: DateTime | null
+  @column.dateTime()
+  declare storageStart: DateTime | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare yardSlotId: number
+}
+
 export class ContainerSchema extends BaseModel {
   static $columns = [
     'categoryIndentifier',

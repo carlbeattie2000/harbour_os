@@ -34,6 +34,7 @@ export type ScannedRoutes = {
     'port_calls.pending': { paramsTuple?: []; params?: {} }
     'port_calls.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'port_calls.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'yard_forecastings.forecast': { paramsTuple?: []; params?: {} }
     'event_stream': { paramsTuple?: []; params?: {} }
     'subscribe': { paramsTuple?: []; params?: {} }
     'unsubscribe': { paramsTuple?: []; params?: {} }
@@ -59,6 +60,7 @@ export type ScannedRoutes = {
     'yard_slots.create': { paramsTuple?: []; params?: {} }
     'yard_slots.index': { paramsTuple?: []; params?: {} }
     'port_calls.pending': { paramsTuple?: []; params?: {} }
+    'yard_forecastings.forecast': { paramsTuple?: []; params?: {} }
     'event_stream': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
@@ -81,6 +83,7 @@ export type ScannedRoutes = {
     'yard_slots.create': { paramsTuple?: []; params?: {} }
     'yard_slots.index': { paramsTuple?: []; params?: {} }
     'port_calls.pending': { paramsTuple?: []; params?: {} }
+    'yard_forecastings.forecast': { paramsTuple?: []; params?: {} }
     'event_stream': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }

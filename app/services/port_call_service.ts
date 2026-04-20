@@ -25,8 +25,14 @@ export class PortCallService {
   }
 
   async findOverlapping(excludeVesselId: string, etd: DateTime, eta: DateTime) {
+    const ignoreStatuses: PortCallStatus[] = [
+      'pending',
+      'awaiting_account_approval',
+      'canceled',
+      'departed',
+    ]
     return await PortCall.query()
-      .whereNotIn('status', ['pending', 'awaiting_account_approval'])
+      .whereNotIn('status', ignoreStatuses)
       .andWhereNot('vesselId', excludeVesselId)
       .where((query) => {
         query.where('eta', '<', etd.toSQL()!).andWhere('etd', '>', eta.toSQL()!)

@@ -12,6 +12,7 @@ export const controllers = {
     PortCalls: () => import('#controllers/internal/port_calls_controller'),
     Users: () => import('#controllers/internal/users_controller'),
     Vessels: () => import('#controllers/internal/vessels_controller'),
+    YardForecastings: () => import('#controllers/internal/yard_forecastings_controller'),
     YardSlots: () => import('#controllers/internal/yard_slots_controller'),
   },
   portal: {
