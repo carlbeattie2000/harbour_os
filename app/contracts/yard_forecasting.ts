@@ -1,6 +1,6 @@
 import type { DateTime } from 'luxon'
 
-export type YardSlotType = 'reefer' | 'hazmat' | 'standard'
+export type YardSlotType = 'reefer' | 'hazmat' | 'standard' | 'oversize'
 
 export type YardConflict =
   | 'capacity_exceeded'
@@ -25,15 +25,11 @@ export interface YardRuleContext {
   eta: DateTime
   etd: DateTime
 
-  counts: {
-    reefer: number
-    standard: number
-    hazmat: number
-    oversize: number
-  }
+  counts: ContainerTypes
 
   baselineOccupancy: number
-  totalCapacity: number
+
+  totalCapacityByType: ContainerTypes
 
   projectedNetFlow: number
 }

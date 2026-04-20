@@ -4,7 +4,7 @@ export class HazmatRule {
   check(ctx: YardRuleContext): YardConflict | null {
     const projected = ctx.counts.hazmat + ctx.baselineOccupancy + ctx.projectedNetFlow
 
-    if (projected > ctx.totalCapacity) {
+    if (projected > ctx.totalCapacityByType.hazmat) {
       return 'hazmat_capacity_exceeded'
     }
 

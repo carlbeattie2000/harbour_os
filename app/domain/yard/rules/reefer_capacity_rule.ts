@@ -4,7 +4,7 @@ export class ReeferRule {
   check(ctx: YardRuleContext): YardConflict | null {
     const projected = ctx.counts.reefer + ctx.baselineOccupancy + ctx.projectedNetFlow
 
-    if (projected > ctx.totalCapacity) {
+    if (projected > ctx.totalCapacityByType.reefer) {
       return 'reefer_capacity_exceeded'
     }
 

@@ -121,7 +121,11 @@ export class YardForecastService {
   ): Promise<YardConflictResult> {
     const baselineOccupancy = await this.getInYardContainerCountAtTime(eta)
     const projectedNetFlow = await this.getEstimatedNetContainerFlow(eta, etd)
-    const totalCapacity = await this.getTotalContainerStorageCapacity()
+
+    const totalStandardCapacity = await this.getTotalContainerStorageCapacity('standard')
+    const totalReeferCapacity = await this.getTotalContainerStorageCapacity('reefer')
+    const totalOversizeCapacity = await this.getTotalContainerStorageCapacity('oversize')
+    const totalHazmatCapacity = await this.getTotalContainerStorageCapacity('hazmat')
 
     const ctx: YardRuleContext = {
       eta,
@@ -129,7 +133,12 @@ export class YardForecastService {
       counts,
       baselineOccupancy,
       projectedNetFlow,
-      totalCapacity,
+      totalCapacityByType: {
+        standard: totalStandardCapacity,
+        reefer: totalReeferCapacity,
+        hazmat: totalHazmatCapacity,
+        oversize: totalOversizeCapacity,
+      },
     }
 
     const operationalConstraintEngine = new OperationalConstraintEngine()

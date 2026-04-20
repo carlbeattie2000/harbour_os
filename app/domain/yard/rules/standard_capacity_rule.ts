@@ -4,7 +4,7 @@ export class StandardRule {
   check(ctx: YardRuleContext): YardConflict | null {
     const projected = ctx.counts.standard + ctx.baselineOccupancy + ctx.projectedNetFlow
 
-    if (projected > ctx.totalCapacity) {
+    if (projected > ctx.totalCapacityByType.standard) {
       return 'standard_capacity_exceeded'
     }
 
