@@ -1,12 +1,16 @@
 import User from '#models/user'
 import transmit from '@adonisjs/transmit/services/main'
+import { DateTime } from 'luxon'
 
 export class NotificationService {
   private channel = (id: number) => `notifications/users/${id}`
 
   private async broadcast(userIds: number[], payload: Record<string, unknown>) {
     for (const id of userIds) {
-      transmit.broadcast(this.channel(id), payload as any)
+      transmit.broadcast(this.channel(id), {
+        ...payload,
+        sentAt: DateTime.now(),
+      } as any)
     }
   }
 

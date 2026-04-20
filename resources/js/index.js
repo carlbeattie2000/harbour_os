@@ -127,8 +127,26 @@ async function initNotifications() {
   await subscription.create()
 
   subscription.onMessage((data) => {
-    console.log('notification received', data)
+    newNotification(data)
   })
 }
 
 initNotifications()
+
+function loadNotifications() {
+  try {
+    return JSON.parse(window.localStorage.getItem('notifications') ?? '[]')
+  } catch {
+    return []
+  }
+}
+
+function saveNotifications(notifications) {
+  window.localStorage.setItem('notifications', JSON.stringify(notifications))
+  window.dispatchEvent(new CustomEvent('notifications-updated'))
+}
+
+function newNotification(data) {
+  const notificationsStored = loadNotifications()
+  saveNotifications([...notificationsStored, { ...data, read: false }])
+}
