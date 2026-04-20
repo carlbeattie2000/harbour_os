@@ -1,12 +1,16 @@
-import { ForbiddenError, NotFoundError } from '#errors/app_error'
 import Berth from '#models/berth'
 import BerthVisit from '#models/berth_visit'
 import CraneBerthAssignment from '#models/crane_berth_assignment'
 import PortCall from '#models/port_call'
+
+import { PortCallPolicy } from '#policies/port_call_policy'
+
 import type User from '#models/user'
 import type Vessel from '#models/vessel'
-import { PortCallPolicy } from '#policies/port_call_policy'
 import type { DateTime } from 'luxon'
+import type { PortCallStatus } from '../contracts/port_call.ts'
+
+import { ForbiddenError, NotFoundError } from '#errors/app_error'
 
 export class PortCallService {
   async findNextPending() {
@@ -30,11 +34,7 @@ export class PortCallService {
       .preload('vessel', (query) => query.select('name').select('imoNumber'))
   }
 
-  async setStatus(
-    id: number,
-    status: 'pending' | 'awaiting_account_approval' | 'approved' | 'denied',
-    user: User
-  ) {
+  async setStatus(id: number, status: PortCallStatus, user: User) {
     const portCall = await PortCall.find(id)
     if (!portCall) {
       throw new NotFoundError()
@@ -86,7 +86,10 @@ export class PortCallService {
   }
 
   async assignCranesToBerthVisit(craneIds: number[], berthVisitId: number) {
-    const assignedCranes = craneIds.map((id) => ({ craneId: id, berthVisitId: berthVisitId }))
+    const assignedCranes = craneIds.map((id) => ({
+      craneId: id,
+      berthVisitId: berthVisitId,
+    }))
 
     await CraneBerthAssignment.createMany(assignedCranes)
   }

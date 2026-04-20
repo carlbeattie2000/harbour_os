@@ -40,6 +40,7 @@ export default class PortCallsController {
       estimatedLoadContainers: payload.estimatedLoadContainers,
       voyageNumber: payload.voyageNumber,
       handlingTimeEstimatedHours: 0,
+      status: 'pending',
     })
 
     await this.notificationService.portCallRequested(portCall.id)
