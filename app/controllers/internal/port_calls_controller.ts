@@ -1,11 +1,15 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
-import type { PortCallService } from '#services/port_call_service'
+import { PortCallService } from '#services/port_call_service'
 import { approvePortCall, getPortCallValidator } from '#validators/port_call'
+import { YardForecastService } from '#services/yard_forecast_service'
 
 @inject()
 export default class PortCallsController {
-  constructor(protected portCallService: PortCallService) {}
+  constructor(
+    protected portCallService: PortCallService,
+    protected yardForecastService: YardForecastService
+  ) {}
 
   async pending({ view }: HttpContext) {
     const nextPendingPortCall = await this.portCallService.findNextPending()
@@ -18,9 +22,19 @@ export default class PortCallsController {
         )
       : []
 
+    const conflicts = nextPendingPortCall
+      ? await this.yardForecastService.checkPortCallCapacityFeasibility(
+          nextPendingPortCall.eta,
+          nextPendingPortCall.etd,
+          nextPendingPortCall.estimatedDischargeContainers,
+          nextPendingPortCall.estimatedLoadContainers
+        )
+      : ''
+
     return view.render('pages/internal/port_calls/pending', {
       portCall: nextPendingPortCall,
       berths: availableBerths,
+      conflicts,
     })
   }
 

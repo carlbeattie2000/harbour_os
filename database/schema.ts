@@ -127,6 +127,39 @@ export class BerthSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class CargoReleaseSchema extends BaseModel {
+  static $columns = [
+    'collectedAt',
+    'containerId',
+    'createdAt',
+    'id',
+    'issuedAt',
+    'releaseRef',
+    'shippingLineId',
+    'truckVisitId',
+    'updatedAt',
+  ] as const
+  $columns = CargoReleaseSchema.$columns
+  @column.dateTime()
+  declare collectedAt: DateTime | null
+  @column()
+  declare containerId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare issuedAt: DateTime
+  @column()
+  declare releaseRef: string
+  @column()
+  declare shippingLineId: number
+  @column()
+  declare truckVisitId: number | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class ContactDetailSchema extends BaseModel {
   static $columns = [
     'addressLine',
@@ -150,6 +183,33 @@ export class ContactDetailSchema extends BaseModel {
   declare id: number
   @column()
   declare phone: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class ContainerEventSchema extends BaseModel {
+  static $columns = [
+    'containerId',
+    'createdAt',
+    'id',
+    'portCallId',
+    'truckVisitId',
+    'type',
+    'updatedAt',
+  ] as const
+  $columns = ContainerEventSchema.$columns
+  @column()
+  declare containerId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare portCallId: number | null
+  @column()
+  declare truckVisitId: number | null
+  @column()
+  declare type: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
@@ -285,6 +345,36 @@ export class CraneSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class CustomsHoldSchema extends BaseModel {
+  static $columns = [
+    'containerId',
+    'createdAt',
+    'id',
+    'liftedAt',
+    'placedAt',
+    'placedBy',
+    'reason',
+    'updatedAt',
+  ] as const
+  $columns = CustomsHoldSchema.$columns
+  @column()
+  declare containerId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare liftedAt: DateTime | null
+  @column.dateTime()
+  declare placedAt: DateTime
+  @column()
+  declare placedBy: string
+  @column()
+  declare reason: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class FeeEventSchema extends BaseModel {
   static $columns = [
     'containerVisitId',
@@ -400,6 +490,66 @@ export class RoleSchema extends BaseModel {
   declare id: number
   @column()
   declare slug: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class StowagePlanSchema extends BaseModel {
+  static $columns = [
+    'bay',
+    'containerId',
+    'createdAt',
+    'id',
+    'operation',
+    'portCallId',
+    'row',
+    'tier',
+    'updatedAt',
+  ] as const
+  $columns = StowagePlanSchema.$columns
+  @column()
+  declare bay: number
+  @column()
+  declare containerId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare operation: string
+  @column()
+  declare portCallId: number
+  @column()
+  declare row: number
+  @column()
+  declare tier: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class TruckVisitSchema extends BaseModel {
+  static $columns = [
+    'createdAt',
+    'expectedAt',
+    'id',
+    'licencePlate',
+    'operation',
+    'status',
+    'updatedAt',
+  ] as const
+  $columns = TruckVisitSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column.dateTime()
+  declare expectedAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare licencePlate: string
+  @column()
+  declare operation: string
+  @column()
+  declare status: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
