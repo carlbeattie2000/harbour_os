@@ -7,14 +7,18 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
+      table
+        .integer('port_call_manifest_id')
+        .references('id')
+        .inTable('port_call_manifests')
+        .notNullable()
+
       table.string('vessel_id').references('imo_number').inTable('vessels').notNullable()
       table.string('purpose').notNullable()
       table.string('status').defaultTo('pending').notNullable()
       table.string('priority').defaultTo('regular').notNullable()
-      table.string('voyage_number')
+      table.string('voyage_number').notNullable()
 
-      table.integer('estimated_discharge_containers').notNullable()
-      table.integer('estimated_load_containers').notNullable()
       table.integer('handling_time_estimated_hours').notNullable()
       table.integer('total_fees').defaultTo(0).notNullable()
 

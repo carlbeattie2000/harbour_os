@@ -5,6 +5,7 @@ import { createPortCallValidator } from '#validators/port_call'
 import type { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
 import { NotificationService } from '#services/notification_service'
+import PortCallManifest from '#models/port_call_manifest'
 
 @inject()
 export default class PortCallsController {
@@ -30,17 +31,37 @@ export default class PortCallsController {
       throw new AccountDoesNotOwnVessel()
     }
 
+    const portCallManifest = await PortCallManifest.create({
+      estimatedUnloadStandard: payload.estimatedUnloadStandard,
+      estimatedLoadStandard: payload.estimatedLoadStandard,
+      estimatedUnloadReefer: payload.estimatedUnloadReefer,
+      estimatedLoadReefer: payload.estimatedLoadReefer,
+      estimatedUnloadHazmat: payload.estimatedUnloadHazmat,
+      estimatedLoadHazmat: payload.estimatedLoadHazmat,
+      estimatedUnloadOversize: payload.estimatedUnloadOversize,
+      estimatedLoadOversize: payload.estimatedLoadOversize,
+      estimatedUnload:
+        payload.estimatedUnloadStandard +
+        payload.estimatedUnloadReefer +
+        payload.estimatedUnloadHazmat +
+        payload.estimatedUnloadOversize,
+      estimatedLoad:
+        payload.estimatedLoadStandard +
+        payload.estimatedLoadReefer +
+        payload.estimatedLoadHazmat +
+        payload.estimatedLoadOversize,
+    })
+
     const portCall = await PortCall.create({
       vesselId: vessel.imoNumber,
       eta: payload.eta,
       etd: payload.etd,
       pilotageRequired: payload.pilotageRequired,
       purpose: payload.purpose,
-      estimatedDischargeContainers: payload.estimatedDischargeContainers,
-      estimatedLoadContainers: payload.estimatedLoadContainers,
       voyageNumber: payload.voyageNumber,
       handlingTimeEstimatedHours: 0,
       status: 'pending',
+      portCallManifestId: portCallManifest.id,
     })
 
     await this.notificationService.portCallRequested(portCall.id)

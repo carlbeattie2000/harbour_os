@@ -53,16 +53,64 @@
               </div>
 
             <div class="w-1/2 px-2.5">
-                @field.root({ name: 'estimatedDischargeContainers' })
-                  @!field.label({ text: 'Estimated Discharge Containers' })
+                @field.root({ name: 'estimatedUnloadStandard' })
+                  @!field.label({ text: 'Estimated Unload Standard Containers' })
                   @!input.control({ type: 'number' })
                   @!field.error()
                 @end
               </div>
 
-              <div class="w-1/2 px-2.5">
-                @field.root({ name: 'estimatedLoadContainers' })
-                  @!field.label({ text: 'Estimated Load Containers' })
+            <div class="w-1/2 px-2.5">
+                @field.root({ name: 'estimatedUnloadReefer' })
+                  @!field.label({ text: 'Estimated Unload Reefer Containers' })
+                  @!input.control({ type: 'number' })
+                  @!field.error()
+                @end
+              </div>
+
+            <div class="w-1/2 px-2.5">
+                @field.root({ name: 'estimatedUnloadHazmat' })
+                  @!field.label({ text: 'Estimated Unload Hazmat Containers' })
+                  @!input.control({ type: 'number' })
+                  @!field.error()
+                @end
+              </div>
+
+            <div class="w-1/2 px-2.5">
+                @field.root({ name: 'estimatedUnloadOversize' })
+                  @!field.label({ text: 'Estimated Unload Oversize Containers' })
+                  @!input.control({ type: 'number' })
+                  @!field.error()
+                @end
+              </div>
+
+            <div class="w-1/2 px-2.5">
+                @field.root({ name: 'estimatedLoadStandard' })
+                  @!field.label({ text: 'Estimated Load Standard Containers' })
+                  @!input.control({ type: 'number' })
+                  @!field.error()
+                @end
+              </div>
+
+            <div class="w-1/2 px-2.5">
+                @field.root({ name: 'estimatedLoadReefer' })
+                  @!field.label({ text: 'Estimated Load Reefer Containers' })
+                  @!input.control({ type: 'number' })
+                  @!field.error()
+                @end
+              </div>
+
+            <div class="w-1/2 px-2.5">
+                @field.root({ name: 'estimatedLoadHazmat' })
+                  @!field.label({ text: 'Estimated Load Hazmat Containers' })
+                  @!input.control({ type: 'number' })
+                  @!field.error()
+                @end
+              </div>
+
+            <div class="w-1/2 px-2.5">
+                @field.root({ name: 'estimatedLoadOversize' })
+                  @!field.label({ text: 'Estimated Load Oversize Containers' })
                   @!input.control({ type: 'number' })
                   @!field.error()
                 @end

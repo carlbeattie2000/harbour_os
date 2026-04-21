@@ -411,18 +411,62 @@ export class FeeEventSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class PortCallManifestSchema extends BaseModel {
+  static $columns = [
+    'createdAt',
+    'estimatedLoad',
+    'estimatedLoadHazmat',
+    'estimatedLoadOversize',
+    'estimatedLoadReefer',
+    'estimatedLoadStandard',
+    'estimatedUnload',
+    'estimatedUnloadHazmat',
+    'estimatedUnloadOversize',
+    'estimatedUnloadReefer',
+    'estimatedUnloadStandard',
+    'id',
+    'updatedAt',
+  ] as const
+  $columns = PortCallManifestSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare estimatedLoad: number
+  @column()
+  declare estimatedLoadHazmat: number
+  @column()
+  declare estimatedLoadOversize: number
+  @column()
+  declare estimatedLoadReefer: number
+  @column()
+  declare estimatedLoadStandard: number
+  @column()
+  declare estimatedUnload: number
+  @column()
+  declare estimatedUnloadHazmat: number
+  @column()
+  declare estimatedUnloadOversize: number
+  @column()
+  declare estimatedUnloadReefer: number
+  @column()
+  declare estimatedUnloadStandard: number
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class PortCallSchema extends BaseModel {
   static $columns = [
     'ata',
     'atd',
     'createdAt',
-    'estimatedDischargeContainers',
-    'estimatedLoadContainers',
     'eta',
     'etd',
     'handlingTimeEstimatedHours',
     'id',
     'pilotageRequired',
+    'portCallManifestId',
     'priority',
     'purpose',
     'status',
@@ -438,10 +482,6 @@ export class PortCallSchema extends BaseModel {
   declare atd: DateTime | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
-  @column()
-  declare estimatedDischargeContainers: number
-  @column()
-  declare estimatedLoadContainers: number
   @column.dateTime()
   declare eta: DateTime
   @column.dateTime()
@@ -452,6 +492,8 @@ export class PortCallSchema extends BaseModel {
   declare id: number
   @column()
   declare pilotageRequired: boolean
+  @column()
+  declare portCallManifestId: number
   @column()
   declare priority: string
   @column()
@@ -465,7 +507,7 @@ export class PortCallSchema extends BaseModel {
   @column()
   declare vesselId: string
   @column()
-  declare voyageNumber: string | null
+  declare voyageNumber: string
 }
 
 export class RateLimitSchema extends BaseModel {

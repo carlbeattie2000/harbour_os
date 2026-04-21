@@ -23,20 +23,21 @@ export class YardForecastService {
       'departed',
     ]
 
-    const portCallsContainerCountResult = await PortCall.query()
+    const result = await PortCall.query()
       .whereNotIn('status', ignoreStatuses)
       .where((query) => {
         query.where('eta', '>=', from.toSQL() ?? '').andWhere('etd', '<=', to.toSQL() ?? '')
       })
-      .sum('estimated_load_containers as total_inbound')
-      .sum('estimated_discharge_containers as total_outbound')
-      .first()
+      .preload('manifest')
+      .exec()
 
-    const portCallsInboundContainerCount = Number(
-      portCallsContainerCountResult?.$extras.total_inbound || 0
+    const portCallsInboundContainerCount = result.reduce(
+      (sum, pc) => sum + (pc.manifest.estimatedUnload ?? 0),
+      0
     )
-    const portCallsOutboundContainerCount = Number(
-      portCallsContainerCountResult?.$extras.total_outbound || 0
+    const portCallsOutboundContainerCount = result.reduce(
+      (sum, pc) => sum + (pc.manifest.estimatedLoad ?? 0),
+      0
     )
 
     return portCallsInboundContainerCount - portCallsOutboundContainerCount

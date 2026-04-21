@@ -5,7 +5,7 @@
       x-data="{
         selectedBerthId: null,
         selectedCraneIds: [],
-        totalMoves: {{ portCall.estimatedLoadContainers + portCall.estimatedDischargeContainers }},
+        totalMoves: {{ portCall.manifest.estimatedLoad + portCall.manifest.estimatedUnload }},
         eta: '{{ portCall.eta.toISO() }}',
         berths: {{ JSON.stringify(berths.map(b => ({
           id: b.id,
@@ -119,15 +119,15 @@
             <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
               <div>
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Estimated Discharge Moves</p>
-                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">{{ portCall.estimatedDischargeContainers }}</p>
+                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">{{ portCall.manifest.estimatedUnload }}</p>
               </div>
               <div>
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Estimated Load Moves</p>
-                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">{{ portCall.estimatedLoadContainers }}</p>
+                <p class="mt-1 text-2xl font-semibold text-gray-800 dark:text-white">{{ portCall.manifest.estimatedLoad }}</p>
               </div>
               <div>
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Total Estimated Moves</p>
-                <p class="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{{ portCall.estimatedLoadContainers + portCall.estimatedDischargeContainers }}</p>
+                <p class="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{{ portCall.manifest.estimatedUnload + portCall.manifest.estimatedLoad }}</p>
               </div>
               <div>
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">Estimated Handling Hours</p>
