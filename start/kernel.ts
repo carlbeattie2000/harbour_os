@@ -46,6 +46,7 @@ router.use([
  * the routes or the routes group.
  */
 export const middleware = router.named({
+  vpnOnly: () => import('#middleware/vpn_only_middleware'),
   accountType: () => import('#middleware/account_type_middleware'),
   accountRole: () => import('#middleware/account_role_middleware'),
   account: () => import('#middleware/account_middleware'),

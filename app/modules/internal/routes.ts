@@ -9,5 +9,6 @@ router
   })
   .use(middleware.auth())
   .use(middleware.role({ disallowedRoles: 'portal' }))
+  .use(middleware.vpnOnly())
   .use(throttle)
   .prefix('internal')

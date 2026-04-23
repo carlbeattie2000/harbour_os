@@ -10,5 +10,6 @@ router
   })
   .use(middleware.auth())
   .use(middleware.role({ allowedRoles: ['admin', 'operations_manager'] }))
+  .use(middleware.vpnOnly())
   .use(throttle)
   .prefix('account')

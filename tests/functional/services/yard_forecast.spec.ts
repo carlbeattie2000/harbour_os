@@ -3,6 +3,7 @@ import {
   addUserRoleToAccount,
   addUserToAccount,
   createAccount,
+  createContainerVisit,
   createPortCall,
   createUser,
   createVessel,
@@ -60,5 +61,29 @@ test.group('Services yard forecast', (group) => {
     const netFlow = await yardForecastService.getEstimatedNetContainerFlow(window.from, window.to)
 
     assert.equal(netFlow, 1317)
+  })
+
+  test('getInYardContainerCountAtTime returns correct containers in yard count', async ({
+    assert,
+  }) => {
+    const createContainersCount = 100
+
+    const shippingLineAccount = await createAccount('shipping_line')
+    const vessel = await createVessel(shippingLineAccount.id)
+
+    const portCall = await createPortCall(
+      vessel.imoNumber,
+      'arrival',
+      { standard: createContainersCount, reefer: 0, hazmat: 0, oversize: 0 },
+      { standard: 0, reefer: 0, hazmat: 0, oversize: 0 }
+    )
+
+    for (let i = 0; i < createContainersCount; i++) {
+      await createContainerVisit(portCall.id)
+    }
+
+    const containersInYard = await yardForecastService.getInYardContainerCountAtTime(DateTime.now())
+
+    assert.equal(containersInYard, createContainersCount)
   })
 })

@@ -749,7 +749,7 @@ export class YardSlotSchema extends BaseModel {
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column({ isPrimary: true })
-  declare id: string
+  declare id: number
   @column()
   declare maxStackHeight: number
   @column()

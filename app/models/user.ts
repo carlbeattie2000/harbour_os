@@ -13,7 +13,10 @@ import Account from './account.ts'
  * It extends UserSchema and includes authentication capabilities
  * through the withAuthFinder mixin.
  */
-export default class User extends compose(UserSchema, withAuthFinder(hash)) {
+export default class User extends compose(
+  UserSchema,
+  withAuthFinder(() => hash.use('scrypt'))
+) {
   /**
    * Get the user's initials from their full name or email.
    * Returns the first letter of first and last name if available,

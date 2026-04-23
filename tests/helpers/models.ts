@@ -15,6 +15,9 @@ import type { ContainerTypes } from '../../app/contracts/yard_forecasting.ts'
 import { ACCOUNT_TYPE_ROLES, type AccountType } from '#constants/account_types'
 import type { PortCallStatus } from '../../app/contracts/port_call.ts'
 import type { AccountRoles, UserRoles } from '../../app/contracts/roles.ts'
+import YardSlot from '#models/yard_slot'
+import ContainerVisit from '#models/container_visit'
+import Container from '#models/container'
 
 export const createUser = async () => {
   const firstNames = ['John', 'Jane', 'Alice', 'Bob', 'Charlie']
@@ -178,5 +181,44 @@ export const createPortCall = async (
     etd,
     handlingTimeEstimatedHours: 0,
     totalFees: 0,
+  })
+}
+
+export const createContainer = async () => {
+  const ownerCode = Math.random().toString(36).substring(2, 5).toUpperCase()
+  const categoryIndentifier = 'U'
+  const serialNumber = Math.random().toString(36).substring(2, 7).toUpperCase()
+  const checkDigit = Math.floor(Math.random() * 10)
+
+  const isoNumber = `${ownerCode}${categoryIndentifier}${serialNumber}${checkDigit}`
+
+  return await Container.create({
+    id: isoNumber,
+    sizeType: '40ft',
+    typeGroup: 'standard',
+    ownerCode,
+    categoryIndentifier,
+    serialNumber,
+    checkDigit,
+  })
+}
+
+export const createContainerVisit = async (portCallId: number) => {
+  const container = await createContainer()
+
+  const yardSlot = await YardSlot.query().where('status', 'available').firstOrFail()
+
+  return await ContainerVisit.create({
+    containerId: container.id,
+    yardSlotId: yardSlot.id,
+    category: 'standard',
+    hazmatClass: 'none',
+    status: 'in_yard',
+    customsStatus: 'cleared',
+    declaredWeight: Math.floor(1000 + Math.random() * 20000),
+    reeferRequired: false,
+    oversize: false,
+    storageStart: DateTime.now(),
+    portCallInboundId: portCallId,
   })
 }

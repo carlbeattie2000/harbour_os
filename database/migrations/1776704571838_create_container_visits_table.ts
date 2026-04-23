@@ -32,9 +32,6 @@ export default class extends BaseSchema {
       table.boolean('reefer_required').notNullable().defaultTo(false)
       table.boolean('oversize').notNullable().defaultTo(false)
 
-      table.date('estimated_storage_start').notNullable()
-      table.date('estimated_storage_end').notNullable()
-
       table.timestamp('storage_start').nullable()
       table.timestamp('storage_ends').nullable()
       table.timestamp('created_at')

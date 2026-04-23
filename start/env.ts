@@ -31,4 +31,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   |----------------------------------------------------------
   */
   LIMITER_STORE: Env.schema.enum(['database', 'memory'] as const),
+
+  VPN_ALLOWED_IPS: Env.schema.string(),
 })
