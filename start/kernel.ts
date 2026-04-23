@@ -10,6 +10,7 @@
 
 import router from '@adonisjs/core/services/router'
 import server from '@adonisjs/core/services/server'
+import env from './env.ts'
 
 /**
  * The error handler is used to convert an exception
@@ -27,6 +28,10 @@ server.use([
   () => import('@adonisjs/static/static_middleware'),
   () => import('@adonisjs/vite/vite_middleware'),
 ])
+
+if (env.get('IS_DEMO')) {
+  router.use([() => import('#middleware/demo_session_middleware')])
+}
 
 /**
  * The router middleware stack runs middleware on all the HTTP

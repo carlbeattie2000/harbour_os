@@ -9,6 +9,7 @@ export default class Role extends RoleSchema {
     pivotForeignKey: 'role_id',
     pivotRelatedForeignKey: 'user_id',
     pivotColumns: ['expires_at', 'assigned_by_id'],
+    pivotTimestamps: true,
   })
   declare users: ManyToMany<typeof User>
 }

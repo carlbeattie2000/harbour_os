@@ -28,6 +28,7 @@ export default class extends BaseSchema {
         .nullable()
 
       table.timestamp('created_at').notNullable()
+      table.timestamp('updated_at').notNullable()
       table.timestamp('expires_at').nullable()
 
       table.primary(['user_id', 'role_id'])

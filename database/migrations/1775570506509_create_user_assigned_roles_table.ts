@@ -30,6 +30,7 @@ export default class extends BaseSchema {
       table.boolean('is_active').defaultTo(true).notNullable()
 
       table.timestamp('created_at').notNullable()
+      table.timestamp('updated_at').defaultTo(this.now()).notNullable()
       table.timestamp('expires_at').nullable()
 
       table.primary(['user_id', 'role_id'])

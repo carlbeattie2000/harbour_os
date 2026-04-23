@@ -591,7 +591,14 @@ export class TruckVisitSchema extends BaseModel {
 }
 
 export class UserAccountAssignedRoleSchema extends BaseModel {
-  static $columns = ['assignedById', 'createdAt', 'expiresAt', 'roleId', 'userId'] as const
+  static $columns = [
+    'assignedById',
+    'createdAt',
+    'expiresAt',
+    'roleId',
+    'updatedAt',
+    'userId',
+  ] as const
   $columns = UserAccountAssignedRoleSchema.$columns
   @column()
   declare assignedById: number | null
@@ -601,6 +608,8 @@ export class UserAccountAssignedRoleSchema extends BaseModel {
   declare expiresAt: DateTime | null
   @column()
   declare roleId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
   @column({ isPrimary: true })
   declare userId: number
 }
@@ -629,6 +638,7 @@ export class UserAssignedRoleSchema extends BaseModel {
     'expiresAt',
     'isActive',
     'roleId',
+    'updatedAt',
     'userId',
   ] as const
   $columns = UserAssignedRoleSchema.$columns
@@ -642,6 +652,8 @@ export class UserAssignedRoleSchema extends BaseModel {
   declare isActive: boolean
   @column()
   declare roleId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
   @column({ isPrimary: true })
   declare userId: number
 }

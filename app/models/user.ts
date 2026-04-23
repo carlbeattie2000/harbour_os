@@ -27,6 +27,7 @@ export default class User extends compose(
     pivotForeignKey: 'user_id',
     pivotRelatedForeignKey: 'role_id',
     pivotColumns: ['expires_at', 'assigned_by_id', 'created_at'],
+    pivotTimestamps: true,
   })
   declare roles: ManyToMany<typeof Role>
 
@@ -35,6 +36,7 @@ export default class User extends compose(
     pivotForeignKey: 'user_id',
     pivotRelatedForeignKey: 'role_id',
     pivotColumns: ['expires_at', 'assigned_by_id', 'created_at'],
+    pivotTimestamps: true,
   })
   declare accountRoles: ManyToMany<typeof UserAccountRole>
 

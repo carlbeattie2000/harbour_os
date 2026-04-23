@@ -11,10 +11,10 @@ export default class extends BaseSchema {
       table.string('flag_state').notNullable()
       table.string('type').notNullable()
 
-      table.integer('gross_tonnage').notNullable()
-      table.integer('loa').notNullable()
-      table.integer('beam').notNullable()
-      table.integer('max_draft').notNullable()
+      table.float('gross_tonnage').notNullable()
+      table.float('loa').notNullable()
+      table.float('beam').notNullable()
+      table.float('max_draft').notNullable()
       table.integer('teu_capacity').notNullable()
 
       table

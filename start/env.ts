@@ -34,6 +34,8 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   VPN_ALLOWED_IPS: Env.schema.string(),
 
+  IS_DEMO: Env.schema.boolean(),
+
   DB_HOST: Env.schema.string(),
   DB_PORT: Env.schema.number(),
   DB_USER: Env.schema.string(),
