@@ -25,8 +25,6 @@ export default class PortCallsController {
         )
       : []
 
-    console.log('Available berths for next pending port call:', availableBerths)
-
     const conflicts = nextPendingPortCall
       ? await this.yardForecastService.checkPortCallCapacityFeasibility(
           nextPendingPortCall.eta,

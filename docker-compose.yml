@@ -1,0 +1,42 @@
+services:
+  app:
+    build: .
+    container_name: HarbourOS
+    ports:
+      - '3333:3333'
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3333
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: harbour_os
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - app_tmp:/app/tmp
+      - app_uploads:/app/uploads
+    command: sh -c "node ace migration:run  && node ace serve --watch"
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: adonis_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: harbour_os
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+  app_tmp:
+  app_uploads:

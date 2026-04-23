@@ -221,8 +221,6 @@ export class ContainerVisitSchema extends BaseModel {
     'createdAt',
     'customsStatus',
     'declaredWeight',
-    'estimatedStorageEnd',
-    'estimatedStorageStart',
     'hazmatClass',
     'id',
     'oversize',
@@ -246,10 +244,6 @@ export class ContainerVisitSchema extends BaseModel {
   declare customsStatus: string
   @column()
   declare declaredWeight: number
-  @column.date()
-  declare estimatedStorageEnd: DateTime
-  @column.date()
-  declare estimatedStorageStart: DateTime
   @column()
   declare hazmatClass: string
   @column({ isPrimary: true })
@@ -390,7 +384,7 @@ export class FeeEventSchema extends BaseModel {
   ] as const
   $columns = FeeEventSchema.$columns
   @column()
-  declare containerVisitId: number | null
+  declare containerVisitId: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
   @column()

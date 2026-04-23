@@ -15,19 +15,21 @@ function toBayLabel(index: number): string {
 
 export default class extends BaseSeeder {
   async run() {
-    const bays = 702
+    const bays = 26
     const rows = 50
     const stackHeight = 5
-    const yardSlots = []
+
+    const batchSize = 2000
+    let batch: any[] = []
 
     for (let i = 0; i < bays; i++) {
-      const createRows = []
       const char = toBayLabel(i)
+
       const typeChance = Math.random() * 100
       const type = typeChance <= 76 ? 'standard' : typeChance < 90 ? 'reefer' : 'hazmat'
 
       for (let r = 1; r <= rows; r++) {
-        createRows.push({
+        batch.push({
           bay: char,
           row: r,
           maxStackHeight: stackHeight,
@@ -35,11 +37,16 @@ export default class extends BaseSeeder {
           status: 'available',
           ownership: 'port',
         })
-      }
 
-      yardSlots.push(...createRows)
+        if (batch.length >= batchSize) {
+          await YardSlot.createMany(batch)
+          batch = []
+        }
+      }
     }
 
-    await YardSlot.createMany(yardSlots)
+    if (batch.length > 0) {
+      await YardSlot.createMany(batch)
+    }
   }
 }

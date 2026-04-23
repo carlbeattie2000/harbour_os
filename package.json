@@ -95,6 +95,7 @@
     "jsvectormap": "^1.6.0",
     "luxon": "^3.7.2",
     "nodemailer": "^8.0.5",
+    "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",
     "swiper": "^11.1.14"
   },

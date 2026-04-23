@@ -9,8 +9,7 @@ export default class extends BaseSchema {
 
       table.integer('port_call_id').unsigned().references('id').inTable('port_calls').notNullable()
       table
-        .integer('container_visit_id')
-        .unsigned()
+        .string('container_visit_id')
         .references('id')
         .inTable('containers')
         .nullable()

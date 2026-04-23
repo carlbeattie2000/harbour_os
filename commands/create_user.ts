@@ -5,7 +5,6 @@ import db from '@adonisjs/lucid/services/db'
 import User from '#models/user'
 import UserAssignedRole from '#models/user_assigned_role'
 import Role from '#models/role'
-import hash from '@adonisjs/core/services/hash'
 
 export default class CreateUser extends BaseCommand {
   static commandName = 'create:user'
@@ -45,7 +44,7 @@ export default class CreateUser extends BaseCommand {
             firstName: firstName.toLowerCase(),
             lastName: lastName.toLowerCase(),
             email,
-            password: await hash.make(password),
+            password: password,
           },
           { client: trx }
         )
