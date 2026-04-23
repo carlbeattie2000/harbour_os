@@ -64,3 +64,16 @@ node ace migration:run
 # Start the development server
 node ace serve --watch
 ```
+
+## With docker
+
+```bash
+git clone https://github.com/carlbeattie2000/harbour_os.git
+cd harbour_os
+
+# Copy environment
+cp .env.example .env
+
+docker compose up -d
+docker compose exec app node ace db:seed
+```
