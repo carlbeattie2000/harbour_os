@@ -86,4 +86,29 @@ test.group('Services yard forecast', (group) => {
 
     assert.equal(containersInYard, createContainersCount)
   })
+
+  test('simulateYardOccupancy', async ({ assert }) => {
+    const createContainersCount = 100
+
+    const shippingLineAccount = await createAccount('shipping_line')
+    const vessel = await createVessel(shippingLineAccount.id)
+
+    const portCall = await createPortCall(
+      vessel.imoNumber,
+      'arrival',
+      { standard: createContainersCount, reefer: 0, hazmat: 0, oversize: 0 },
+      { standard: 0, reefer: 0, hazmat: 0, oversize: 0 }
+    )
+
+    for (let i = 0; i < createContainersCount; i++) {
+      await createContainerVisit(portCall.id)
+    }
+
+    const eta = DateTime.now().plus({ days: 1 })
+    const etd = DateTime.now().plus({ days: 5 })
+
+    const projectedOccupancy = await yardForecastService.simulateYardOccupancy(eta, etd)
+
+    assert.equal(projectedOccupancy, createContainersCount)
+  })
 })
