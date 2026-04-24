@@ -26,6 +26,10 @@ export default class VpnOnlyMiddleware {
       ctx.request.header('x-real-ip') ??
       ctx.request.ip()
 
+    if (ALLOWED_VPNS.includes('*')) {
+      return await next()
+    }
+
     const allowed = ALLOWED_VPNS.some((allowedIp) => ipInCidr(clientIp!, allowedIp))
 
     if (!allowed) {
