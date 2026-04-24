@@ -22,7 +22,7 @@ export default class extends BaseSchema {
       table.integer('handling_time_estimated_hours').notNullable()
       table.integer('total_fees').defaultTo(0).notNullable()
 
-      table.boolean('pilotage_required').notNullable()
+      table.boolean('pilotage_required').notNullable().defaultTo(false)
 
       table.timestamp('eta').notNullable()
       table.timestamp('ata').nullable()
