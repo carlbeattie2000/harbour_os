@@ -563,6 +563,21 @@ export class StowagePlanSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class TenantSchema extends BaseModel {
+  static $columns = ['clientId', 'createdAt', 'id', 'lastActive', 'updatedAt'] as const
+  $columns = TenantSchema.$columns
+  @column()
+  declare clientId: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare lastActive: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class TruckVisitSchema extends BaseModel {
   static $columns = [
     'createdAt',
