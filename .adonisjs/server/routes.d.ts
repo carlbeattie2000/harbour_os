@@ -20,6 +20,7 @@ export type ScannedRoutes = {
     'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
     'create_users.store': { paramsTuple?: []; params?: {} }
+    'users.all': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_accounts.create': { paramsTuple?: []; params?: {} }
     'create_accounts.store': { paramsTuple?: []; params?: {} }
@@ -52,6 +53,7 @@ export type ScannedRoutes = {
     'port_calls.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
+    'users.all': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_accounts.create': { paramsTuple?: []; params?: {} }
     'containers.create': { paramsTuple?: []; params?: {} }
@@ -75,6 +77,7 @@ export type ScannedRoutes = {
     'port_calls.create': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'internal.dashboard.home': { paramsTuple?: []; params?: {} }
     'create_users.create': { paramsTuple?: []; params?: {} }
+    'users.all': { paramsTuple?: []; params?: {} }
     'users.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'create_accounts.create': { paramsTuple?: []; params?: {} }
     'containers.create': { paramsTuple?: []; params?: {} }

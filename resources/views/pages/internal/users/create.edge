@@ -1,0 +1,66 @@
+@layout()
+  <div class="mx-auto max-w-(--breakpoint-2xl) p-4 pb-20 md:p-6 md:pb-6">
+    <div class="space-y-6">
+      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+        <div class="px-5 py-4 sm:px-6 sm:py-5">
+          <h1>
+            Add yard slot
+          </h1>
+          <p>
+            Enter yard slot details below.
+          </p>
+        </div>
+
+        <div class="space-y-6 border-t border-gray-100 p-5 sm:p-6 dark:border-gray-800">
+          @form({ route: 'yard_slots.store', method: 'POST' })
+            <div class="-mx-2.5 flex flex-wrap gap-y-5">
+              <div class="w-1/2 px-2.5">
+                @field.root({ name: 'bay' })
+                  @!field.label({ text: 'Bay' })
+                  @!input.control({ type: 'text', placeholder: 'e.g. A' })
+                  @!field.error()
+                @end
+              </div>
+
+              <div class="w-1/4 px-2.5">
+                @field.root({ name: 'row' })
+                  @!field.label({ text: 'Row' })
+                  @!input.control({ type: 'number', min: 1, placeholder: 'e.g. 1' })
+                  @!field.error()
+                @end
+              </div>
+
+              <div class="w-1/4 px-2.5">
+                @field.root({ name: 'toRow' })
+                  @!field.label({ text: 'To Row (optional)' })
+                  @!input.control({ type: 'number', min: 1, placeholder: 'e.g. 10' })
+                  @!field.error()
+                @end
+              </div>
+
+              <div class="w-1/2 px-2.5">
+                @field.root({ name: 'maxStackHeight' })
+                  @!field.label({ text: 'Max Stack Height' })
+                  @!input.control({ type: 'number', min: 1, placeholder: 'e.g. 4' })
+                  @!field.error()
+                @end
+              </div>
+
+              <div class="w-1/2 px-2.5">
+                @field.root({ name: 'type' })
+                  @!field.label({ text: 'Type' })
+                  @!input.control({ type: 'text', placeholder: 'e.g. standard' })
+                  @!field.error()
+                @end
+              </div>
+
+              <div class="w-full px-2.5">
+                @!button({ text: 'Create', type: 'submit' })
+              </div>
+            </div>
+          @end
+        </div>
+      </div>
+    </div>
+  </div>
+@end

@@ -29,3 +29,7 @@ export const viewUserValidator = vine.create({
     id: vine.number().min(0),
   }),
 })
+
+export const viewUsersValidator = vine.create({
+  page: vine.number().optional(),
+})

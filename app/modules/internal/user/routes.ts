@@ -7,6 +7,7 @@ router
   .group(() => {
     router.get('create', [controllers.internal.CreateUsers, 'create'])
     router.post('/', [controllers.internal.CreateUsers, 'store'])
+    router.get('/', [controllers.internal.Users, 'all'])
     router.get(':id', [controllers.internal.Users, 'show'])
   })
   .use(middleware.auth())
