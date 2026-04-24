@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import adonisjs from '@adonisjs/vite/client'
 import tailwindcss from '@tailwindcss/vite'
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 export default defineConfig({
   plugins: [
     adonisjs({
@@ -23,5 +25,6 @@ export default defineConfig({
     watch: {
       ignored: ['**/storage/**', '**/tmp/**'],
     },
+    ...(isProduction && { allowedHosts: '.' }),
   },
 })
