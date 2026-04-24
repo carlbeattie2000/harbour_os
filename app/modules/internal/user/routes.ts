@@ -13,4 +13,4 @@ router
   .use(middleware.role({ allowedRoles: 'admin' }))
   .use(middleware.vpnOnly())
   .use(throttle)
-  .prefix('users')
+  .prefix('internal/users')
