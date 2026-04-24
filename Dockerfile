@@ -16,4 +16,8 @@ EXPOSE 3333
 
 RUN npm run build
 
-CMD ["npm", "run", "start"]
+WORKDIR /app/build
+
+RUN npm ci --omit="dev"
+
+CMD ["node", "bin/server.js"]
