@@ -26,11 +26,15 @@ export default class PortCallsController {
       : []
 
     const conflicts = nextPendingPortCall
-      ? await this.yardForecastService.checkPortCallCapacityFeasibility(
+      ? await this.yardForecastService.checkPortCallOperationalConstraints(
           nextPendingPortCall.eta,
           nextPendingPortCall.etd,
-          nextPendingPortCall.manifest.estimatedUnload,
-          nextPendingPortCall.manifest.estimatedLoad
+          {
+            standard: nextPendingPortCall.manifest.estimatedUnloadStandard,
+            reefer: nextPendingPortCall.manifest.estimatedUnloadReefer,
+            hazmat: nextPendingPortCall.manifest.estimatedUnloadHazmat,
+            oversize: nextPendingPortCall.manifest.estimatedUnloadOversize,
+          }
         )
       : ''
 
