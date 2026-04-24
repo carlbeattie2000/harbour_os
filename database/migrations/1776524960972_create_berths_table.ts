@@ -9,9 +9,9 @@ export default class extends BaseSchema {
 
       table.string('code', 254).notNullable()
 
-      table.integer('length').notNullable()
-      table.integer('max_draft').notNullable()
-      table.integer('max_beam').nullable()
+      table.float('length').notNullable()
+      table.float('max_draft').notNullable()
+      table.float('max_beam').nullable()
 
       table.string('status').notNullable()
 
