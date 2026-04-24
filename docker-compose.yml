@@ -1,6 +1,8 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     container_name: HarbourOS
     ports:
       - '3333:3333'
@@ -21,7 +23,7 @@ services:
       - /app/node_modules
       - app_tmp:/app/tmp
       - app_uploads:/app/uploads
-    command: sh -c "node ace migration:run  && node ace serve --watch"
+    command: sh -c "node ace migration:run  && node ace serve --hmr"
 
   postgres:
     image: postgres:16-alpine

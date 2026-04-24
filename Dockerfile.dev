@@ -1,0 +1,17 @@
+FROM node:24.15.0-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache libc6-compat
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN mkdir -p tmp uploads
+
+EXPOSE 3333
+
+CMD ["node", "ace", "serve", "--hmr"]
