@@ -14,4 +14,6 @@ RUN mkdir -p tmp uploads
 
 EXPOSE 3333
 
-CMD ["node", "ace", "serve", "--watch"]
+RUN npm run build
+
+CMD ["node", "ace", "start"]
