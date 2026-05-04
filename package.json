@@ -94,6 +94,7 @@
     "fullcalendar": "^6.1.15",
     "jsvectormap": "^1.6.0",
     "luxon": "^3.7.2",
+    "neat-edifact-mapper": "^0.7.1",
     "nodemailer": "^8.0.5",
     "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",

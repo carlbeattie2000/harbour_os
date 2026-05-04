@@ -10,6 +10,8 @@ tmp/*
 .env.production.local
 .env.development.local
 
+.codebook.toml
+
 # Frontend assets compiled code
 public/assets
 
