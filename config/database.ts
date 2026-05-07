@@ -22,7 +22,7 @@ const dbConfig = defineConfig({
   /**
    * Pretty-print SQL debug output in development logs.
    */
-  prettyPrintDebugQueries: true,
+  prettyPrintDebugQueries: false,
 
   connections: {
     /**

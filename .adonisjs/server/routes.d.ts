@@ -36,6 +36,12 @@ export type ScannedRoutes = {
     'port_calls.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'port_calls.deny': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'yard_forecastings.forecast': { paramsTuple?: []; params?: {} }
+    'baplies.create': { paramsTuple?: []; params?: {} }
+    'baplies.store': { paramsTuple?: []; params?: {} }
+    'baplies.confirm': { paramsTuple?: []; params?: {} }
+    'baplies.cancel': { paramsTuple?: []; params?: {} }
+    'baplies.find': { paramsTuple?: []; params?: {} }
+    'baplies.view': { paramsTuple: [ParamValue]; params: {'voyageNumber': ParamValue} }
     'event_stream': { paramsTuple?: []; params?: {} }
     'subscribe': { paramsTuple?: []; params?: {} }
     'unsubscribe': { paramsTuple?: []; params?: {} }
@@ -63,6 +69,9 @@ export type ScannedRoutes = {
     'yard_slots.index': { paramsTuple?: []; params?: {} }
     'port_calls.pending': { paramsTuple?: []; params?: {} }
     'yard_forecastings.forecast': { paramsTuple?: []; params?: {} }
+    'baplies.create': { paramsTuple?: []; params?: {} }
+    'baplies.find': { paramsTuple?: []; params?: {} }
+    'baplies.view': { paramsTuple: [ParamValue]; params: {'voyageNumber': ParamValue} }
     'event_stream': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
@@ -87,6 +96,9 @@ export type ScannedRoutes = {
     'yard_slots.index': { paramsTuple?: []; params?: {} }
     'port_calls.pending': { paramsTuple?: []; params?: {} }
     'yard_forecastings.forecast': { paramsTuple?: []; params?: {} }
+    'baplies.create': { paramsTuple?: []; params?: {} }
+    'baplies.find': { paramsTuple?: []; params?: {} }
+    'baplies.view': { paramsTuple: [ParamValue]; params: {'voyageNumber': ParamValue} }
     'event_stream': { paramsTuple?: []; params?: {} }
     'home': { paramsTuple?: []; params?: {} }
   }
@@ -99,6 +111,9 @@ export type ScannedRoutes = {
     'create_users.store': { paramsTuple?: []; params?: {} }
     'create_accounts.store': { paramsTuple?: []; params?: {} }
     'yard_slots.store': { paramsTuple?: []; params?: {} }
+    'baplies.store': { paramsTuple?: []; params?: {} }
+    'baplies.confirm': { paramsTuple?: []; params?: {} }
+    'baplies.cancel': { paramsTuple?: []; params?: {} }
     'subscribe': { paramsTuple?: []; params?: {} }
     'unsubscribe': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }

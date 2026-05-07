@@ -29,7 +29,7 @@ class InvalidFieldLengthError extends AppError {
   }
 }
 
-interface Container {
+export interface BaplieContainer {
   number: string | undefined
   position: {
     bay: number
@@ -49,9 +49,9 @@ interface Container {
   }
 }
 
-interface Voyage {
+export interface Voyage {
   number: string
-  containers: Container[]
+  containers: BaplieContainer[]
 }
 
 export class Baplie {
@@ -214,7 +214,7 @@ export class Baplie {
   }
 
   public process(): Voyage {
-    const document = EdifactDocument.useStrict().fromString(this.#raw, this.#schema())
+    const document = EdifactDocument.useStrict().fromString(this.#raw.trim(), this.#schema())
 
     const mappedBaplieMessages = document.map()
     const mappedBaplieMessage = mappedBaplieMessages[0]

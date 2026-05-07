@@ -1,0 +1,37 @@
+@layout()
+  <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+
+    {{-- Page Header --}}
+    <div class="mb-6">
+      <h2 class="text-title-md2 font-semibold text-black dark:text-white">Upload Baplie</h2>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Paste your BAPLIE EDI content below to parse and import the stowage plan.</p>
+    </div>
+
+    <div class="rounded-[10px] border border-stroke bg-white shadow-sm dark:border-dark-3 dark:bg-gray-dark">
+      <div class="border-b border-stroke px-6 py-4 dark:border-dark-3">
+        <h3 class="font-semibold text-black dark:text-white">EDI Content</h3>
+        <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-500">Accepted format: BAPLIE D 95B</p>
+      </div>
+
+      <div class="p-6">
+        @form({ route: 'baplies.store', enctype: 'multipart/form-data' })
+
+          @field.root({ name: 'content' })
+            @!textarea.control({
+              rows: '20',
+              placeholder: "UNB+UNOA:1+SENDER+RECEIVER+240101:0000+1++BAPLIE'",
+              class: 'font-mono text-xs w-full'
+            })
+            @!field.error()
+          @end
+
+          <div class="mt-4 flex justify-end">
+            @!button({ type: 'submit', text: 'Upload Baplie' })
+          </div>
+
+        @end
+      </div>
+    </div>
+
+  </div>
+@end

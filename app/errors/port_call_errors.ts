@@ -9,3 +9,9 @@ export class AccountDoesNotOwnVessel extends AppError {
     )
   }
 }
+
+export class PortCallNotFound extends AppError {
+  constructor() {
+    super('Port call was not found', 'E_PORT_CALL_NOT_FOUND', 404)
+  }
+}

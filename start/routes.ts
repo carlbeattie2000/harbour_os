@@ -23,6 +23,7 @@ import '#modules/internal/vessels/routes'
 import '#modules/internal/yard_slots/routes'
 import '#modules/internal/port_calls/routes'
 import '#modules/internal/yard_forecasting/routes'
+import '#modules/internal/baplie/routes'
 
 import router from '@adonisjs/core/services/router'
 import { throttle } from './limiter.ts'

@@ -5,6 +5,7 @@
 
 export const controllers = {
   internal: {
+    Baplies: () => import('#controllers/internal/baplies_controller'),
     Containers: () => import('#controllers/internal/containers_controller'),
     CreateAccounts: () => import('#controllers/internal/create_accounts_controller'),
     CreateUsers: () => import('#controllers/internal/create_users_controller'),

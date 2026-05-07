@@ -1,0 +1,31 @@
+@layout()
+  <div class="space-y-6">
+    <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+      <div class="px-5 py-4 sm:px-6 sm:py-5">
+        <h1>
+          Find stowage plan
+        </h1>
+      </div>
+
+      <div class="space-y-6 border-t border-gray-100 p-5 sm:p-6 dark:border-gray-800">
+        <form
+          x-data="{ voyageNumber: '' }"
+          x-on:submit.prevent="window.location.href = '{{ route('baplies.view', { voyageNumber: '__VN__' }) }}'.replace('__VN__', voyageNumber)"
+        >
+          <div class="-mx-2.5 flex flex-wrap gap-y-5">
+            <div class="w-full px-2.5">
+              @field.root({ name: 'voyageNumber' })
+                @!field.label({ text: 'Voyage number' })
+                @!input.control({ type: 'text', 'x-model': 'voyageNumber' })
+                @!field.error()
+              @end
+            </div>
+            <div class="w-full px-2.5">
+              @!button({ text: 'Find', type: 'submit' })
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+@end
