@@ -21,3 +21,13 @@ export class UnauthorisedAccessForVoyage extends AppError {
     )
   }
 }
+
+export class PortCallCannotAcceptBaplieException extends AppError {
+  constructor() {
+    super(
+      'You are unable to edit this port calls stowage plan.',
+      'E_PORT_CALL_CANNOT_ACCEPT_BAPLIE',
+      400
+    )
+  }
+}

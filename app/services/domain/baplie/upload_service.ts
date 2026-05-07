@@ -1,9 +1,11 @@
+import { assertPortCallAcceptsBaplie } from '#domain/baplie/baplie_guards'
 import { Baplie, type Voyage, type BaplieContainer } from '#domain/baplie/index'
 import { BaplieUploadError, UnauthorisedAccessForVoyage } from '#errors/baplie_upload_errors'
 import { PortCallNotFound } from '#errors/port_call_errors'
 import Container from '#models/container'
 import PortCall from '#models/port_call'
 import StowagePlan from '#models/stowage_plan'
+import { ManifestService } from '#services/port_call/manifest_service'
 import iso6456_parser from '#utils/iso6456_parser'
 import db from '@adonisjs/lucid/services/db'
 import { randomUUID } from 'node:crypto'
@@ -32,6 +34,8 @@ type VoyageStowageViewResult = {
 const cache: Map<string, Buffer> = new Map()
 
 export class UploadService {
+  constructor(protected manifestService = new ManifestService()) {}
+
   getBaplieVoyage(baplie: string) {
     try {
       return new Baplie(baplie).process()
@@ -98,7 +102,10 @@ export class UploadService {
   }
 
   async #uploadContainers(voyage: Voyage, portCall: PortCall): Promise<void> {
+    assertPortCallAcceptsBaplie(portCall)
+
     await db.transaction(async (trx) => {
+      await this.manifestService.handleUpdateFromStowagePlans(portCall, voyage.containers, trx)
       await StowagePlan.query({ client: trx }).where('portCallId', portCall.id).delete()
 
       for (const container of voyage.containers) {
@@ -167,7 +174,6 @@ export class UploadService {
     context: { shippingLineId: number | null }
   ): Promise<HandleBaplieUploadResult> {
     const voyage = this.getBaplieVoyage(baplie)
-
     const portCall = await this.#getPortCall(voyage.number, context.shippingLineId)
 
     const hasStowagePlanEntry = await StowagePlan.query().where('portCallId', portCall.id).first()

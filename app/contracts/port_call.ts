@@ -1,8 +1,9 @@
 export type PortCallStatus =
   | 'pending'
   | 'awaiting_account_approval'
+  | 'under_review'
   | 'scheduled'
-  | 'mainifest_submitted'
+  | 'manifest_submitted'
   | 'reconciled'
   | 'at_anchorage'
   | 'berthed'
