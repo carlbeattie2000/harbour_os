@@ -7,6 +7,10 @@ import type { PortCallOperationalPhase, PortCallStatus } from '../contracts/port
 import PortCallManifest from './port_call_manifest.ts'
 
 export default class PortCall extends PortCallSchema {
+  /**
+   * DO NOT set status directly. Always use PortCallStateManager.Transition()
+   * Setting this directly bypasses policy checks, side effects and audit logging.
+   */
   @column()
   declare status: PortCallStatus
 
