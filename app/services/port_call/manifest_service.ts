@@ -1,26 +1,30 @@
 import { type BaplieContainer } from '#domain/baplie/index'
-import type PortCall from '#models/port_call'
 import MathExtended from '#utils/math'
 import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
-import { assertValidTransition } from '../../state_machines/index.ts'
-import { PORT_CALL_TRANSITIONS } from '../../state_machines/port_call.ts'
+import { PortCallWithVessel } from '../../contracts/port_call.ts'
+import { PortCallService } from '#services/port_call_service'
+import { inject } from '@adonisjs/core'
+import { Actor } from '../../contracts/actor.ts'
 
 const INCREASE_BY_FLAG = 15
 
 type HandleUpdateFromStowagePlansResult = { status: 'success' } | { status: 'flagged' }
 
+@inject()
 export class ManifestService {
-  async #handleIncreaseFlag(portCall: PortCall, trx: TransactionClientContract) {
-    assertValidTransition(PORT_CALL_TRANSITIONS, portCall.status, 'under_review')
-
-    portCall.status = 'under_review'
-
-    await portCall.useTransaction(trx).save()
+  constructor(protected portCallService: PortCallService) {}
+  async #handleIncreaseFlag(
+    portCall: PortCallWithVessel,
+    actor: Actor,
+    trx?: TransactionClientContract
+  ) {
+    await this.portCallService.setStatusOnPortCall(portCall, 'under_review', actor, trx)
   }
 
   async handleUpdateFromStowagePlans(
-    portCall: PortCall,
+    portCall: PortCallWithVessel,
     containers: BaplieContainer[],
+    actor: Actor,
     trx: TransactionClientContract
   ): Promise<HandleUpdateFromStowagePlansResult> {
     await portCall.useTransaction(trx).load('manifest')
@@ -62,7 +66,7 @@ export class ManifestService {
       hazmatChangePercent >= INCREASE_BY_FLAG
 
     if (flagAsNeedingReview) {
-      await this.#handleIncreaseFlag(portCall, trx)
+      await this.#handleIncreaseFlag(portCall, actor, trx)
     }
 
     manifest.estimatedUnloadStandard = standard

@@ -15,11 +15,13 @@ export default class BapliesController {
     return view.render('pages/internal/baplie/baplie_upload')
   }
 
-  async store({ request, view, session, response }: HttpContext) {
+  async store({ request, view, session, response, auth }: HttpContext) {
+    const user = auth.getUserOrFail()
     const { content } = await request.validateUsing(createBaplieUploadValidator)
 
     const result = await this.baplieUploadService.handleBaplieUpload(content, {
       shippingLineId: null,
+      actor: user,
     })
 
     if (result.status === 'conflict') {
@@ -39,11 +41,13 @@ export default class BapliesController {
     return response.redirect().toRoute('baplies.create')
   }
 
-  async confirm({ request, session, response }: HttpContext) {
+  async confirm({ request, session, response, auth }: HttpContext) {
+    const user = auth.getUserOrFail()
     const { cacheId } = await request.validateUsing(confirmBaplieUploadValidator)
 
     const result = await this.baplieUploadService.handleBaplieMerge(cacheId, {
       shippingLineId: null,
+      actor: user,
     })
 
     if (result.status === 'success') {

@@ -1,6 +1,9 @@
 import User from '#models/user'
 import transmit from '@adonisjs/transmit/services/main'
 import { DateTime } from 'luxon'
+import { type UserRoles, type AccountRoles } from '../contracts/roles.ts'
+import Account from '#models/account'
+import { type PortCallStatus } from '../contracts/port_call.ts'
 
 export class NotificationService {
   private channel = (id: number) => `notifications/users/${id}`
@@ -14,7 +17,7 @@ export class NotificationService {
     }
   }
 
-  private async getUsersWithRoles(...roles: string[]): Promise<number[]> {
+  private async getUsersWithRoles(...roles: UserRoles[]): Promise<number[]> {
     const users = await User.query()
       .whereHas('roles', (query) => {
         query.whereIn('slug', roles)
@@ -22,6 +25,19 @@ export class NotificationService {
       .select('id')
 
     return users.map((u) => u.id)
+  }
+
+  async getUsersWithRoleOnAccount(accountId: number, ...roles: AccountRoles[]): Promise<number[]> {
+    const account = await Account.query()
+      .where('id', accountId)
+      .preload('users', (query) => {
+        query.whereHas('accountRoles', (accountRoleQuery) => {
+          accountRoleQuery.whereIn('slug', roles)
+        })
+        query.select('id')
+      })
+      .first()
+    return account?.users.map((u) => u.id) ?? []
   }
 
   async portCallRequested(portCallId: number) {
@@ -39,6 +55,29 @@ export class NotificationService {
       type: 'vessel_requested',
       message: 'New vessel request',
       vesselId,
+    })
+  }
+
+  async portCallStatusChange(
+    accountId: number,
+    portCallId: number,
+    from: PortCallStatus,
+    to: PortCallStatus
+  ) {
+    const internalUserIds = await this.getUsersWithRoles(
+      'admin',
+      'operations_manager',
+      'yard_manager'
+    )
+    const accountUserIds = await this.getUsersWithRoleOnAccount(
+      accountId,
+      'account_admin',
+      'vessel_planner'
+    )
+    await this.broadcast([...internalUserIds, ...accountUserIds], {
+      type: 'port_call_status_changed',
+      message: `Port call has changed status from ${from} to ${to}`,
+      portCallId,
     })
   }
 }

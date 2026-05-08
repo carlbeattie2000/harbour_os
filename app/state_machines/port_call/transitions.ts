@@ -1,4 +1,4 @@
-import type { PortCallStatus } from '../contracts/port_call.ts'
+import type { PortCallStatus } from '../../contracts/port_call.ts'
 
 export const PORT_CALL_TRANSITIONS: Record<PortCallStatus, PortCallStatus[]> = {
   pending: ['awaiting_account_approval', 'canceled'],

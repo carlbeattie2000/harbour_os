@@ -8,9 +8,14 @@ import { PortCallPolicy } from '#policies/port_call_policy'
 import type User from '#models/user'
 import type Vessel from '#models/vessel'
 import type { DateTime } from 'luxon'
-import type { PortCallStatus } from '../contracts/port_call.ts'
+import type { PortCallStatus, PortCallWithVessel } from '../contracts/port_call.ts'
 
-import { ForbiddenError, NotFoundError } from '#errors/app_error'
+import { ForbiddenError } from '#errors/app_error'
+import { PortCallNotFound } from '#errors/port_call_errors'
+import logger from '@adonisjs/core/services/logger'
+import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
+import PortCallStateManager from '../state_machines/port_call/index.ts'
+import type { Actor } from '../contracts/actor.ts'
 
 export class PortCallService {
   async findNextPending() {
@@ -40,10 +45,10 @@ export class PortCallService {
       .preload('vessel', (query) => query.select('name').select('imoNumber'))
   }
 
-  async setStatus(id: number, status: PortCallStatus, user: User) {
-    const portCall = await PortCall.find(id)
+  async setStatus(id: number, status: PortCallStatus, user: User, trx?: TransactionClientContract) {
+    const portCall = await this.findWithVessel(id)
     if (!portCall) {
-      throw new NotFoundError()
+      throw new PortCallNotFound()
     }
 
     const canSetStatus = await PortCallPolicy.CanEditStatus(user, portCall)
@@ -52,7 +57,42 @@ export class PortCallService {
       throw new ForbiddenError()
     }
 
-    await portCall.merge({ status }).save()
+    if (trx) {
+      portCall.useTransaction(trx)
+    }
+
+    await PortCallStateManager.Transition(
+      portCall,
+      status,
+      portCall.vessel.shippingLineId,
+      user,
+      trx
+    )
+  }
+
+  async setStatusOnPortCall(
+    portCall: PortCallWithVessel,
+    status: PortCallStatus,
+    user: Actor,
+    trx?: TransactionClientContract
+  ) {
+    const canSetStatus = await PortCallPolicy.CanEditStatus(user, portCall)
+
+    if (!canSetStatus) {
+      throw new ForbiddenError()
+    }
+
+    if (trx) {
+      portCall.useTransaction(trx)
+    }
+
+    await PortCallStateManager.Transition(
+      portCall,
+      status,
+      portCall.vessel.shippingLineId,
+      user,
+      trx
+    )
   }
 
   async assignBerth(portCallId: number, berthId: number): Promise<BerthVisit> {
@@ -98,5 +138,38 @@ export class PortCallService {
     }))
 
     await CraneBerthAssignment.createMany(assignedCranes)
+  }
+
+  async findWithVessel(id: number): Promise<PortCallWithVessel> {
+    const portCall = await PortCall.query().where('id', id).preload('vessel').first()
+
+    if (!portCall) {
+      throw new PortCallNotFound()
+    }
+
+    if (!portCall.vessel.shippingLineId) {
+      logger.error(`Port call ${portCall.id} has vessel with no shipping line owner`)
+      throw new PortCallNotFound()
+    }
+
+    return portCall as PortCallWithVessel
+  }
+
+  async findByVoyageNumberWithVessel(voyageNumber: string): Promise<PortCallWithVessel> {
+    const portCall = await PortCall.query()
+      .where('voyageNumber', voyageNumber)
+      .preload('vessel')
+      .first()
+
+    if (!portCall) {
+      throw new PortCallNotFound()
+    }
+
+    if (!portCall.vessel.shippingLineId) {
+      logger.error(`Port call ${portCall.id} has vessel with no shipping line owner`)
+      throw new PortCallNotFound()
+    }
+
+    return portCall as PortCallWithVessel
   }
 }

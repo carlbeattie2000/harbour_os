@@ -1,7 +1,6 @@
 import { assertPortCallAcceptsBaplie } from '#domain/baplie/baplie_guards'
 import { Baplie, type Voyage, type BaplieContainer } from '#domain/baplie/index'
 import { BaplieUploadError, UnauthorisedAccessForVoyage } from '#errors/baplie_upload_errors'
-import { PortCallNotFound } from '#errors/port_call_errors'
 import Container from '#models/container'
 import PortCall from '#models/port_call'
 import StowagePlan from '#models/stowage_plan'
@@ -9,6 +8,10 @@ import { ManifestService } from '#services/port_call/manifest_service'
 import iso6456_parser from '#utils/iso6456_parser'
 import db from '@adonisjs/lucid/services/db'
 import { randomUUID } from 'node:crypto'
+import { inject } from '@adonisjs/core'
+import { PortCallService } from '#services/port_call_service'
+import { PortCallWithVessel } from '../../../contracts/port_call.ts'
+import { Actor } from '../../../contracts/actor.ts'
 
 interface StowagePlanDiff {
   added: string[]
@@ -31,10 +34,19 @@ type VoyageStowageViewResult = {
   stowagePlans: StowagePlan[]
 }
 
+type ServiceContext = {
+  shippingLineId: number | null
+  actor: Actor
+}
+
 const cache: Map<string, Buffer> = new Map()
 
+@inject()
 export class UploadService {
-  constructor(protected manifestService = new ManifestService()) {}
+  constructor(
+    protected manifestService: ManifestService,
+    protected portCallService: PortCallService
+  ) {}
 
   getBaplieVoyage(baplie: string) {
     try {
@@ -84,15 +96,13 @@ export class UploadService {
     }
   }
 
-  async #getPortCall(voyageNumber: string, shippingLineId: number | null): Promise<PortCall> {
-    const portCall = await PortCall.query().where('voyageNumber', voyageNumber).first()
-    if (!portCall) {
-      throw new PortCallNotFound()
-    }
+  async #getPortCall(
+    voyageNumber: string,
+    shippingLineId: number | null
+  ): Promise<PortCallWithVessel> {
+    const portCall = await this.portCallService.findByVoyageNumberWithVessel(voyageNumber)
 
     if (shippingLineId) {
-      await portCall.load('vessel')
-
       if (portCall.vessel.shippingLineId !== shippingLineId) {
         throw new UnauthorisedAccessForVoyage()
       }
@@ -101,11 +111,20 @@ export class UploadService {
     return portCall
   }
 
-  async #uploadContainers(voyage: Voyage, portCall: PortCall): Promise<void> {
+  async #uploadContainers(
+    voyage: Voyage,
+    portCall: PortCallWithVessel,
+    actor: Actor
+  ): Promise<void> {
     assertPortCallAcceptsBaplie(portCall)
 
     await db.transaction(async (trx) => {
-      await this.manifestService.handleUpdateFromStowagePlans(portCall, voyage.containers, trx)
+      await this.manifestService.handleUpdateFromStowagePlans(
+        portCall,
+        voyage.containers,
+        actor,
+        trx
+      )
       await StowagePlan.query({ client: trx }).where('portCallId', portCall.id).delete()
 
       for (const container of voyage.containers) {
@@ -147,7 +166,7 @@ export class UploadService {
 
   async handleBaplieMerge(
     cacheId: string,
-    context: { shippingLineId: number | null }
+    context: ServiceContext
   ): Promise<HandleBaplieMergeResult> {
     const baplieContent = this.getCachedBaplie(cacheId)
 
@@ -161,7 +180,7 @@ export class UploadService {
     const voyage = this.getBaplieVoyage(baplieContent)
     const portCall = await this.#getPortCall(voyage.number, context?.shippingLineId)
 
-    await this.#uploadContainers(voyage, portCall)
+    await this.#uploadContainers(voyage, portCall, context.actor)
 
     return {
       status: 'success',
@@ -171,7 +190,7 @@ export class UploadService {
 
   async handleBaplieUpload(
     baplie: string,
-    context: { shippingLineId: number | null }
+    context: ServiceContext
   ): Promise<HandleBaplieUploadResult> {
     const voyage = this.getBaplieVoyage(baplie)
     const portCall = await this.#getPortCall(voyage.number, context.shippingLineId)
@@ -189,7 +208,7 @@ export class UploadService {
       return { status: 'conflict', diff: diffResult, cacheId: cachedBaplieId }
     }
 
-    await this.#uploadContainers(voyage, portCall)
+    await this.#uploadContainers(voyage, portCall, context.actor)
 
     return {
       status: 'success',

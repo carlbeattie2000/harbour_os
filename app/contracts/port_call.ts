@@ -1,3 +1,6 @@
+import type PortCall from '#models/port_call'
+import type Vessel from '#models/vessel'
+
 export type PortCallStatus =
   | 'pending'
   | 'awaiting_account_approval'
@@ -14,3 +17,7 @@ export type PortCallStatus =
   | 'canceled'
   | 'delayed'
   | 'unable_to_accept'
+
+export type PortCallWithVessel = PortCall & {
+  vessel: Vessel & { shippingLineId: number }
+}
