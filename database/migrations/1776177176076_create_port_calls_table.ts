@@ -15,7 +15,10 @@ export default class extends BaseSchema {
 
       table.string('vessel_id').references('imo_number').inTable('vessels').notNullable()
       table.string('purpose').notNullable()
+
       table.string('status').defaultTo('pending').notNullable()
+      table.string('operational_phase').nullable()
+
       table.string('priority').defaultTo('regular').notNullable()
       table.string('voyage_number').notNullable()
 

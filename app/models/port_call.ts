@@ -3,12 +3,15 @@ import { belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import FeeEvent from './fee_event.ts'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Vessel from './vessel.ts'
-import type { PortCallStatus } from '../contracts/port_call.ts'
+import type { PortCallOperationalPhase, PortCallStatus } from '../contracts/port_call.ts'
 import PortCallManifest from './port_call_manifest.ts'
 
 export default class PortCall extends PortCallSchema {
   @column()
   declare status: PortCallStatus
+
+  @column()
+  declare operationalPhase: PortCallOperationalPhase
 
   @hasMany(() => FeeEvent)
   declare feeEvents: HasMany<typeof FeeEvent>
