@@ -1,2 +1,16 @@
 import { configApp } from '@adonisjs/eslint-config'
-export default configApp()
+import local from './eslint-plugin-local/index.js'
+
+export default [
+  ...configApp(),
+
+  {
+    plugins: {
+      local,
+    },
+
+    rules: {
+      'local/no-direct-status-merge': 'error',
+    },
+  },
+]
