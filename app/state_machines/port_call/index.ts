@@ -1,29 +1,85 @@
-import type PortCall from '#models/port_call'
 import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
-import { type PortCallStatus } from '../../contracts/port_call.ts'
+import {
+  type PortCallWithVessel,
+  type PortCallStatus,
+  type PortCallOperationalPhase,
+} from '../../contracts/port_call.ts'
 import { assertValidTransition } from '../index.ts'
-import handlePortCallSideEffects from './side_effects.ts'
-import { PORT_CALL_TRANSITIONS } from './transitions.ts'
+import { PORT_CALL_PHASE_TRANSITIONS, PORT_CALL_STATUS_TRANSITIONS } from './transitions.ts'
 import { type Actor } from '../../contracts/actor.ts'
+import {
+  handlePortCallOperationalPhaseTransitionSideEffects,
+  handlePortCallStatusTransitionSideEffects,
+} from './side_effects.ts'
+import db from '@adonisjs/lucid/services/db'
 
 export default class PortCallStateManager {
   public static async Transition(
-    portCall: PortCall,
-    to: PortCallStatus,
-    accountId: number,
+    portCall: PortCallWithVessel,
+    toStatus: PortCallStatus,
+    toPhase: PortCallOperationalPhase,
     actor: Actor,
     trx?: TransactionClientContract
   ) {
-    assertValidTransition(PORT_CALL_TRANSITIONS, portCall.status, to)
+    assertValidTransition(PORT_CALL_STATUS_TRANSITIONS, portCall.status, toStatus)
+    assertValidTransition(PORT_CALL_PHASE_TRANSITIONS, portCall.operationalPhase, toPhase)
 
-    await handlePortCallSideEffects(portCall.status, to, portCall.id, accountId, actor, trx)
+    if (!trx) {
+      await db.transaction(async (transaction) => {
+        await this.TransitionStatus(portCall, toStatus, actor, transaction)
+        await this.TransitionOperationalPhase(portCall, toPhase, actor, transaction)
+      })
+    }
 
-    portCall.status = to
+    await this.TransitionStatus(portCall, toStatus, actor, trx)
+    await this.TransitionOperationalPhase(portCall, toPhase, actor, trx)
+  }
+
+  public static async TransitionStatus(
+    portCall: PortCallWithVessel,
+    to: PortCallStatus,
+    actor: Actor,
+    trx?: TransactionClientContract
+  ) {
+    assertValidTransition(PORT_CALL_STATUS_TRANSITIONS, portCall.status, to)
+
+    await handlePortCallStatusTransitionSideEffects(
+      portCall.status,
+      to,
+      portCall.id,
+      portCall.vessel.shippingLineId,
+      actor,
+      trx
+    )
 
     if (trx) {
       portCall.useTransaction(trx)
     }
 
-    await portCall.save()
+    await portCall.merge({ status: to }).save()
+  }
+
+  public static async TransitionOperationalPhase(
+    portCall: PortCallWithVessel,
+    to: PortCallOperationalPhase,
+    actor: Actor,
+    trx?: TransactionClientContract
+  ) {
+    assertValidTransition(PORT_CALL_PHASE_TRANSITIONS, portCall.operationalPhase, to)
+
+    await handlePortCallOperationalPhaseTransitionSideEffects(
+      portCall.operationalPhase,
+      to,
+      portCall.id,
+      portCall.vessel.shippingLineId,
+      actor,
+      trx
+    )
+
+    if (trx) {
+      portCall.useTransaction(trx)
+    }
+
+    await portCall.merge({ operationalPhase: to }).save()
   }
 }
