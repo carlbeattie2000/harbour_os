@@ -10,3 +10,7 @@ export function assertValidTransition<T extends string>(
     throw new InvalidStateTransitionException()
   }
 }
+
+export function isTransitionRedundant<T extends string>(from: T, to: T): boolean {
+  return from === to
+}

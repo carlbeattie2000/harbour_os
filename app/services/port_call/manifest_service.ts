@@ -1,7 +1,7 @@
 import { type BaplieContainer } from '#domain/baplie/index'
 import MathExtended from '#utils/math'
 import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
-import { PortCallWithVessel } from '../../contracts/port_call.ts'
+import { PortCallStatus, PortCallWithVessel } from '../../contracts/port_call.ts'
 import { PortCallService } from '#services/port_call_service'
 import { inject } from '@adonisjs/core'
 import { Actor } from '../../contracts/actor.ts'
@@ -18,7 +18,11 @@ export class ManifestService {
     actor: Actor,
     trx?: TransactionClientContract
   ) {
-    await this.portCallService.transitionStatusOnPortCall(portCall, 'under_review', actor, trx)
+    const statusesThatImplyReview: PortCallStatus[] = ['pending', 'under_review']
+
+    if (!statusesThatImplyReview.includes(portCall.status)) {
+      await this.portCallService.transitionStatusOnPortCall(portCall, 'under_review', actor, trx)
+    }
   }
 
   async handleUpdateFromStowagePlans(

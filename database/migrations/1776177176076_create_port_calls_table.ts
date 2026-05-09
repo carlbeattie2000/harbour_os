@@ -17,7 +17,7 @@ export default class extends BaseSchema {
       table.string('purpose').notNullable()
 
       table.string('status').defaultTo('pending').notNullable()
-      table.string('operational_phase').nullable()
+      table.string('operational_phase').defaultTo('not_started').notNullable()
 
       table.string('priority').defaultTo('regular').notNullable()
       table.string('voyage_number').notNullable()

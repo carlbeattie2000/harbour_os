@@ -4,7 +4,7 @@ import {
   type PortCallStatus,
   type PortCallOperationalPhase,
 } from '../../contracts/port_call.ts'
-import { assertValidTransition } from '../index.ts'
+import { assertValidTransition, isTransitionRedundant } from '../index.ts'
 import { PORT_CALL_PHASE_TRANSITIONS, PORT_CALL_STATUS_TRANSITIONS } from './transitions.ts'
 import { type Actor } from '../../contracts/actor.ts'
 import {
@@ -22,9 +22,6 @@ export default class PortCallStateManager {
     actor: Actor,
     trx?: TransactionClientContract
   ) {
-    assertValidTransition(PORT_CALL_STATUS_TRANSITIONS, portCall.status, toStatus)
-    assertValidTransition(PORT_CALL_PHASE_TRANSITIONS, portCall.operationalPhase, toPhase)
-
     if (!trx) {
       await db.transaction(async (transaction) => {
         await this.TransitionStatus(portCall, toStatus, actor, transaction)
@@ -42,6 +39,10 @@ export default class PortCallStateManager {
     actor: Actor,
     trx?: TransactionClientContract
   ) {
+    if (isTransitionRedundant(portCall.status, to)) {
+      return
+    }
+
     assertValidTransition(PORT_CALL_STATUS_TRANSITIONS, portCall.status, to)
 
     await PortCallPolicy.assertCanEditStatus(actor, portCall, trx)
@@ -68,6 +69,10 @@ export default class PortCallStateManager {
     actor: Actor,
     trx?: TransactionClientContract
   ) {
+    if (isTransitionRedundant(portCall.operationalPhase, to)) {
+      return
+    }
+
     assertValidTransition(PORT_CALL_PHASE_TRANSITIONS, portCall.operationalPhase, to)
 
     await handlePortCallOperationalPhaseTransitionSideEffects(

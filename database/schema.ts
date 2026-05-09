@@ -459,6 +459,7 @@ export class PortCallSchema extends BaseModel {
     'etd',
     'handlingTimeEstimatedHours',
     'id',
+    'operationalPhase',
     'pilotageRequired',
     'portCallManifestId',
     'priority',
@@ -484,6 +485,8 @@ export class PortCallSchema extends BaseModel {
   declare handlingTimeEstimatedHours: number
   @column({ isPrimary: true })
   declare id: number
+  @column()
+  declare operationalPhase: string | null
   @column()
   declare pilotageRequired: boolean
   @column()
