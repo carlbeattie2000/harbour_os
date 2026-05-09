@@ -10,6 +10,7 @@ export type PortCallStatus =
   | 'unable_to_accept'
 
 export type PortCallOperationalPhase =
+  | 'not_started'
   | 'scheduled'
   | 'at_anchorage'
   | 'berthed'

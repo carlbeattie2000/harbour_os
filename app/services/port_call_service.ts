@@ -3,14 +3,15 @@ import BerthVisit from '#models/berth_visit'
 import CraneBerthAssignment from '#models/crane_berth_assignment'
 import PortCall from '#models/port_call'
 
-import { PortCallPolicy } from '#policies/port_call_policy'
-
 import type User from '#models/user'
 import type Vessel from '#models/vessel'
 import type { DateTime } from 'luxon'
-import type { PortCallStatus, PortCallWithVessel } from '../contracts/port_call.ts'
+import type {
+  PortCallOperationalPhase,
+  PortCallStatus,
+  PortCallWithVessel,
+} from '../contracts/port_call.ts'
 
-import { ForbiddenError } from '#errors/app_error'
 import { PortCallNotFound } from '#errors/port_call_errors'
 import logger from '@adonisjs/core/services/logger'
 import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
@@ -30,12 +31,7 @@ export class PortCallService {
   }
 
   async findOverlapping(excludeVesselId: string, etd: DateTime, eta: DateTime) {
-    const ignoreStatuses: PortCallStatus[] = [
-      'pending',
-      'awaiting_account_approval',
-      'canceled',
-      'departed',
-    ]
+    const ignoreStatuses: PortCallStatus[] = ['pending', 'awaiting_account_approval', 'canceled']
     return await PortCall.query()
       .whereNotIn('status', ignoreStatuses)
       .andWhereNot('vesselId', excludeVesselId)
@@ -45,54 +41,63 @@ export class PortCallService {
       .preload('vessel', (query) => query.select('name').select('imoNumber'))
   }
 
-  async setStatus(id: number, status: PortCallStatus, user: User, trx?: TransactionClientContract) {
+  async transition(
+    id: number,
+    status: PortCallStatus,
+    phase: PortCallOperationalPhase,
+    user: User,
+    trx?: TransactionClientContract
+  ) {
     const portCall = await this.findWithVessel(id)
-    if (!portCall) {
-      throw new PortCallNotFound()
-    }
-
-    const canSetStatus = await PortCallPolicy.CanEditStatus(user, portCall)
-
-    if (!canSetStatus) {
-      throw new ForbiddenError()
-    }
-
-    if (trx) {
-      portCall.useTransaction(trx)
-    }
-
-    await PortCallStateManager.Transition(
-      portCall,
-      status,
-      portCall.vessel.shippingLineId,
-      user,
-      trx
-    )
+    await PortCallStateManager.Transition(portCall, status, phase, user, trx)
   }
 
-  async setStatusOnPortCall(
+  async transitionOnPortCall(
+    portCall: PortCallWithVessel,
+    status: PortCallStatus,
+    phase: PortCallOperationalPhase,
+    user: User,
+    trx?: TransactionClientContract
+  ) {
+    await PortCallStateManager.Transition(portCall, status, phase, user, trx)
+  }
+
+  async transitionStatus(
+    id: number,
+    status: PortCallStatus,
+    user: User,
+    trx?: TransactionClientContract
+  ) {
+    const portCall = await this.findWithVessel(id)
+    await PortCallStateManager.TransitionStatus(portCall, status, user, trx)
+  }
+
+  async transitionOperationalPhase(
+    id: number,
+    phase: PortCallOperationalPhase,
+    user: User,
+    trx?: TransactionClientContract
+  ) {
+    const portCall = await this.findWithVessel(id)
+    await PortCallStateManager.TransitionOperationalPhase(portCall, phase, user, trx)
+  }
+
+  async transitionStatusOnPortCall(
     portCall: PortCallWithVessel,
     status: PortCallStatus,
     user: Actor,
     trx?: TransactionClientContract
   ) {
-    const canSetStatus = await PortCallPolicy.CanEditStatus(user, portCall)
+    await PortCallStateManager.TransitionStatus(portCall, status, user, trx)
+  }
 
-    if (!canSetStatus) {
-      throw new ForbiddenError()
-    }
-
-    if (trx) {
-      portCall.useTransaction(trx)
-    }
-
-    await PortCallStateManager.Transition(
-      portCall,
-      status,
-      portCall.vessel.shippingLineId,
-      user,
-      trx
-    )
+  async transitionOperationalPhaseOnPortCall(
+    portCall: PortCallWithVessel,
+    phase: PortCallOperationalPhase,
+    user: Actor,
+    trx?: TransactionClientContract
+  ) {
+    await PortCallStateManager.TransitionOperationalPhase(portCall, phase, user, trx)
   }
 
   async assignBerth(portCallId: number, berthId: number): Promise<BerthVisit> {

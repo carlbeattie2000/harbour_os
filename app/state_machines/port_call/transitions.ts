@@ -13,6 +13,7 @@ export const PORT_CALL_PHASE_TRANSITIONS: Record<
   PortCallOperationalPhase,
   PortCallOperationalPhase[]
 > = {
+  not_started: ['scheduled'],
   scheduled: ['at_anchorage', 'hold'],
   at_anchorage: ['berthed', 'delayed'],
   berthed: ['operations_complete', 'delayed'],

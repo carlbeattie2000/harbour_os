@@ -9,7 +9,7 @@ import PortCallManifest from './port_call_manifest.ts'
 export default class PortCall extends PortCallSchema {
   /**
    * DO NOT set status or operationalPhase directly.
-   * Always use PortCallStateManager.Transition()
+   * Always use PortCallStateManager.Transition() or PortCallStateManager.TransitionStatus()
    * Direct assignment bypasses policy checks, side effects and audit logging.
    */
   @column()
@@ -17,7 +17,7 @@ export default class PortCall extends PortCallSchema {
 
   /**
    * DO NOT set status or operationalPhase directly.
-   * Always use PortCallStateManager.Transition()
+   * Always use PortCallStateManager.Transition() or PortCallStateManager.TransitionOperationalPhase()
    * Direct assignment bypasses policy checks, side effects and audit logging.
    */
   @column()

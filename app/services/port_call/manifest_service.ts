@@ -18,7 +18,7 @@ export class ManifestService {
     actor: Actor,
     trx?: TransactionClientContract
   ) {
-    await this.portCallService.setStatusOnPortCall(portCall, 'under_review', actor, trx)
+    await this.portCallService.transitionStatusOnPortCall(portCall, 'under_review', actor, trx)
   }
 
   async handleUpdateFromStowagePlans(

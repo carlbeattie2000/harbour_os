@@ -12,6 +12,7 @@ import {
   handlePortCallStatusTransitionSideEffects,
 } from './side_effects.ts'
 import db from '@adonisjs/lucid/services/db'
+import { PortCallPolicy } from '#policies/port_call_policy'
 
 export default class PortCallStateManager {
   public static async Transition(
@@ -42,6 +43,8 @@ export default class PortCallStateManager {
     trx?: TransactionClientContract
   ) {
     assertValidTransition(PORT_CALL_STATUS_TRANSITIONS, portCall.status, to)
+
+    await PortCallPolicy.assertCanEditStatus(actor, portCall, trx)
 
     await handlePortCallStatusTransitionSideEffects(
       portCall.status,
